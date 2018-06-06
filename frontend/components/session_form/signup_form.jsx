@@ -7,6 +7,7 @@ class SignUpForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      name: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -48,6 +49,14 @@ class SignUpForm extends React.Component {
                 className="login-input"
               />
             </label>
+          <br/>
+          <label>Name:
+            <input type="text"
+              value={this.state.name}
+              onChange={this.update('name')}
+              className="name-input"
+            />
+          </label>
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
           </div>

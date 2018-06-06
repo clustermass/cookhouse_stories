@@ -20,7 +20,7 @@ render(){
 
   return(
     <div>
-      Welcome, {currUser.name == null ? 'loading...' : currUser.name}. <br/>
+      Welcome, {currUser == null ? 'loading...' : currUser.name}. <br/>
     <button onClick={()=> this.props.destroySession()}>Sign out</button>
 
     </div>)

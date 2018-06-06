@@ -1,4 +1,4 @@
-import { IMPORT_USER } from '../actions/session_actions'
+import { IMPORT_USER } from '../actions/user_actions'
 
 const usersReducer = (state={}, action) =>{
   Object.freeze(state)
