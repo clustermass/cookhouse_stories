@@ -1,10 +1,10 @@
-class Api::SessionController < ApplicationController
+class Api::SessionsController < ApplicationController
   def create
     @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
 
     if @user
       login(@user)
-      render "api/users/show"
+      render "api/users/create"
     else
       render json: ["Invalid username/password combination"], status: 401
     end
@@ -14,10 +14,10 @@ class Api::SessionController < ApplicationController
     @user = current_user
     if @user
       logout
-      render "api/users/show"
+      render json: ["Good bye, #{@user.name}"], status: 200
     else
       render json: ["Nobody signed in"], status: 404
     end
-  endstroy
+
   end
 end
