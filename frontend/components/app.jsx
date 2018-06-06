@@ -2,6 +2,8 @@ import React from 'react';
 import TopNavBarContainer from './top_nav_bar/top_nav_bar_container'
 import LogInFormContainer from './session_form/login_form_container'
 import SignUpFormContainer from './session_form/signup_form_container'
+import ErrorsContainer from './errors/errors_container'
+
 
 import {
   Route,
@@ -17,6 +19,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 const App = () => (
   <div>
     <header>
+      <ErrorsContainer />
       <Link to="/" className="header-link">
         <h1>Cookhouse stories</h1>
       </Link>
