@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 
+import peace from '../img/peace.png';
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -11,8 +13,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width :'525px',
-    height: '560px'
+    width :'480px',
+    height: '470px',
   }
 };
 
@@ -24,7 +26,9 @@ class LogInForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      modalIsOpen: true
+      modalIsOpen: true,
+      placeholderUsername: 'Username',
+      placeholderPassword: 'Password',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -71,7 +75,7 @@ componentWillMount(){
 
 
     return (
-      <div className="login-form-container">
+
 
 
         <Modal
@@ -79,36 +83,47 @@ componentWillMount(){
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-        
-        >
 
-        <form onSubmit={this.handleSubmit} className="login-form-box">
-          Welcome to Cookhouse Stories!
+        >
+          <div className="login-form-container">
+          <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>
+           <img  src={'/assets/' + peace} className="peace-icon" alt="search"/>
+           <p>Welcome back!</p>
+           <div className='login-screen-text'>Log in to your account</div>
+        <form  >
+
           <br/>
-          Please {this.props.formType} or <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}>sign up instead</Link>
-          <div className="login-form">
-            <br/>
-            <label>Username:
+
+
+        <div className="login-form">
               <input type="text"
                 value={this.state.username}
                 onChange={this.update('username')}
                 className="login-input"
+                placeholder={this.state.placeholderUsername}
               />
-            </label>
-            <br/>
-            <label>Password:
+          </div>
+
+              <div className="login-form">
+
               <input type="password"
                 value={this.state.password}
                 onChange={this.update('password')}
                 className="login-input"
+                placeholder={this.state.placeholderPassword}
               />
-            </label>
-            <br/>
-            <input className="session-submit" type="submit" value={this.props.formType} />
           </div>
+          <br/>
+
+
         </form>
+        <button onClick={this.handleSubmit} className="session-submit" type="submit">Submit</button>
+        <br/>
+        <div className='login-screen-text-2'>I don’t have an account.
+          <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}> Sign-up!</Link></div>
+        </div>
  </Modal>
-      </div>
+
     );
   }
 }

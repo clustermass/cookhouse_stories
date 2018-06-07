@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import hands from '../img/hands.png';
 
 const customStyles = {
   content : {
@@ -11,9 +12,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width :'525px',
-    height: '560px',
-    backgroundColor: 'rgba(0,0,0,0.5)'
+    width :'480px',
+    height: '520px',
   }
 };
 
@@ -24,7 +24,10 @@ class SignUpForm extends React.Component {
       username: '',
       password: '',
       name: '',
-      modalIsOpen: true
+      modalIsOpen: true,
+      placeholderUsername: 'E-mail',
+      placeholderPassword: 'Password',
+      placeholderName: 'Username'
     };
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -67,52 +70,58 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container">
+      <Modal
+        isOpen={this.state.modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={customStyles}
 
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
+      >
+        <div className="login-form-container">
+        <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>
+         <img  src={'/assets/' + hands} className="peace-icon" alt="search"/>
+         <p>Welcome to Kitchen Stories!</p>
+         <div className='login-screen-text'>Create your account</div>
+      <form  >
 
-        >
+        <br/>
 
-        <form onSubmit={this.handleSubmit} className="login-form-box">
-          Welcome to Cookhouse Stories!
-          <br/>
-          Please {this.props.formType} or <Link to={{pathname:'/login', state:{fromPath:this.props.fromPath}}}>log in instead</Link>
           <div className="login-form">
-            <br/>
-            <label>Username:
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                className="login-input"
-              />
-            </label>
-            <br/>
-            <label>Password:
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                className="login-input"
-              />
-            </label>
-          <br/>
-          <label>Name:
+                <input type="text"
+                  value={this.state.username}
+                  onChange={this.update('username')}
+                  className="login-input"
+                  placeholder={this.state.placeholderName}
+                />
+            </div>
+      <div className="login-form">
             <input type="text"
-              value={this.state.name}
-              onChange={this.update('name')}
-              className="name-input"
+              value={this.state.username}
+              onChange={this.update('username')}
+              className="login-input"
+              placeholder={this.state.placeholderUsername}
             />
-          </label>
-            <br/>
-            <input className="session-submit" type="submit" value={this.props.formType} />
-          </div>
-        </form>
-      </Modal>
+        </div>
 
+            <div className="login-form">
+
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+              className="login-input"
+              placeholder={this.state.placeholderPassword}
+            />
+        </div>
+        <br/>
+
+      </form>
+      <button onClick={this.handleSubmit} className="session-submit" type="submit">Submit</button>
+      <br/>
+      <div className='login-screen-text-2'>I already have an
+        <Link to={{pathname:'/login', state:{fromPath:this.props.fromPath}}}> account</Link>.</div>
       </div>
+</Modal>
+
     );
   }
 }

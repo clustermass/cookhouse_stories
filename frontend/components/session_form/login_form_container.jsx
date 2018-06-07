@@ -14,7 +14,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
-    formType: 'Login',
     fromPath: fromPath,
   };
 };

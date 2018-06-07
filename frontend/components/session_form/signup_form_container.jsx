@@ -14,7 +14,6 @@ const mapStateToProps = (state,ownProps) => {
   }
 
   return {
-    formType: 'Sign Up',
     fromPath: fromPath,
   };
 };

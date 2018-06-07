@@ -15,6 +15,20 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Brandon-Gotique-Bold';
+    src: url('fonts/Brandon_bld.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Times-Bold';
+    src: url('fonts/Times_Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body {
   line-height: 1.5;
