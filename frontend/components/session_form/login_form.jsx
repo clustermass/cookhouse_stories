@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 const customStyles = {
   content : {
@@ -9,7 +10,9 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width :'525px',
+    height: '560px'
   }
 };
 
@@ -46,8 +49,8 @@ componentWillMount(){
  }
 
  closeModal() {
+   this.props.history.push(this.props.fromPath);
    this.setState({modalIsOpen: false});
-   this.props.history.goBack()
  }
 
 
@@ -76,13 +79,13 @@ componentWillMount(){
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+        
         >
 
         <form onSubmit={this.handleSubmit} className="login-form-box">
           Welcome to Cookhouse Stories!
           <br/>
-          Please {this.props.formType} or {this.props.navLink}
+          Please {this.props.formType} or <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}>sign up instead</Link>
           <div className="login-form">
             <br/>
             <label>Username:

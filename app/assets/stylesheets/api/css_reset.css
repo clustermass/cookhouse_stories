@@ -7,8 +7,20 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
   vertical-align: baseline;
 }
 
+
+@font-face {
+    font-family: 'Brandon-Gotique-Regular';
+    src: url('fonts/Brandon_reg.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
   line-height: 1.5;
+
+  font-family: "Brandon-Gotique-Regular";
+
 }
 
 ol, ul {

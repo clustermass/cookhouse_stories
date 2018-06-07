@@ -1,0 +1,25 @@
+.login-form-box{
+  width : 525px;
+  height: 560px;
+  background-color: white;
+}
+
+.login-input{
+    background-color: transparent;
+    border: 0px solid;
+    border-radius: 0;
+    border-bottom: 1px solid #d8d8d8;
+    height: 2rem;
+    padding: 0;
+    margin: auto;
+    width: 420px;
+    height: 20px;
+    font-size: 16px;
+    color: #5B5B5B;
+
+}
+
+.login-input:focus{
+      outline: none;
+    border-bottom: 1px solid #5B5B5B;
+}

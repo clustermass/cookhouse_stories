@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -10,7 +10,10 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width :'525px',
+    height: '560px',
+    backgroundColor: 'rgba(0,0,0,0.5)'
   }
 };
 
@@ -44,8 +47,8 @@ class SignUpForm extends React.Component {
   }
 
   closeModal() {
+    this.props.history.push(this.props.fromPath);
     this.setState({modalIsOpen: false});
-    this.props.history.goBack()
 
   }
 
@@ -65,18 +68,19 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <div className="login-form-container">
+
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+
         >
 
         <form onSubmit={this.handleSubmit} className="login-form-box">
           Welcome to Cookhouse Stories!
           <br/>
-          Please {this.props.formType} or {this.props.navLink}
+          Please {this.props.formType} or <Link to={{pathname:'/login', state:{fromPath:this.props.fromPath}}}>log in instead</Link>
           <div className="login-form">
             <br/>
             <label>Username:

@@ -13,14 +13,28 @@
 
 .nav-bar-links{
   width: 55%;
-  background-color: grey;
+  background-color: #8E8E8E;
 }
 
 .nav-bar-auth{
   margin-left: 10px;
+  padding-top: 20px;
   display:flex;
   flex-direction:row;
   justify-content: space-around;
-  margin: 0 2px;
+  /* margin: 0 2px; */
   width: 20%;
+    font-size: 20px;
+    color: #8E8E8E;
+}
+
+.nav-bar-auth > a{
+  text-decoration: none;
+  font-size: 19px;
+  color: #8E8E8E;
+}
+
+.search-icon{
+  width: 35px;
+  height:27px;
 }

@@ -4,10 +4,18 @@ import { Link } from 'react-router-dom';
 import { createUser } from '../../actions/user_actions';
 import SignUpForm from './signup_form';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
+  let fromPath
+
+  if(ownProps.location.state == null){
+    fromPath = '/'
+  }else{
+    fromPath = ownProps.location.state.fromPath
+  }
+
   return {
     formType: 'Sign Up',
-    navLink: <Link to="/login">log in instead</Link>,
+    fromPath: fromPath,
   };
 };
 
