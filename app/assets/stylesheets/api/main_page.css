@@ -1,4 +1,26 @@
-#root{
+.topNav{
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #D8D8D8;
+  height: 64px;
+  display:flex;
+  flex-direction:row;
+
+}
+
+.nav-bar-logo{
+  width: 25%;
+}
+
+.nav-bar-links{
+  width: 55%;
   background-color: grey;
-  min-height: 100%;
+}
+
+.nav-bar-auth{
+  margin-left: 10px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+  margin: 0 2px;
+  width: 20%;
 }

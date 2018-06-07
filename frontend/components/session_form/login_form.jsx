@@ -1,15 +1,55 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+
 
 class LogInForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      modalIsOpen: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+
   }
+
+componentWillMount(){
+  Modal.setAppElement(document.getElementById('root'));
+}
+
+
+ openModal() {
+   this.setState({modalIsOpen: true});
+ }
+
+ afterOpenModal() {
+   // This gives wierd error... example was taken from github https://github.com/reactjs/react-modal
+   // this.subtitle.style.color = '#f00';
+ }
+
+ closeModal() {
+   this.setState({modalIsOpen: false});
+   this.props.history.goBack()
+ }
+
 
   update(field) {
     return e => this.setState({
@@ -25,8 +65,20 @@ class LogInForm extends React.Component {
 
 
   render() {
+
+
     return (
       <div className="login-form-container">
+
+
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+
         <form onSubmit={this.handleSubmit} className="login-form-box">
           Welcome to Cookhouse Stories!
           <br/>
@@ -52,6 +104,7 @@ class LogInForm extends React.Component {
             <input className="session-submit" type="submit" value={this.props.formType} />
           </div>
         </form>
+ </Modal>
       </div>
     );
   }

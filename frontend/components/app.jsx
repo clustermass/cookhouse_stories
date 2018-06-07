@@ -20,9 +20,7 @@ const App = () => (
   <div>
     <header>
       <ErrorsContainer />
-      <Link to="/" className="header-link">
-        <h1>Cookhouse stories</h1>
-      </Link>
+    
     </header>
     <Switch>
       <AuthRoute exact path="/login" component={LogInFormContainer} />

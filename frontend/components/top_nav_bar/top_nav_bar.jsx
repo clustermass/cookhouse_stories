@@ -7,7 +7,6 @@ constructor(props){
   super(props)
 }
 
-
 componentDidMount(){
 
 }
@@ -28,13 +27,20 @@ render(){
   else{
 
     return(
-      <div>
-        <Link to={'/login'}>Log in</Link><br/>
-        <Link to={'/signup'}>Sign Up</Link>
+      <div className="topNav">
+        <div className="nav-bar-logo">
+          <Link to="/" className="header-link">
+            <h1>Cookhouse stories</h1>
+          </Link>
+        </div>
+        <div className="nav-bar-links">
+        </div>
+        <div className="nav-bar-auth">
+          <Link to={'/login'}>Log in</Link>
+          <Link to={'/signup'}>Sign Up</Link>
+        </div>
       </div>)
   }
-
-
 
 }
 
