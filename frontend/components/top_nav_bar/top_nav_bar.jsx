@@ -2,18 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-// import Logo from '../../../app/assets/images/icon_quick_action_search.svg';
-
-// import ImageSearchIcon from 'react-svg-loader!../../../app/assets/images/icon_quick_action_search.svg';
-// let searchIcon = require('../../../app/assets/images/searchicon.png');
-// import searchIcon from '../../../app/assets/images/searchicon.png';
-import searchIcon from '../img/searchicon.png';
-
-
 class TopNavBar extends React.Component{
 
 constructor(props){
   super(props)
+
+
   this.demoLogin = this.demoLogin.bind(this)
 }
 
@@ -46,7 +40,7 @@ render(){
   <Link to={'/'}>Videos</Link>
     </div>
     <div className="nav-bar-auth">
-      <Link to={'/'}><img  src={'/assets/' + searchIcon} className="search-icon" alt="search"/></Link>
+      <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>
         <div className="nav-bar-user-info">
         {currUser == null ? 'loading...' : currUser.name}<br/>
         <button className="nav-bar-sign-out-btn" onClick={()=> this.props.destroySession()}>Sign out</button>
@@ -74,7 +68,7 @@ render(){
       <Link to={'/'}>Videos</Link>
         </div>
         <div className="nav-bar-auth">
-          <Link to={'/'}><img  src={'/assets/' + searchIcon} className="search-icon" alt="search"/></Link>
+        <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>
          <p>|</p><Link to={{pathname:'/login', state:{fromPath:path}}} >Login</Link> <p>|</p>
           <Link to={{pathname:'/signup', state:{fromPath:path}}}>Sign-up</Link><p>|</p>
           <a href="#" onClick={this.demoLogin}>Demo</a> <div>&nbsp;</div>

@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import hands from '../img/hands.png';
 
 const customStyles = {
   content : {
@@ -94,7 +93,7 @@ class SignUpForm extends React.Component {
       >
         <div className="login-form-container">
         <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>
-         <img  src={'/assets/' + hands} className="peace-icon" alt="search"/>
+         <img  src={window.hands} className="peace-icon" alt="search"/>
          <p>Welcome to Cookhouse Stories!</p>
          <div className='login-screen-text'>Create your account</div>
          <div className="errors">{this.state.errors.join(" ")}</div>
