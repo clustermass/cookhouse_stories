@@ -13,7 +13,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width :'480px',
-    height: '520px',
+    height: '560px',
   }
 };
 
@@ -27,7 +27,8 @@ class SignUpForm extends React.Component {
       modalIsOpen: true,
       placeholderUsername: 'E-mail',
       placeholderPassword: 'Password',
-      placeholderName: 'Username'
+      placeholderName: 'Username',
+      errors: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -38,6 +39,16 @@ class SignUpForm extends React.Component {
 
   componentWillMount(){
     Modal.setAppElement(document.getElementById('root'));
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      errors: {}
+    })
+
+    this.setState({
+      errors: nextProps.errors
+    })
   }
 
   openModal() {
@@ -64,6 +75,7 @@ class SignUpForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
+    this.props.clearErrors();
     this.props.processForm(user);
   }
 
@@ -82,14 +94,15 @@ class SignUpForm extends React.Component {
          <img  src={'/assets/' + hands} className="peace-icon" alt="search"/>
          <p>Welcome to Kitchen Stories!</p>
          <div className='login-screen-text'>Create your account</div>
-      <form  >
+         <div className="errors">{this.state.errors.join(" ")}</div>
+         <form >
 
         <br/>
 
           <div className="login-form">
                 <input type="text"
-                  value={this.state.username}
-                  onChange={this.update('username')}
+                  value={this.state.name}
+                  onChange={this.update('name')}
                   className="login-input"
                   placeholder={this.state.placeholderName}
                 />

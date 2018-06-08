@@ -7,7 +7,7 @@ class Api::UsersController < ApplicationController
       render "api/users/create"
     else
       errors = @user.errors.full_messages
-      render json: [errors], status: 422
+      render json: errors, status: 422
     end
   end
 

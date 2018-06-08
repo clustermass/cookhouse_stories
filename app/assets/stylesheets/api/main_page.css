@@ -1,3 +1,8 @@
+.errors{
+  color:red;
+font-size:20px;
+}
+
 .topNav{
   background-color: #FFFFFF;
   border-bottom: 1px solid #D8D8D8;

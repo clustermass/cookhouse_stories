@@ -6,10 +6,11 @@ const errorsReducer = (state={}, action) =>{
     case CLEAR_ERRORS:
       return {}
     case ADD_ERRORS:
-      return Object.assign({},state, action.error)
+      return Object.assign({},state, {[action.error.responseText]:action.error})
     default:
       return state
   }
 };
+
 
 export default errorsReducer

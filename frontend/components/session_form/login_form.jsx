@@ -14,7 +14,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width :'480px',
-    height: '470px',
+    height: '510px',
   }
 };
 
@@ -29,17 +29,29 @@ class LogInForm extends React.Component {
       modalIsOpen: true,
       placeholderUsername: 'Username',
       placeholderPassword: 'Password',
+      errors: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+
 
   }
 
 componentWillMount(){
   Modal.setAppElement(document.getElementById('root'));
+}
+
+componentWillReceiveProps(nextProps){
+  this.setState({
+    errors: {}
+  })
+
+  this.setState({
+    errors: nextProps.errors
+  })
 }
 
 
@@ -67,17 +79,14 @@ componentWillMount(){
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
+    this.props.clearErrors();
     this.props.processForm(user);
   }
 
 
   render() {
 
-
     return (
-
-
-
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -90,7 +99,8 @@ componentWillMount(){
            <img  src={'/assets/' + peace} className="peace-icon" alt="search"/>
            <p>Welcome back!</p>
            <div className='login-screen-text'>Log in to your account</div>
-        <form  >
+           <div className="errors">{this.state.errors.join(" ")}</div>
+         <form  >
 
           <br/>
 

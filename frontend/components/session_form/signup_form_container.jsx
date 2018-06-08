@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../../actions/user_actions';
 import SignUpForm from './signup_form';
+import { clearErrors } from '../../actions/errors_actions';
 
 const mapStateToProps = (state,ownProps) => {
   let fromPath
@@ -15,12 +16,14 @@ const mapStateToProps = (state,ownProps) => {
 
   return {
     fromPath: fromPath,
+    errors: Object.keys(state.entities.errors),
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     processForm: (user) => dispatch(createUser(user)),
+    clearErrors: () => dispatch(clearErrors()),
   };
 };
 

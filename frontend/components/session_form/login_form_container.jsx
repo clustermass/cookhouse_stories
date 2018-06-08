@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createSession } from '../../actions/session_actions';
 import LogInForm from './login_form';
+import { clearErrors } from '../../actions/errors_actions';
 
 const mapStateToProps = (state, ownProps) => {
   let fromPath
-
   if(ownProps.location.state == null){
     fromPath = '/'
   }else{
@@ -15,12 +15,15 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     fromPath: fromPath,
+    errors: Object.keys(state.entities.errors)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     processForm: (cred) => dispatch(createSession(cred)),
+    clearErrors: () => dispatch(clearErrors())
+
   };
 };
 
