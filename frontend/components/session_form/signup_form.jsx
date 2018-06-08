@@ -95,7 +95,7 @@ class SignUpForm extends React.Component {
         <div className="login-form-container">
         <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>
          <img  src={'/assets/' + hands} className="peace-icon" alt="search"/>
-         <p>Welcome to Kitchen Stories!</p>
+         <p>Welcome to Cookhouse Stories!</p>
          <div className='login-screen-text'>Create your account</div>
          <div className="errors">{this.state.errors.join(" ")}</div>
          <form >
