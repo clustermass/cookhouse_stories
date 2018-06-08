@@ -78,3 +78,13 @@ margin-left: 475px;
 .session-submit:hover{
     background-color: #0DB684;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity:0.8;
+  background-color: black;
+}

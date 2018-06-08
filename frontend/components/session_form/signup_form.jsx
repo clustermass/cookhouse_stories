@@ -14,6 +14,9 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)',
     width :'480px',
     height: '560px',
+    borderRadius: '50',
+    borderCollapse: 'collapsed',
+    borderRadius: '10px',
   }
 };
 
@@ -87,7 +90,7 @@ class SignUpForm extends React.Component {
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
         style={customStyles}
-
+        overlayClassName="overlay"
       >
         <div className="login-form-container">
         <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>

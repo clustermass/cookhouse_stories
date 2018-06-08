@@ -15,6 +15,8 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)',
     width :'480px',
     height: '510px',
+    borderCollapse: 'collapsed',
+    borderRadius: '10px',
   }
 };
 
@@ -92,14 +94,14 @@ componentWillReceiveProps(nextProps){
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-
+          overlayClassName="overlay"
         >
           <div className="login-form-container">
           <a href="#" className="close-cross" onClick={this.closeModal}>╳</a>
            <img  src={'/assets/' + peace} className="peace-icon" alt="search"/>
            <p>Welcome back!</p>
            <div className='login-screen-text'>Log in to your account</div>
-           <div className="errors">{this.state.errors.join(" ")}</div>
+           <div className="errors">{this.state.errors}</div>
          <form  >
 
           <br/>
