@@ -96,7 +96,7 @@ class SignUpForm extends React.Component {
          <img  src={window.hands} className="peace-icon" alt="search"/>
          <p>Welcome to Cookhouse Stories!</p>
          <div className='login-screen-text'>Create your account</div>
-         <div className="errors">{this.state.errors.join(" ")}</div>
+         <div className="errors">{this.state.errors}</div>
          <form >
 
         <br/>
