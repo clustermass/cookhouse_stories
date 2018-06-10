@@ -64,21 +64,21 @@ ActiveRecord::Schema.define(version: 2018_06_08_183411) do
     t.index ["user_id", "recipe_id"], name: "index_favorite_recipes_on_user_id_and_recipe_id", unique: true
   end
 
+  create_table "ingredient_amounts", force: :cascade do |t|
+    t.integer "recipe_id", null: false
+    t.integer "ingredient_id", null: false
+    t.integer "amount", null: false
+    t.integer "measuring_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id", "ingredient_id"], name: "index_ingredient_amounts_on_recipe_id_and_ingredient_id", unique: true
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_ingredients_on_name"
-  end
-
-  create_table "ingredients_joins", force: :cascade do |t|
-    t.integer "recepie_id", null: false
-    t.integer "ingredient_id", null: false
-    t.integer "ingridient_amount", null: false
-    t.integer "measuring_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["recepie_id", "ingredient_id"], name: "index_ingredients_joins_on_recepie_id_and_ingredient_id", unique: true
   end
 
   create_table "measurings", force: :cascade do |t|

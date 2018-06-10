@@ -8,6 +8,7 @@
 #  updated_at :datetime         not null
 #
 
+
 class Difficulty < ApplicationRecord
 
 validates :level, presence: true

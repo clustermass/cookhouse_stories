@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+
 class Step < ApplicationRecord
 
   validates :body,:num,:recipe_id, presence: true

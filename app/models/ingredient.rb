@@ -8,6 +8,8 @@
 #  updated_at :datetime         not null
 #
 
+
+
 class Ingredient < ApplicationRecord
   validates :name, presence: true
 
@@ -16,11 +18,10 @@ class Ingredient < ApplicationRecord
   foreign_key: :main_ingredient_id,
   class_name: :Recipe
 
-
-  has_many :ingredients_joins
+  has_many :ingredient_amounts
 
   has_many :measurings,
-  through: :ingredients_joins,
+  through: :ingredient_amounts,
   source: :measuring,
   class_name: :Measuring
 

@@ -11,6 +11,8 @@
 #  updated_at      :datetime         not null
 #
 
+
+
 class User < ApplicationRecord
 
   attr_reader :password

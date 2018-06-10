@@ -10,11 +10,13 @@
 #  updated_at :datetime         not null
 #
 
+
+
 class Comment < ApplicationRecord
   validates :user_id, :recepie_id, :body, presence: true
 
 
   belongs_to :user
   belongs_to :recipe
-  
+
 end

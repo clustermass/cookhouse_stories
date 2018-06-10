@@ -8,6 +8,8 @@
 #  updated_at :datetime         not null
 #
 
+
+
 class Diet < ApplicationRecord
   validates :name, presence: true
 

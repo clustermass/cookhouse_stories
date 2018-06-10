@@ -9,6 +9,8 @@
 #  updated_at :datetime         not null
 #
 
+
+
 class FavoriteRecipe < ApplicationRecord
   validates :user_id, :recipe_id, presence: true
   validates :recipe_id, uniqueness: { scope: :user_id }

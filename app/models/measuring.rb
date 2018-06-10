@@ -8,10 +8,12 @@
 #  updated_at :datetime         not null
 #
 
+
 class Measuring < ApplicationRecord
   validates :name, presence: true
 
-  has_many :ingredients_joins
+  belongs_to :ingredients_amounts,
+  optional: true
 
 
 end

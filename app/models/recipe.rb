@@ -16,6 +16,7 @@
 #  updated_at         :datetime         not null
 #
 
+
 class Recipe < ApplicationRecord
 
 validates :author_id, :title, :main_picture_url, :cooking_time, :difficulty_id, :cuisine_id, :category_id,
@@ -37,18 +38,17 @@ class_name: :User
 
 
 # Ingredients trough join table
-
-has_many :ingredients_joins
+has_many :ingredient_amounts
 
 has_many :ingredients,
-through: :ingredients_joins,
+through: :ingredient_amounts,
 source: :ingredient,
 class_name: :Ingredient
 
 # users likes
 has_many :favorite_recipes
 
-has_many :users_likes,
+has_many :users_liked,
 through: :favorite_recipes,
 source: :users,
 class_name: :User

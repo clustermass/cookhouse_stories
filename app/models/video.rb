@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+
 class Video < ApplicationRecord
   validates :video_url, presence: true
 
@@ -20,5 +21,5 @@ class Video < ApplicationRecord
   class_name: :User
 
   belongs_to :recipe
-  
+
 end

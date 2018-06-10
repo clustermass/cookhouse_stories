@@ -9,6 +9,8 @@
 #  updated_at :datetime         not null
 #
 
+
+
 class Cuisine < ApplicationRecord
   validates :sort, presence: true
 
