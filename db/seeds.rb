@@ -21,6 +21,8 @@ quart = Measuring.new({name:'quart'})
 oz = Measuring.new({name:'oz'})
 cup = Measuring.new({name:'cup'})
 lb = Measuring.new({name:'lb'})
+pcs = Measuring.new({name:'pcs'})
+
 
 tbs.save!
 teas.save!
@@ -28,6 +30,7 @@ quart.save!
 oz.save!
 cup.save!
 lb.save!
+pcs.save!
 
 am = Cuisine.new({sort:"traditional",country:"America"})
 rus = Cuisine.new({sort:"authentic",country:"Russia"})
@@ -71,6 +74,7 @@ rice = Ingredient.new({name:"rice"})
 water = Ingredient.new({name:"water"})
 beans = Ingredient.new({name:"beans"})
 lamb = Ingredient.new({name:"lamb"})
+tomatoes = Ingredient.new({name:"tomatoes"})
 
 pot.save!
 car.save!
@@ -82,6 +86,7 @@ rice.save!
 water.save!
 beans.save!
 lamb.save!
+tomatoes.save!
 
 lowcarb = Category.new({name:"Low Carbs"})
 under400 = Category.new({name:"Under 400 Kcal"})
@@ -146,3 +151,21 @@ step2.save!
 step3.save!
 step4.save!
 step5.save!
+
+IngredientAmount.create(recipe: recipe1, measuring: pcs, amount: 5, ingredient: eggs)
+IngredientAmount.create(recipe: recipe1, measuring: teas, amount: 1, ingredient: bp)
+IngredientAmount.create(recipe: recipe1, measuring: cup, amount: 1, ingredient: water)
+IngredientAmount.create(recipe: recipe1, measuring: pcs, amount: 3, ingredient: tomatoes)
+
+IngredientAmount.create(recipe: recipe5, measuring: oz, amount: 15, ingredient: lamb)
+IngredientAmount.create(recipe: recipe5, measuring: teas, amount: 1, ingredient: salt)
+IngredientAmount.create(recipe: recipe5, measuring: teas, amount: 1, ingredient: bp)
+
+Comment.create(recipe:recipe1, user:usr1, body:"Shacksuka was the best! really cool recipe!")
+Comment.create(recipe:recipe1, user:usr3, body:"I agree!")
+Comment.create(recipe:recipe5, user:usr2, body:"Labm is great too!")
+Comment.create(recipe:recipe5, user:usr3, body:"Thank you!")
+
+FavoriteRecipe.create(user:usr2,recipe:recipe5)
+FavoriteRecipe.create(user:usr1,recipe:recipe5)
+FavoriteRecipe.create(user:usr3,recipe:recipe1)

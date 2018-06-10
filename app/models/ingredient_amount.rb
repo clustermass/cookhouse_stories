@@ -12,13 +12,13 @@
 #
 
 class IngredientAmount < ApplicationRecord
-validates :recipe_id, :ingredient_id, :ingredient_amount, :measuring_id, presence: true
-validates :ingredient_id, uniqueness: { scope: :recepie_id }
+validates :recipe_id, :ingredient_id, :amount, :measuring_id, presence: true
+validates :ingredient_id, uniqueness: { scope: :recipe_id }
 
   belongs_to :measuring
 
   belongs_to :recipe
-  
+
   belongs_to :ingredient
 
 end

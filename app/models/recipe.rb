@@ -48,9 +48,9 @@ class_name: :Ingredient
 # users likes
 has_many :favorite_recipes
 
-has_many :users_liked,
+has_many :followers,
 through: :favorite_recipes,
-source: :users,
+source: :user,
 class_name: :User
 #
 

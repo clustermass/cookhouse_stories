@@ -12,8 +12,6 @@
 class Measuring < ApplicationRecord
   validates :name, presence: true
 
-  belongs_to :ingredients_amounts,
-  optional: true
-
+  has_many :ingredient_amounts
 
 end

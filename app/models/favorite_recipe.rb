@@ -13,11 +13,12 @@
 
 class FavoriteRecipe < ApplicationRecord
   validates :user_id, :recipe_id, presence: true
+
   validates :recipe_id, uniqueness: { scope: :user_id }
 
-  belongs_to :users
+  belongs_to :user
 
-  belongs_to :recipes
+  belongs_to :recipe
 
 
 end

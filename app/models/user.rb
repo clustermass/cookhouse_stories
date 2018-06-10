@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   has_many :liked_recipes,
   through: :favorite_recipes,
-  source: :recipes,
+  source: :recipe,
   class_name: :Recipe
 
 

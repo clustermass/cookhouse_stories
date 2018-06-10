@@ -9,7 +9,6 @@
 #
 
 
-
 class Ingredient < ApplicationRecord
   validates :name, presence: true
 
@@ -26,7 +25,7 @@ class Ingredient < ApplicationRecord
   class_name: :Measuring
 
   has_many :recipes,
-  through: :ingredients_joins,
+  through: :ingredient_amounts,
   source: :recipe,
   class_name: :Recipe
 

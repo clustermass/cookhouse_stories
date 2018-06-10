@@ -13,7 +13,7 @@
 
 
 class Comment < ApplicationRecord
-  validates :user_id, :recepie_id, :body, presence: true
+  validates :user_id, :recipe_id, :body, presence: true
 
 
   belongs_to :user
