@@ -1,16 +1,28 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 const RecipeIndexItem = ({ recipe, followers }) => {
 
+
+  let recipeItemBgImgStyle = {
+    backgroundImage: "url(" + recipe.main_picture_url  + ")",
+  };
+
+
+
 return(
+<Link className="main-recipe-item-link" to={`/api/recipes/${recipe.id}`}>
+  <div className="recipe-item"  >
+    <div className="recipe-item-img" style={ recipeItemBgImgStyle }>
+      <div className="likes-time">
+      <img src={window.hearticon}/><span>{followers.followers_count}  <span>{recipe.cooking_time} min.</span></span>
 
-  <div >
-
-    {recipe.title}<br/>
-      <img width="200" height="350" src={recipe.main_picture_url}></img><br/>
-    {recipe.cooking_time} min.<br/>
-  ❤{followers.followers_count}
+      </div>
+    </div>
+    <div className="recipe-item-text">
+      {recipe.title}
+    </div>
   </div>
+</Link>
 )
 
 }

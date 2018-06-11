@@ -35,13 +35,16 @@ render(){
   }
 
   return(
-<div>
-<div className="main-recipe-image">
-  <h2>Recipes</h2>
+<div className="main-recipe-container">
+  <div className="main-recipe-title">
+      Recipes
+  </div>
+  <div className="main-recipe-image">
+
   {recipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
-</div>
+  </div>
 <div>
-  <button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>more</button>
+  <button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>
 </div>
 </div>
   )

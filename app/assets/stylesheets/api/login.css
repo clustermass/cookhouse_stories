@@ -78,6 +78,9 @@ margin-left: 475px;
 .session-submit:hover{
     background-color: #0DB684;
 }
+.session-submit:focus{
+  outline:0;
+}
 
 .overlay {
   position: fixed;

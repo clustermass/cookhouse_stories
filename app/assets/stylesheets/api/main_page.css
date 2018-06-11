@@ -63,6 +63,9 @@ font-size:20px;
     padding-top: 21px;
 
 }
+.nav-bar-auth > a:focus{
+  outline:0;
+}
 
 
 .search-icon{
@@ -92,8 +95,109 @@ font-size:20px;
 }
 
 
+/* Main index items elemets styling */
+.main-recipe-container{
+width: 900px;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+
+.main-recipe-title{
+  height: 60px;
+  font-size: 25px;
+  padding-left: 15px;
+  color:#464646;
+}
+
+
 
 .main-recipe-image{
   display:flex;
   flex-direction:row;
+  flex-wrap:wrap;
+}
+
+.main-recipe-item-link{
+  text-decoration: none;
+}
+
+.main-recipe-item-link:hover .recipe-item-img{
+  transform: scale(1.02);
+  box-shadow: 2px 2px 2px 2px #F2F2F2;
+
+}
+
+
+.recipe-item{
+  width: 200px;
+  height: 355px;
+  margin-right: 10px;
+  margin-left: 10px;
+
+}
+
+.recipe-item-img{
+  width: 200px;
+  height: 267px;
+  border-collapse:collapse;
+  border-radius: 15px;
+  position: relative;
+
+}
+.recipe-item-img div {
+       position: absolute;
+       bottom: 0;
+}
+
+.likes-time{
+  width: 200px;
+  height: 25px;
+
+  /* display:inline; */
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+.likes-time img{
+  width:20px;
+  height:20px;
+  float: left;
+  margin-left: 10px;
+}
+.likes-time  span{
+padding-left: 5px;
+padding-right: 5px;
+display: flex;
+justify-content: space-between;
+}
+
+
+.recipe-item-text{
+  width: 200px;
+  height: 88px;
+  background-color: white;
+  color:#464646;
+  font-size: 20px;
+
+}
+
+.main-load-more{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 5px 30px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   float:right;
+
+}
+.main-load-more:hover{
+  background-color: #0DB684;
+}
+
+.main-load-more:focus{
+  outline:0;
 }
