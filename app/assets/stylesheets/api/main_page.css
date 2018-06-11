@@ -90,3 +90,10 @@ font-size:20px;
   font-size: 18px;
       padding-top: 3px;
 }
+
+
+
+.main-recipe-image{
+  display:flex;
+  flex-direction:row;
+}
