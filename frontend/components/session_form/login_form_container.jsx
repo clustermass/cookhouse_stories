@@ -5,6 +5,7 @@ import { createSession } from '../../actions/session_actions';
 import LogInForm from './login_form';
 import { clearErrors } from '../../actions/errors_actions';
 
+
 const mapStateToProps = (state, ownProps) => {
   let fromPath
   if(ownProps.location.state == null){
@@ -22,7 +23,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     processForm: (cred) => dispatch(createSession(cred)),
-    clearErrors: () => dispatch(clearErrors())
+    clearErrors: () => dispatch(clearErrors()),
+    createSession: (cred)=>dispatch(createSession(cred))
 
   };
 };

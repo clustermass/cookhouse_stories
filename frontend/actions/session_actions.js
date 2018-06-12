@@ -7,7 +7,8 @@ export const DESTROY_SESSION = 'DESTROY_SESSION';
 
 export const createSession = (cred) => dispatch =>(
   SessionUtils.createSession(cred).then(  (user)=>{ dispatch({type:CREATE_SESSION, user: user})
-                                                    dispatch({type:IMPORT_USER, user: user})    },
+                                                    dispatch({type:IMPORT_USER, user: user})    
+                                                  },
 (errors)=>(dispatch(addErrors(errors)))
                                         )
                                                   )

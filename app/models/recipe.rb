@@ -50,9 +50,9 @@ has_many :favorite_recipes
 
 has_many :followers,
 through: :favorite_recipes,
-source: :user
-# class_name: :User
-#
+source: :user,
+class_name: :User
+
 
 belongs_to :difficulty
 belongs_to :cuisine

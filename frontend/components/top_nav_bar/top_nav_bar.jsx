@@ -16,9 +16,9 @@ componentDidMount(){
 }
 
 demoLogin(e){
-    this.props.createSession({username:'demo',password:'password'}).then(() => {
-      this.props.history.push(`/`)
-    })
+
+    setTimeout(this.props.createSession({username:'demo',password:'password'}), 3000);
+
 }
 
 render(){

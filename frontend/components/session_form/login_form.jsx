@@ -38,7 +38,14 @@ class LogInForm extends React.Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
+  this.demoLogin = this.demoLogin.bind(this)
 
+
+  }
+
+
+  demoLogin(e){
+      this.props.createSession({username:'demo',password:'password'})
 
   }
 
@@ -130,6 +137,7 @@ componentWillReceiveProps(nextProps){
 
         </form>
         <button onClick={this.handleSubmit} className="session-submit" type="submit">Submit</button>
+        <button onClick={this.demoLogin} className="session-submit" type="submit">DemoLogin</button>
         <br/>
         <div className='login-screen-text-2'>I don’t have an account.
           <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}> Sign-up!</Link></div>

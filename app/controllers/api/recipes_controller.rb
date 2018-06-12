@@ -8,21 +8,14 @@ class Api::RecipesController < ApplicationController
     @categories = []
     @diets = []
     @difficulties = []
-    p "this is something first"
-    debugger
-    p session[:session_token]
     @recipes.each do |rec|
       @f += [{recipe_id:rec.id,followers_count: rec.followers.length}]
       @cuisines += [rec.cuisine]  unless @cuisines.include?(rec.cuisine)
       @categories += [rec.category]  unless @categories.include?(rec.category)
       @diets += [rec.diet] unless @diets.include?(rec.diet)
       @difficulties += [rec.difficulty] unless @difficulties.include?(rec.difficulty)
-      p "this is something"
-      p session[:session_token]
-
     end
-    render :index
-
+  # render json: {}
 
 
   end
