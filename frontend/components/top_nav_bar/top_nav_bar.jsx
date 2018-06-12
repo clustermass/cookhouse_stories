@@ -15,8 +15,10 @@ componentDidMount(){
 
 }
 
-demoLogin(){
-    this.props.createSession({username:'demo',password:'password'})
+demoLogin(e){
+    this.props.createSession({username:'demo',password:'password'}).then(() => {
+      this.props.history.push(`/`)
+    })
 }
 
 render(){
@@ -71,7 +73,7 @@ render(){
         <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>
          <p>|</p><Link to={{pathname:'/login', state:{fromPath:path}}} >Login</Link> <p>|</p>
           <Link to={{pathname:'/signup', state:{fromPath:path}}}>Sign-up</Link><p>|</p>
-          <a href="#" onClick={this.demoLogin}>Demo</a> <div>&nbsp;</div>
+          <a href="#" onClick={()=>this.demoLogin()}>Demo</a> <div>&nbsp;</div>
         </div>
       </div>)
   }

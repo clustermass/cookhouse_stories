@@ -4,6 +4,7 @@ import LogInFormContainer from './session_form/login_form_container'
 import SignUpFormContainer from './session_form/signup_form_container'
 import ErrorsContainer from './errors/errors_container'
 import RecipeIndexContainer from './recipe_index/recipe_index_container'
+import RecipeInfoContainer from './recipe_info/recipe_info_container'
 
 import {
   Route,
@@ -23,11 +24,13 @@ const App = () => (
 
     </header>
     <Route path="/" component={TopNavBarContainer} />
-    <Route path="/" component={RecipeIndexContainer} />
+
+
     <Switch>
       <AuthRoute exact path="/login" component={LogInFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
-
+      <Route exact path="/" component={RecipeIndexContainer} />
+      <Route exact path="/recipes/:recipeId" component={RecipeInfoContainer} />
     </Switch>
   </div>
 );

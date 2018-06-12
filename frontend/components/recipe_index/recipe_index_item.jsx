@@ -10,7 +10,7 @@ const RecipeIndexItem = ({ recipe, followers }) => {
 
 
 return(
-<Link className="main-recipe-item-link" to={`/api/recipes/${recipe.id}`}>
+<Link className="main-recipe-item-link" to={`/recipes/${recipe.id}`}>
   <div className="recipe-item"  >
     <div className="recipe-item-img" style={ recipeItemBgImgStyle }>
       <div className="likes-time">

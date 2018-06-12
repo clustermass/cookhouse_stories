@@ -4,6 +4,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       login(@user)
+      p current_user
       render "api/users/create"
     else
       render json: ["Invalid username/password combination"], status: 401

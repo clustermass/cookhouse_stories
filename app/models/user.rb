@@ -39,8 +39,8 @@ class User < ApplicationRecord
 
   has_many :liked_recipes,
   through: :favorite_recipes,
-  source: :recipe,
-  class_name: :Recipe
+  source: :recipe
+  # class_name: :Recipe
 
 
   def self.find_by_credentials(username, password)
@@ -65,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def ensure_session_token
-    generate_unique_session_token unless self.session_token
+     self.session_token ||= new_session_token
   end
 
   def new_session_token

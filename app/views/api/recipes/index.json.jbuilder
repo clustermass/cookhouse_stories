@@ -45,7 +45,7 @@ end
 
 
 json.followers do
-  @followers.each do |fol|
+  @f.each do |fol|
     json.set! fol[:recipe_id] do
       json.extract! fol, :recipe_id, :followers_count
     end

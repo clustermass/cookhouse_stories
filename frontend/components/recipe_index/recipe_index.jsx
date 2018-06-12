@@ -22,11 +22,11 @@ componentDidMount(){
 }
 
 componentWillReceiveProps(newprops){
-  this.setState(newprops)
+  // this.setState(newprops)
 }
 
 render(){
-
+  console.log("here")
   let recipesOnMain =[]
   for (let i = 0; i < this.state.recipesOnPage; i++) {
     if (this.state.recipes[i] !== undefined){
@@ -41,7 +41,7 @@ render(){
   </div>
   <div className="main-recipe-image">
 
-  {recipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
+  {this.props.recipes.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
   </div>
 <div>
   <button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>

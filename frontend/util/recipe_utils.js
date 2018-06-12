@@ -4,3 +4,10 @@ export const getAllRecipes = () =>(
     url:'api/recipes',
   })
 )
+
+export const getRecipe = (id) =>(
+  $.ajax({
+    method: 'GET',
+    url:`api/recipes/${id}`,
+  })
+)
