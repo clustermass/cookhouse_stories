@@ -58,3 +58,11 @@ json.comments do
     end
   end
 end
+
+json.measurings do
+  @measurings.each  do |measuring|
+    json.set! measuring[:id] do
+      json.extract! measuring, :id, :name
+    end
+  end
+end

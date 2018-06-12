@@ -16,6 +16,7 @@
       </script>
     <% end %>
     <script>
+
       window.peace = "<%= asset_path('peace.png')%>"
       window.hands = "<%= asset_path('hands.png')%>"
       window.searchicon = "<%= asset_path('searchicon.png')%>"
@@ -24,8 +25,6 @@
   </head>
 
   <body>
-    logged in? <%=logged_in? %>
-    user: <%=current_user  %>
     <%= yield %>
   </body>
 </html>

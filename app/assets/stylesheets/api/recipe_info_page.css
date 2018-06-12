@@ -1,0 +1,38 @@
+
+.info-page-main-container{
+  width: 863px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.info-page-main-container-spacer{
+  height: 30px;
+}
+.info-page-main-img{
+  width: 863px;
+  height: 484px;
+  border-collapse:collapse;
+  border-radius: 15px;
+}
+
+.info-page-main-mini-nav{
+  height: 60px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 863px;
+}
+.info-page-main-mini-nav-links{
+  width:80%;
+  height: 60px;
+  background-color: grey;
+  display: flex;
+  flex-flow: row;
+}
+
+.info-page-main-mini-nav-pin{
+  width:20%;
+  height: 60px;
+}

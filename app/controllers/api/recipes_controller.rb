@@ -42,7 +42,7 @@ class Api::RecipesController < ApplicationController
     @ingredients = @recipe.ingredients
     @measurings = []
     @ingredients.each do |ing|
-      @measurings << ing.measurings.first if @ingredients.include?(ing.measurings.first)
+      @measurings << ing.measurings.first unless @measurings.include?(ing.measurings.first)
     end
     @diet = @recipe.diet
   end

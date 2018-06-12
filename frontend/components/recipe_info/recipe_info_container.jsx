@@ -1,19 +1,20 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { importAllRecipes } from '../../actions/recipes_actions'
+import { importAllRecipes,importRecipe } from '../../actions/recipes_actions'
 import { getAllUsers } from '../../actions/user_actions'
 import RecipeInfo from './recipe_info'
 
 const msp = (state,ownProps) => {
-  console.log(ownProps)
-  return {recipe: Object.values(state.entities.recipes),
-  followers: state.entities.followers,}
+  return {entities: state.entities,
+     // currRecipeId : ownProps.match.params.recipeId
+    }
 }
 
 
 const mdp = (dispatch) =>({
-  getAllUsers: ()=> dispatch(getAllUsers())
+  getAllUsers: ()=> dispatch(getAllUsers()),
+  importRecipe: (id)=>dispatch(importRecipe(id))
 })
 
 export default connect(msp,mdp)(RecipeInfo)
