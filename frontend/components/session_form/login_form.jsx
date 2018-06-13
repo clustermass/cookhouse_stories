@@ -29,7 +29,7 @@ class LogInForm extends React.Component {
       username: '',
       password: '',
       modalIsOpen: true,
-      placeholderUsername: 'Username',
+      placeholderUsername: 'E-mail',
       placeholderPassword: 'Password',
       errors: [],
     };
@@ -109,7 +109,7 @@ componentWillReceiveProps(nextProps){
            <p>Welcome back!</p>
            <div className='login-screen-text'>Log in to your account</div>
            <div className="errors">{this.state.errors}</div>
-         <form  >
+         <form onSubmit={this.handleSubmit} className="login-submit-form" >
 
           <br/>
 
@@ -133,14 +133,14 @@ componentWillReceiveProps(nextProps){
               />
           </div>
           <br/>
-
+          <button style={{cursor:'pointer'}} className="session-submit" type="submit">Submit</button>
 
         </form>
-        <button onClick={this.handleSubmit} className="session-submit" type="submit">Submit</button>
-        <button onClick={this.demoLogin} className="session-submit" type="submit">DemoLogin</button>
+
+        <button style={{cursor:'pointer'}} onClick={this.demoLogin} className="session-submit" type="submit">DemoLogin</button>
         <br/>
-        <div className='login-screen-text-2'>I don’t have an account.
-          <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}> Sign-up!</Link></div>
+        <div className='login-screen-text-2'>I don’t have an account.&nbsp;
+          <Link to={{pathname:'/signup', state:{fromPath:this.props.fromPath}}}>Sign-up</Link>!</div>
         </div>
  </Modal>
 

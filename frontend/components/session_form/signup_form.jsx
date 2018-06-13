@@ -29,7 +29,7 @@ class SignUpForm extends React.Component {
       modalIsOpen: true,
       placeholderUsername: 'E-mail',
       placeholderPassword: 'Password',
-      placeholderName: 'Username',
+      placeholderName: 'Your name',
       errors: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,6 +83,7 @@ class SignUpForm extends React.Component {
 
 
   render() {
+
     return (
       <Modal
         isOpen={this.state.modalIsOpen}
@@ -96,8 +97,8 @@ class SignUpForm extends React.Component {
          <img  src={window.hands} className="peace-icon" alt="search"/>
          <p>Welcome to Cookhouse Stories!</p>
          <div className='login-screen-text'>Create your account</div>
-         <div className="errors">{this.state.errors}</div>
-         <form >
+         <div className="errors">{this.state.errors.length === 0 ? '' : this.state.errors[0].split(",").join('\r\n')}</div>
+         <form onSubmit={this.handleSubmit} className="login-submit-form"  >
 
         <br/>
 
@@ -128,12 +129,12 @@ class SignUpForm extends React.Component {
             />
         </div>
         <br/>
-
+        <button style={{cursor:'pointer'}} className="session-submit" type="submit">Submit</button>
       </form>
-      <button onClick={this.handleSubmit} className="session-submit" type="submit">Submit</button>
+
       <br/>
-      <div className='login-screen-text-2'>I already have an
-        <Link to={{pathname:'/login', state:{fromPath:this.props.fromPath}}}> account</Link>.</div>
+      <div className='login-screen-text-2'>I already have an &nbsp;
+        <Link to={{pathname:'/login', state:{fromPath:this.props.fromPath}}}>account</Link>.</div>
       </div>
 </Modal>
 

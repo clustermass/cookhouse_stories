@@ -72,14 +72,23 @@ margin-left: 475px;
    padding: 9px 25px;
    text-align: center;
    text-decoration: none;
-   display: inline-block;
+   /* display: inline-block; */
    font-size: 16px;
+   width:250px;
+   margin-right: auto;
+   margin-left: auto;
+   margin-bottom: 4px;
 }
 .session-submit:hover{
     background-color: #0DB684;
 }
 .session-submit:focus{
   outline:0;
+}
+.login-submit-form{
+display: flex;
+flex-direction: column;
+justify-content: center;
 }
 
 .overlay {
@@ -88,6 +97,6 @@ margin-left: 475px;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity:0.8;
+  opacity:0.95;
   background-color: black;
 }
