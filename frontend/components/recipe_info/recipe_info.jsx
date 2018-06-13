@@ -9,33 +9,39 @@ constructor(props){
   super(props)
   this.navbar = React.createRef();
   // this.state = { currRecipeId: this.props.currRecipeId }
-  this.getNavbar = this.getNavbar.bind(this)
+  // this.getNavbar = this.getNavbar.bind(this)
+  this.preserveRoute = this.preserveRoute.bind(this)
+  this.currPath = `#${this.props.history.location.pathname}`
 }
 
-getNavbar(){
-    return  this.refs.navbar
- }
 
+preserveRoute(){
+  if (this.currPath !== window.location.hash){
+    window.location.hash = this.currPath
+  }
+// console.log(this.currPath === window.location.hash)
+
+}
+
+ stickNavBar(){
+     //height of Y offset to navbar
+     //TODO: automate offset calculation
+     let navBarHeight = 579;
+
+     if (window.pageYOffset > navBarHeight) {
+       this.refs.navbar.classList.add("sticky")
+     }
+     else if (window.pageYOffset <= navBarHeight){
+       this.refs.navbar.classList.remove("sticky")
+     }
+
+ }
 
 componentDidMount(){
   this.props.getAllUsers()
   this.props.importRecipe(this.props.match.params.recipeId)
-
-
-
-  window.onscroll = () =>{
-      //height of Y offset to navbar
-      //TODO: automate offset calculation
-      let navBarHeight = 579;
-
-      if (window.pageYOffset > navBarHeight) {
-        this.getNavbar().classList.add("sticky")
-      }
-      else if (window.pageYOffset <= navBarHeight){
-        this.getNavbar().classList.remove("sticky")
-      }
-  }
-
+  window.onscroll = ()=> this.stickNavBar()
+  // window.onscroll = ()=> this.preserveRoute()
 
 }
 
@@ -43,6 +49,7 @@ componentWillReceiveProps(nextProps){
   if (nextProps.match.params.recipeId !== this.props.match.params.recipeId){
     this.props.importRecipe(nextProps.match.params.recipeId)
   }
+  console.log("worked")
  // if (nextProps.currRecipeId !== this.state.currRecipeId){
  //   this.setState({ currRecipeId: nextProps.currRecipeId })
  //   this.props.importRecipe(nextProps.currRecipeId)
@@ -50,6 +57,9 @@ componentWillReceiveProps(nextProps){
 
 }
 
+componentWillUnmount(){
+  window.onscroll = null
+}
 
 render(){
 
@@ -76,11 +86,11 @@ render(){
                   <div className="info-page-main-mini-nav" ref="navbar" >
                       <div className="info-page-main-mini-nav-links">
 
-                        <Scrollchor to="#sample-code"  >  <button  className="btn" autoFocus={true} >  Overview</button></Scrollchor>
+                        <Scrollchor to="#sample-code"  >  <button  className="btn" autoFocus={true} onClick={()=>setTimeout(this.preserveRoute,1000)} >  Overview</button></Scrollchor>
                         <Scrollchor to="#sample-code" >
-                          <button className="btn">Steps</button></Scrollchor>
+                          <button onClick={()=>setTimeout(this.preserveRoute,1000)} className="btn">Steps</button></Scrollchor>
                           <Scrollchor to="#sample-code" >
-                            <button className="btn">Comments ({Object.keys(this.props.entities.comments).length})</button></Scrollchor>
+                            <button onClick={()=>setTimeout(this.preserveRoute,1000)} className="btn">Comments ({Object.keys(this.props.entities.comments).length})</button></Scrollchor>
 
                        </div>
                        <div className="info-page-main-mini-nav-pin">
