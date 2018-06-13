@@ -7,6 +7,8 @@ import RecipeInfo from './recipe_info'
 
 const msp = (state,ownProps) => {
   return {entities: state.entities,
+          session: state.session,
+          loggedIn: Boolean(state.session.id),
      // currRecipeId : ownProps.match.params.recipeId
     }
 }

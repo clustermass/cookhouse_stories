@@ -93,7 +93,17 @@ render(){
                     <span>  {recipe.title} </span>
                     </div>
                     <div className="info-page-main-info-likes">
-                    likes
+                    <img src={typeof this.props.entities.followers[this.props.session.id] === "undefined" ? window.heartgrey : window.heartyellow}/>
+                    <div>{Object.values(this.props.entities.followers).length}</div>
+                  </div>
+                    <div className="info-page-main-info-difficulty">
+                    Difficulty<span>{this.props.entities.difficulties[recipe.difficulty_id].level}</span>
+                    </div>
+                    <div className="info-page-main-info-difficulty">
+                    Preparation<span>{recipe.cooking_time} &nbsp; min.</span>
+                    </div>
+                    <div className="info-page-main-info-difficulty">
+                    Ingredients
                     </div>
 
 
