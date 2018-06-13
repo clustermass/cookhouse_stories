@@ -33,7 +33,7 @@ render(){
       recipesOnMain.push(this.props.recipes[i])
     }
   }
-
+debugger
   return(
 <div className="main-recipe-container">
   <div className="main-recipe-title">

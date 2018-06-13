@@ -7,7 +7,7 @@ import RecipeIndex from './recipe_index'
 const msp = (state) => ({
 
   recipes: Object.values(state.entities.recipes),
-  followers: state.entities.followers_count,
+  followers: state.entities.followers,
   recipesOnPage: 3
 })
 

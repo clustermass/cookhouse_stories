@@ -9,6 +9,7 @@ import DietsReducer from './diets_reducer'
 import FollowersReducer from './followers_reducer'
 import CommentssReducer from './comments_reducer'
 import MeasuringsReducer from './measurings_reducer'
+import FollowersCountReducer from './followers_count_reducer'
 
 export default combineReducers({
   users : UsersReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   followers: FollowersReducer,
   comments: CommentssReducer,
   measurings: MeasuringsReducer,
+  followers_count: FollowersCountReducer,
 });

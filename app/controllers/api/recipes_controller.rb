@@ -3,13 +3,13 @@ class Api::RecipesController < ApplicationController
   def index
     # debugger
     @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet )
-    @f = []
+    @followers_count = []
     @cuisines = []
     @categories = []
     @diets = []
     @difficulties = []
     @recipes.each do |rec|
-      @f += [{recipe_id:rec.id,followers_count: rec.followers.length}]
+      @followers_count += [{recipe_id:rec.id,followers_count: rec.followers.length}]
       @cuisines += [rec.cuisine]  unless @cuisines.include?(rec.cuisine)
       @categories += [rec.category]  unless @categories.include?(rec.category)
       @diets += [rec.diet] unless @diets.include?(rec.diet)

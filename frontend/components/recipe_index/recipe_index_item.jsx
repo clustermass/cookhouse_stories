@@ -9,12 +9,13 @@ const RecipeIndexItem = ({ recipe, followers }) => {
 
 
 
+
 return(
 <Link className="main-recipe-item-link" to={`/recipes/${recipe.id}`}>
   <div className="recipe-item"  >
     <div className="recipe-item-img" style={ recipeItemBgImgStyle }>
       <div className="likes-time">
-      <img src={window.hearticon}/><span>{followers.followers_count}  <span>{recipe.cooking_time} min.</span></span>
+      <img src={window.hearticon}/><span>{typeof followers === "undefined" ? '0' : followers.followers_count}  <span>{recipe.cooking_time} min.</span></span>
 
       </div>
     </div>

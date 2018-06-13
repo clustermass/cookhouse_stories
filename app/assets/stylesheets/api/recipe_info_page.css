@@ -17,6 +17,11 @@
 
 .info-page-main-mini-nav{
   height: 60px;
+    width: 863px;
+  border-bottom: 1px solid #D8D8D8;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
 }
 
 .sticky {
@@ -25,14 +30,78 @@
   width: 863px;
 }
 .info-page-main-mini-nav-links{
-  width:80%;
+  width:70%;
   height: 60px;
-  background-color: grey;
+  background-color: white;
   display: flex;
   flex-flow: row;
+
+}
+
+.btn{
+  color: #464646;
+   padding: 19px 15px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 17px;
+   border: none;
+   border-bottom: solid white 2px;
+}
+
+.btn:active{
+   border-bottom: solid #067F78 3px;
+}
+
+.btn:focus{
+   border-bottom: solid #067F78 3px;
+   outline: none;
 }
 
 .info-page-main-mini-nav-pin{
-  width:20%;
+  width:30%;
   height: 60px;
+  background-color: white;
+}
+
+
+.info-page-main-info{
+  height:635px;
+  width: 863px;
+  background-color: white;
+}
+
+.info-page-main-info-details{
+  width: 585px;
+  height:635px;
+}
+.info-page-main-info-recommended{
+  width: 278px;
+  height:635px;
+  background-color: green;
+}
+
+
+.info-page-main-info-name{
+height: 80px;
+width:585px;
+color:#464646;
+background-color: grey;
+font-size: 26px;
+display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+    flex-wrap: wrap;
+    /* padding-left: 7px; */
+
+}
+.info-page-main-info-name span{
+  margin-left: 7px;
+}
+
+.info-page-main-info-likes{
+  height: 40px;
+  width:585px;
+  background-color: lightgrey;
 }
