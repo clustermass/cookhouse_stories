@@ -12,6 +12,14 @@ class RecipeInfo extends React.Component {
     // this.getNavbar = this.getNavbar.bind(this)
     this.preserveRoute = this.preserveRoute.bind(this)
     this.currPath = `#${this.props.history.location.pathname}`
+
+    this.state = {user_id: this.props.session.id,
+                  recipe_id: this.props.match.params.recipeId,
+                  body:''
+    }
+
+    this.update = this.update.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
@@ -19,7 +27,7 @@ class RecipeInfo extends React.Component {
     if (this.currPath !== window.location.hash){
       window.location.hash = this.currPath
     }
-    // console.log(this.currPath === window.location.hash)
+
 
   }
 
@@ -36,6 +44,22 @@ class RecipeInfo extends React.Component {
     }
 
   }
+
+  update(field) {
+    return e => this.setState({
+      [field]: e.currentTarget.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const comment = Object.assign({}, this.state);
+    this.props.clearErrors();
+    this.props.postComment(comment);
+    this.setState({body:''})
+  }
+
+
 
   componentDidMount(){
     this.props.getAllUsers()
@@ -155,14 +179,21 @@ class RecipeInfo extends React.Component {
         <div className="info-page-main-info-difficulty">
           Comments ({Object.keys(this.props.entities.comments).length})
         </div>
+        <div className="errors">{this.props.errors.length === 0 ? '' : this.props.errors[0].responseJSON.map(err=>{
+             return(<div key={this.props.errors[0].responseJSON.indexOf(err)}>Error:&nbsp; {err}</div>)
+           })}</div>
 
+          {this.props.loggedIn === false ? <div className="info-page-main-info-stepbody" >Please, Log in to post comments.</div> :
           <div  className="info-page-main-postcomment">
-            <form>
-            <textarea type="text" >
+            <form onSubmit={this.handleSubmit} >
+            <textarea type="text" value={this.state.body} onChange={this.update('body')} >
             </textarea>
             <button style={{cursor:'pointer'}} className="info-page-main-postcomment-btn">Send</button>
           </form>
-          </div>
+          </div>}
+
+
+
 
 
       </div>
