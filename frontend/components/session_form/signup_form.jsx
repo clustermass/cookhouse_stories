@@ -97,7 +97,10 @@ class SignUpForm extends React.Component {
          <img  src={window.hands} className="peace-icon" alt="search"/>
          <p>Welcome to Cookhouse Stories!</p>
          <div className='login-screen-text'>Create your account</div>
-         <div className="errors">{this.state.errors.length === 0 ? '' : this.state.errors[0].split(",").join('\r\n')}</div>
+         <div className="errors">{this.state.errors.length === 0 ? '' :
+            this.state.errors[0].responseJSON.map(err=>{
+              return(<div key={this.state.errors[0].responseJSON.indexOf(err)}>{err}</div>)
+            })}</div>
          <form onSubmit={this.handleSubmit} className="login-submit-form"  >
 
         <br/>

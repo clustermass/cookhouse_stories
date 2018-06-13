@@ -31,18 +31,23 @@ class Api::RecipesController < ApplicationController
     @recipe.followers.each do |user|
       @followers << {user_id:user.id,name:user.name}
     end
-
+    @steps = @recipe.steps.map {|step| {:id=> step.id, :recipe_id=>step.recipe_id,:num=>step.num,:body=>step.body,:image=>step.image}}
     @cuisine = @recipe.cuisine
     @category = @recipe.category
     @diets = @recipe.diet
     @difficulty = @recipe.difficulty
     @comments = @recipe.comments
     @video = @recipe.video
-    @steps = @recipe.steps
     @ingredients = @recipe.ingredients
     @measurings = []
+    @ingredients_list = []
+    @ingredients_amounts = []
+    @ingredients_measurings  = []
     @ingredients.each do |ing|
-      @measurings << ing.measurings.first unless @measurings.include?(ing.measurings.first)
+    @measurings << ing.measurings.first unless @measurings.include?(ing.measurings.first)
+    @ingredients_measurings << {ing.id => ing.measurings.first.id}
+    @ingredients_list << ing.id
+    @ingredients_amounts << {ing.id => ing.ingredient_amounts.first.amount}
     end
     @diet = @recipe.diet
   end

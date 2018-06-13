@@ -108,7 +108,10 @@ componentWillReceiveProps(nextProps){
            <img  src={window.peace} className="peace-icon" alt="search"/>
            <p>Welcome back!</p>
            <div className='login-screen-text'>Log in to your account</div>
-           <div className="errors">{this.state.errors}</div>
+             <div className="errors">{this.state.errors.length === 0 ? '' :
+                this.state.errors[0].responseJSON.map(err=>{
+                  return(<div key={this.state.errors[0].responseJSON.indexOf(err)}>{err}</div>)
+                })}</div>
          <form onSubmit={this.handleSubmit} className="login-submit-form" >
 
           <br/>

@@ -78,7 +78,7 @@
 .info-page-main-info-recommended{
   width: 278px;
   height:635px;
-  background-color: green;
+
 }
 
 
@@ -143,4 +143,81 @@ color:#464646;
 .info-page-main-info-ingridients{
     border-top: dotted lightgrey 1px;
 
+}
+
+.info-page-main-info-inglist{
+    width:585px;
+    margin-bottom: 19px;
+}
+.info-page-main-info-inglist div{
+  display:flex;
+  flex-wrap: nowrap;
+color:#737373;
+font-size: 18px;
+
+}
+.info-page-main-info-ingname{
+  width:130px;
+}
+
+.info-page-main-stepimage{
+  width: 570px;
+  height: 425px;
+  border-collapse:collapse;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.info-page-main-info-stepbody{
+  width: 570px;
+  color:#737373;
+  font-size: 18px;
+}
+.info-page-main-stepcontainer{
+    width: 570px;
+      margin-bottom: 15px;
+}
+.info-page-main-postcomment{
+  height:155px;
+  width: 570px;
+
+
+}
+.info-page-main-postcomment textarea{
+  height:155px;
+  width: 570px;
+  border: solid lightgrey 1px;
+  border-collapse:collapse;
+  border-radius: 15px;
+  display: flex;
+align-items:flex-start;
+  flex-wrap: wrap;
+  color: black;
+  font-size: 18px;
+  padding: 5px;
+}
+.info-page-main-postcomment textarea:focus{
+  outline: 0;
+}
+
+.info-page-main-postcomment-btn{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 9px 25px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 16px;
+   /* width:250px; */
+
+   margin-left: 490px;
+   margin-bottom: 4px;
+   margin-top: 4px;
+}
+
+.info-page-main-postcomment-btn:hover{
+    background-color: #0DB684;
+}
+.info-page-main-postcomment-btn:focus{
+  outline:0;
 }

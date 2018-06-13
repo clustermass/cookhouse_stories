@@ -16,7 +16,7 @@ const mapStateToProps = (state,ownProps) => {
 
   return {
     fromPath: fromPath,
-    errors: Object.keys(state.entities.errors),
+    errors: Object.values(state.entities.errors),
   };
 };
 

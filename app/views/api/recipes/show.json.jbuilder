@@ -10,6 +10,23 @@ json.recipes do
       json.category_id @recipe.category_id
       json.main_ingredient_id @recipe.main_ingredient_id
       json.diet_id @recipe.diet_id
+      json.ingredients_list  @ingredients_list
+      json.steps  @steps
+
+      json.ingredients_amounts do
+        @ingredients_amounts.each do |am|
+          json.set! am.keys.first do
+            json.extract! am, am.keys.first
+          end
+        end
+      end
+      json.ingredients_measurings do
+        @ingredients_measurings.each do |im|
+          json.set! im.keys.first do
+            json.extract! im, im.keys.first
+          end
+        end
+      end
     end
 end
 
@@ -66,3 +83,21 @@ json.measurings do
     end
   end
 end
+
+json.ingredients do
+  @ingredients.each  do |ing|
+    json.set! ing.id do
+      json.extract! ing, :name
+      # json.extract! ing, :ingid, :name,
+    end
+  end
+
+end
+
+# json.ingredients_amount do
+#   @ingredients.each  do |ing|
+#     json.set! ing.id do
+#       json.extract! ing, :ingid, :name,
+#     end
+#   end
+# end
