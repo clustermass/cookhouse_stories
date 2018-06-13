@@ -177,9 +177,9 @@ font-size: 18px;
       margin-bottom: 15px;
 }
 .info-page-main-postcomment{
-  height:155px;
+  /* height:245px; */
   width: 570px;
-
+margin-bottom: 15px;
 
 }
 .info-page-main-postcomment textarea{
@@ -220,4 +220,29 @@ align-items:flex-start;
 }
 .info-page-main-postcomment-btn:focus{
   outline:0;
+}
+
+.info-page-main-comment{
+  background-color: white;
+    width: 570px;
+    margin-bottom: 15px;
+}
+.info-page-main-comment-header{
+    width: 570px;
+}
+.info-page-main-comment-header span{
+  margin: 15px;
+
+    color:#737373;
+}
+
+.info-page-main-comment-header img{
+
+}
+.info-page-main-comment-body{
+font-weight: bold;
+  font-size: 18px;
+  padding-left: 60px;
+  padding-top: 15px;
+
 }

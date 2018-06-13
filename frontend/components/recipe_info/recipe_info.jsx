@@ -2,7 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Scrollchor from 'react-scrollchor'; //Thanks to https://github.com/bySabi/react-scrollchor
-
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 
 class RecipeInfo extends React.Component {
   constructor(props){
@@ -20,6 +21,9 @@ class RecipeInfo extends React.Component {
 
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
+    TimeAgo.locale(en)
+
+    this.timeAgo = new TimeAgo('en-US')
   }
 
 
@@ -35,12 +39,13 @@ class RecipeInfo extends React.Component {
     //height of Y offset to navbar
     //TODO: automate offset calculation
     let navBarHeight = 579;
-
     if (window.pageYOffset > navBarHeight) {
       this.refs.navbar.classList.add("sticky")
     }
     else if (window.pageYOffset <= navBarHeight){
+      if (typeof this.refs.navbar != "undefined"){
       this.refs.navbar.classList.remove("sticky")
+      }
     }
 
   }
@@ -183,7 +188,7 @@ class RecipeInfo extends React.Component {
              return(<div key={this.props.errors[0].responseJSON.indexOf(err)}>Error:&nbsp; {err}</div>)
            })}</div>
 
-          {this.props.loggedIn === false ? <div className="info-page-main-info-stepbody" >Please, Log in to post comments.</div> :
+         {this.props.loggedIn === false ? <div className="info-page-main-info-stepbody" ><p>Please, Log in to post comments.</p></div> :
           <div  className="info-page-main-postcomment">
             <form onSubmit={this.handleSubmit} >
             <textarea type="text" value={this.state.body} onChange={this.update('body')} >
@@ -192,7 +197,14 @@ class RecipeInfo extends React.Component {
           </form>
           </div>}
 
-
+            {this.props.comments.map(comment=>{
+              return(
+                <div className="info-page-main-comment" key={comment.id} >
+                  <div className="info-page-main-comment-header"><img src={window.usericon}/><span>{this.props.entities.users[comment.user_id].name}</span><span>{this.timeAgo.format(Date.now() - (Date.now() - Date.parse(comment.updated_at)))}</span></div>
+                  <div className="info-page-main-comment-body">{comment.body}</div>
+              </div>
+              )
+            })}
 
 
 

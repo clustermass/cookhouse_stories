@@ -71,7 +71,7 @@ end
 json.comments do
   @comments.each  do |comment|
     json.set! comment[:id] do
-      json.extract! comment, :id, :user_id,:recipe_id,:body
+      json.extract! comment, :id, :user_id,:recipe_id,:body,:updated_at
     end
   end
 end

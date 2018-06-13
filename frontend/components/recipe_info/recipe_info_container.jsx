@@ -12,6 +12,7 @@ const msp = (state,ownProps) => {
           errors: Object.values(state.entities.errors),
           session: state.session,
           loggedIn: Boolean(state.session.id),
+          comments: Object.values(state.entities.comments)
      // currRecipeId : ownProps.match.params.recipeId
     }
 }
