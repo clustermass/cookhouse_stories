@@ -21,6 +21,7 @@ class RecipeInfo extends React.Component {
 
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.likeRecipe = this.likeRecipe.bind(this)
     TimeAgo.locale(en)
 
     this.timeAgo = new TimeAgo('en-US')
@@ -64,6 +65,10 @@ class RecipeInfo extends React.Component {
     this.setState({body:''})
   }
 
+  likeRecipe(like){
+    this.props.clearErrors();
+    this.props.likeRecipe(like)
+  }
 
 
   componentDidMount(){
@@ -91,6 +96,7 @@ class RecipeInfo extends React.Component {
   }
 
   render(){
+
     let recipe
     if (typeof this.props.entities.recipes[this.props.match.params.recipeId] === "undefined" ||
         typeof this.props.entities.recipes[this.props.match.params.recipeId].ingredients_list === "undefined"){
@@ -132,7 +138,7 @@ class RecipeInfo extends React.Component {
               <span>  {recipe.title} </span>
             </div>
             <div className="info-page-main-info-likes">
-              <img src={typeof this.props.entities.followers[this.props.session.id] === "undefined" ? window.heartgrey : window.heartyellow}/>
+              {this.props.loggedIn === true ? <img style={{cursor:'pointer'}} onClick={()=> this.likeRecipe({recipe_id:recipe.id, user_id:this.props.session.id})} src={typeof this.props.entities.followers[this.props.session.id] === "undefined" ? window.heartgrey : window.heartyellow}/>  : <img src={window.heartgrey}/>}
               <div>{Object.values(this.props.entities.followers).length}</div>
             </div>
 
@@ -184,9 +190,7 @@ class RecipeInfo extends React.Component {
         <div className="info-page-main-info-difficulty">
           Comments ({Object.keys(this.props.entities.comments).length})
         </div>
-        <div className="errors">{this.props.errors.length === 0 ? '' : this.props.errors[0].responseJSON.map(err=>{
-             return(<div key={this.props.errors[0].responseJSON.indexOf(err)}>Error:&nbsp; {err}</div>)
-           })}</div>
+        <div className="errors">{this.props.errors.length === 0 ? '' : this.props.errors[0]}</div>
 
          {this.props.loggedIn === false ? <div className="info-page-main-info-stepbody" ><p>Please, Log in to post comments.</p></div> :
           <div  className="info-page-main-postcomment">

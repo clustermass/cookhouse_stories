@@ -11,3 +11,11 @@ export const getRecipe = (id) =>(
     url:`api/recipes/${id}`,
   })
 )
+
+export const postLikeRecipe = (like) =>(
+  $.ajax({
+    method: 'POST',
+    url:'api/likes/',
+    data: {like: like}
+  })
+)

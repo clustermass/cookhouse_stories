@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resource :session, only: [:create, :destroy]
       resources :recipes
         resource :comments, only: [:create]
+        resource :likes, only: [:create,:destroy]
     end
 
     root "static_pages#root"

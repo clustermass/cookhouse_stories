@@ -15,7 +15,7 @@ class Api::RecipesController < ApplicationController
       @diets += [rec.diet] unless @diets.include?(rec.diet)
       @difficulties += [rec.difficulty] unless @difficulties.include?(rec.difficulty)
     end
-  # render json: {}
+    # render json: {}
 
 
   end
@@ -44,16 +44,22 @@ class Api::RecipesController < ApplicationController
     @ingredients_amounts = []
     @ingredients_measurings  = []
     @ingredients.each do |ing|
-    @measurings << ing.measurings.first unless @measurings.include?(ing.measurings.first)
-    @ingredients_measurings << {ing.id => ing.measurings.first.id}
-    @ingredients_list << ing.id
-    @ingredients_amounts << {ing.id => ing.ingredient_amounts.first.amount}
+      @measurings << ing.measurings.first unless @measurings.include?(ing.measurings.first)
+      @ingredients_measurings << {ing.id => ing.measurings.first.id}
+      @ingredients_list << ing.id
+      @ingredients_amounts << {ing.id => ing.ingredient_amounts.first.amount}
     end
     @diet = @recipe.diet
   end
 
-  # def recipe_params
-  #   params.require
-  # end
+
+  def new
+    @cuisines = Cuisine.all
+    @categories = Category.all
+    @diets = Diet.all
+    @difficulties = Difficulty.all
+    @measurings = Measuring.all
+    @ingredients = Ingredient.all
+  end
 
 end
