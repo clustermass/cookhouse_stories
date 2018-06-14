@@ -246,6 +246,13 @@ uploadMainPicture(){
           </div>
 
 
+                          {this.state.ingredient_ids.map((id)=>(
+                            <li key={id}> <span>{this.state.all_ingredients[id].name}</span>
+                              <span>{this.state.amounts[id]}</span>
+                              <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
+
+
+                            </li>))}
 
 
                           <button onClick={(event)=> this.openIMenu(event,'abc')}>
