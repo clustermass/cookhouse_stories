@@ -9,7 +9,7 @@ end
 json.cuisines do
   @cuisines.each  do |cus|
     json.set! cus[:id] do
-      json.extract! cus, :id, :name
+      json.extract! cus, :id, :sort, :country
     end
   end
 

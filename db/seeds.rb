@@ -37,12 +37,15 @@ rus = Cuisine.new({sort:"authentic",country:"Russia"})
 ital = Cuisine.new({sort:"modern",country:"Italy"})
 mex = Cuisine.new({sort:"traditional",country:"Mexico"})
 east = Cuisine.new({sort:"traditional",country:"Eastern"})
+other = Cuisine.new({sort:"other",country:"other"})
 
 am.save!
 rus.save!
 ital.save!
 mex.save!
 east.save!
+other.save!
+Cuisine.where(id: 6).update_all(id: 1000)
 
 veg = Diet.new({name:"Vegan"})
 healthy = Diet.new({name:"Healthy"})

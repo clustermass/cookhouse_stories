@@ -6,6 +6,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "cloudinary-react": "^1.0.6",
     "file-loader": "^1.1.11",
     "image-webpack-loader": "^4.3.0",
     "javascript-time-ago": "^1.0.30",

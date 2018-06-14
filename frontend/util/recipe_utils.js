@@ -19,3 +19,11 @@ export const postLikeRecipe = (like) =>(
     data: {like: like}
   })
 )
+
+
+export const getAllRecipeFeatures = () =>(
+  $.ajax({
+    method: 'GET',
+    url: 'api/recipes/new'
+  })
+)

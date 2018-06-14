@@ -1,4 +1,4 @@
-import { IMPORT_RECIPES, IMPORT_SINGLE_RECIPE } from '../actions/recipes_actions'
+import { IMPORT_RECIPES, IMPORT_SINGLE_RECIPE,CLEAR_ALL_RECIPE_FEATURES } from '../actions/recipes_actions'
 
 const difficultiesReducer = (state = {},action)=>{
   Object.freeze(state)
@@ -7,6 +7,8 @@ const difficultiesReducer = (state = {},action)=>{
       return Object.assign({}, action.object.difficulties)
     case IMPORT_SINGLE_RECIPE:
       return Object.assign({},state, action.object.difficulties)
+    case CLEAR_ALL_RECIPE_FEATURES:
+      return {}
     default:
       return state
   }
