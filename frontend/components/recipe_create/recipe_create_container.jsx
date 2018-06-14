@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { importAllRecipes, importRecipe, importAllRecipeFeatures, clearAllRecipeFeatures } from '../../actions/recipes_actions'
-import { clearErrors } from '../../actions/errors_actions';
+import { clearErrors, addErrors } from '../../actions/errors_actions';
 import RecipeCreate from './recipe_create'
 
 const msp = (state,ownProps) => {
   return {
-          measurings: Object.values(state.entities.measurings),
+          measurings: state.entities.measurings,
           diets: Object.values(state.entities.diets),
-          ingredients: Object.values(state.entities.ingredients),
+          ingredients: state.entities.ingredients,
           categories:  Object.values(state.entities.categories),
           cuisines:  Object.values(state.entities.cuisines),
           difficulties: Object.values(state.entities.difficulties),
@@ -27,6 +27,7 @@ const mdp = (dispatch) =>({
   // getAllUsers: ()=> dispatch(getAllUsers()),
   // importRecipe: (id)=> dispatch(importRecipe(id)),
   // postComment: (comment) => dispatch(postComment(comment)),
+  addErrors: (err) => dispatch(addErrors(err)),
   clearErrors: () => dispatch(clearErrors()),
   importAllRecipeFeatures: () => dispatch(importAllRecipeFeatures()),
   clearAllRecipeFeatures: () => dispatch(clearAllRecipeFeatures())

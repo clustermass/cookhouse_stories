@@ -42,7 +42,7 @@ end
 json.ingredients do
   @ingredients.each  do |ing|
     json.set! ing[:id] do
-      json.extract! ing, :name
+      json.extract! ing, :id, :name
     end
   end
 end
