@@ -27,3 +27,11 @@ export const getAllRecipeFeatures = () =>(
     url: 'api/recipes/new'
   })
 )
+
+export const postRecipe = (recipe) =>(
+  $.ajax({
+    method: 'POST',
+    url: 'api/recipes',
+    data:{recipe: recipe}
+  })
+)

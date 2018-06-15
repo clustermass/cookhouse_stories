@@ -20,19 +20,19 @@ class RecipeCreate extends React.Component {
       yz:false,
 
       author_id: this.props.session.id,
+      recipe_id: -1,
       main_picture_url: '',
-      difficulty_id: 1,
+      difficulty_id: -1,
       cooking_time: '',
-      diet_id: 1,
-
-      cuisine_id: 1,
+      diet_id: -1,
+      cuisine_id: -1,
       custom_cuisine_country: '',
       custom_cuisine_sort: '',
 
       main_ingredient_id: 1,
       custom_main_ingredient: '',
 
-      category_id: 1,
+      category_id: -1,
       ingredient_ids: [],
       all_ingredients:{},
       custom_ingridient_name:'',
@@ -65,6 +65,7 @@ class RecipeCreate extends React.Component {
   this.uploadStepPicture = this.uploadStepPicture.bind(this)
   this.addNewStep = this.addNewStep.bind(this)
   this.removeStep = this.removeStep.bind(this)
+  this.submitRecipe = this.submitRecipe.bind(this)
   }
 
 //Alphabetical comparator for ingredients buttons
@@ -231,14 +232,13 @@ removeStep(id){
 
 
 }
-  //
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   const comment = Object.assign({}, this.state);
-  //   this.props.clearErrors();
-  //   this.props.postComment(comment);
-  //   this.setState({body:''})
-  // }
+
+  submitRecipe(e) {
+    e.preventDefault();
+    const recipe = Object.assign({}, this.state);
+    this.props.clearErrors();
+    this.props.submitRecipe(recipe);
+  }
 uploadMainPicture(){
   cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
     (error, result)=>(this.setState({main_picture_url : result[0].secure_url, main_picture_id:result[0].public_id})))
@@ -320,7 +320,8 @@ uploadStepPicture(id){
 
           <div>
             <span>Difficulty level:</span>
-            <select onChange={this.update('difficulty_id')} value={this.state.difficulty}>
+            <select onChange={this.update('difficulty_id')}>
+              <option hidden value="">Select Difficulty</option>
               {this.props.difficulties.map(dif=> <option key={dif.id} value={dif.id}>{dif.level}</option>)}
             </select>
           </div>
@@ -332,12 +333,31 @@ uploadStepPicture(id){
 
           <div>
               <span>Cuisine</span>
-                <select onChange={this.update('cuisine_id')} value={this.state.difficulty}>
+                <select onChange={this.update('cuisine_id')}>
+                  <option hidden value="">Select Cuisine</option>
                   {this.props.cuisines.map(cus=> <option key={cus.id} value={cus.id}>{cus.sort} &nbsp;{cus.country}</option>)}
                 </select>
                 {this.state.cuisine_id === '1000' ? <div><span>Enter your cusine: </span><span>Country</span><input onChange={this.update('custom_cuisine_country')} type="text" value={this.state.custom_cuisine_country}></input>
               <span>Sort</span><input onChange={this.update('custom_cuisine_sort')} type="text" value={this.state.custom_cuisine_sort}></input>
                 </div> : ''}
+          </div>
+
+          <div>
+              <span>Diet</span>
+                <select onChange={this.update('diet_id')} >
+                  <option hidden value="">Select Diet</option>
+                  {this.props.diets.map(diet=> <option key={diet.id} value={diet.id}>{diet.name}</option>)}
+                </select>
+
+          </div>
+
+          <div>
+              <span>Category</span>
+                <select onChange={this.update('category_id')} >
+                  <option hidden value="">Select Category</option>
+                  {this.props.categories.map(cat=> <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+                </select>
+
           </div>
 
 
@@ -423,7 +443,7 @@ uploadStepPicture(id){
                             Amount <input type="text" value={this.state.temp_amount} onChange={this.update('temp_amount')}/>
 
                           <select onChange={this.update('temp_measuring')} value={this.state.temp_measuring}>
-                              <option value="">Select measuring</option>
+                              <option hidden value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
                                 <button style={{cursor:'pointer'}} className="create-page-main-universal-btn"  onClick={()=>this.addIngredientToState()}>Add</button>
@@ -462,7 +482,9 @@ uploadStepPicture(id){
 
 
 
-
+                                <div>
+                                  <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={(e)=> this.submitRecipe(e) }>Submit</button>
+                                </div>
 
 
 

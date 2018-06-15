@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { importAllRecipes, importRecipe, importAllRecipeFeatures, clearAllRecipeFeatures } from '../../actions/recipes_actions'
+import { importAllRecipes, importRecipe, importAllRecipeFeatures, clearAllRecipeFeatures, submitRecipe } from '../../actions/recipes_actions'
 import { clearErrors, addErrors } from '../../actions/errors_actions';
 import RecipeCreate from './recipe_create'
 
@@ -30,7 +30,8 @@ const mdp = (dispatch) =>({
   addErrors: (err) => dispatch(addErrors(err)),
   clearErrors: () => dispatch(clearErrors()),
   importAllRecipeFeatures: () => dispatch(importAllRecipeFeatures()),
-  clearAllRecipeFeatures: () => dispatch(clearAllRecipeFeatures())
+  clearAllRecipeFeatures: () => dispatch(clearAllRecipeFeatures()),
+  submitRecipe: (recipe) => dispatch(submitRecipe(recipe))
 })
 
 export default connect(msp,mdp)(RecipeCreate)

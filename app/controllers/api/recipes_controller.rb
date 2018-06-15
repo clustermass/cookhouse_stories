@@ -62,4 +62,27 @@ class Api::RecipesController < ApplicationController
     @ingredients = Ingredient.all
   end
 
+  def create
+    @rawrecipe = recipe_params
+    @recipe = Recipe.new(
+      author_id:recipe_params[:author_id],
+      title:recipe_params[:title],
+      main_picture_url:recipe_params[:main_picture_url],
+      cooking_time:recipe_params[:cooking_time],
+      difficulty_id:recipe_params[:difficulty_id],
+      cuisine_id:recipe_params[:cuisine_id],
+      category_id:recipe_params[:category_id]),
+      
+    debugger
+  end
+
+
+  def recipe_params
+
+    params.require(:recipe).permit(:author_id,:title, :main_picture_url,:difficulty_id,:cooking_time,
+      :diet_id,:cuisine_id,:custom_cuisine_country, :custom_cuisine_sort,:main_ingredient_id,
+      :custom_main_ingredient, :category_id,:recipe_id,:ingredient_ids => [],:amounts => {},
+      :measuring_ids => {},:all_ingredients => {},:all_steps => {})
+  end
+
 end

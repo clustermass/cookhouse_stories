@@ -1,5 +1,6 @@
-import { getAllRecipes, getRecipe, postLikeRecipe, getAllRecipeFeatures } from '../util/recipe_utils'
+import { getAllRecipes, getRecipe, postLikeRecipe, getAllRecipeFeatures, postRecipe } from '../util/recipe_utils'
 import { addErrors } from './errors_actions'
+import { push } from 'react-router'
 
 export const IMPORT_RECIPES = "IMPORT_RECIPES"
 export const IMPORT_SINGLE_RECIPE = "IMPORT_SINGLE_RECIPE"
@@ -22,3 +23,7 @@ export const importAllRecipeFeatures = () => dispatch =>(
 )
 
 export const clearAllRecipeFeatures = () =>({type: CLEAR_ALL_RECIPE_FEATURES})
+
+export const submitRecipe = (recipe) => dispatch =>(
+  postRecipe(recipe).then((recipe)=>(dispatch(push(`/recipes/${recipe.id}`))),errors=>dispatch(addErrors(errors)))
+)
