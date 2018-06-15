@@ -45,7 +45,7 @@ class RecipeCreate extends React.Component {
       temp_measuring: -1,
       temp_amount: '',
 
-      all_steps: {1:{id:900000, num: 1, body:'',image: null}},
+      all_steps: {900000:{id:900000, num: 1,  image: null, body:''}},
       custom_step_count: 900001,
       step_counter: 2,
 
@@ -63,6 +63,8 @@ class RecipeCreate extends React.Component {
   this.removeIngredientFromState = this.removeIngredientFromState.bind(this)
   this.updateStepData = this.updateStepData.bind(this)
   this.uploadStepPicture = this.uploadStepPicture.bind(this)
+  this.addNewStep = this.addNewStep.bind(this)
+  this.removeStep = this.removeStep.bind(this)
   }
 
 //Alphabetical comparator for ingredients buttons
@@ -198,10 +200,35 @@ openIMenu(event,btn){
   }
 
 addNewStep(){
-
+let all_steps = this.state.all_steps
+let id = this.state.custom_step_count
+let custom_step_count = this.state.custom_step_count + 1 //increment id for next new step, that doesn't have id yet.
+let step_nums = []
+for (let i = 0; i < Object.values(this.state.all_steps).length ; i++) {
+  step_nums.push(Object.values(this.state.all_steps)[i].num)
+}
+let sorted_steps = step_nums.sort((a,b)=>(a-b))
+let num = sorted_steps[sorted_steps.length - 1] + 1;
+all_steps = Object.assign(all_steps,{[id]:{id:id,num:num,image:null,body:''}})
+this.setState({all_steps,custom_step_count:custom_step_count})
 }
 
 removeStep(id){
+  let all_steps = this.state.all_steps
+  delete all_steps[id]
+  let steps_arr = Object.values(all_steps)
+  //reassigning steps sequence after element was deleted.
+  steps_arr = steps_arr.sort((a,b)=> a.num - b.num)
+  for (let i = 1; i < steps_arr.length + 1; i++) {
+    steps_arr[i-1].num = i
+  }
+  all_steps = {}
+
+  for (let i = 0; i < steps_arr.length; i++) {
+    all_steps[steps_arr[i].id] = steps_arr[i]
+  }
+  this.setState({all_steps})
+
 
 }
   //
@@ -318,7 +345,7 @@ uploadStepPicture(id){
                             <li key={id}> <span>{this.state.all_ingredients[id].name}</span>
                               <span>{this.state.amounts[id]}</span>
                               <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
-                              <button style={{cursor:'pointer'}}  className="ingredient-select-btn" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
+                              <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn-delete" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
 
                             </li>))}
                             {this.state.custom_ingredient_field_available ? (<div> Please, enter your ingredient: </div>) :
@@ -399,10 +426,10 @@ uploadStepPicture(id){
                               <option value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
-                                <button style={{cursor:'pointer'}} className="ingredient-select-btn"  onClick={()=>this.addIngredientToState()}>Add</button>
+                                <button style={{cursor:'pointer'}} className="create-page-main-universal-btn"  onClick={()=>this.addIngredientToState()}>Add</button>
                                 <div>{this.state.custom_ingredient_field_available ?
-                                    (<button className="ingredient-select-btn" style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back</button>) :
-                                    (<button className="ingredient-select-btn" style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>No ingredient in the list?</button>)}
+                                    (<button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back</button>) :
+                                    (<button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>No ingredient in the list?</button>)}
                                 </div>
 
                             </div>
@@ -414,7 +441,7 @@ uploadStepPicture(id){
 
                             {Object.values(this.state.all_steps).map((step)=>(
                               <div key={step.id} className="create-page-main-step-container">
-                                <div><span>Step</span>{step.id}/{Object.values(this.state.all_steps).length}</div>
+                                <div><span>Step</span>{step.num}/{Object.values(this.state.all_steps).length}</div>
 
                                 {(step.image === null) ?
                                 (null):(<div  className="create-page-main-step-image" style = {{
@@ -423,12 +450,14 @@ uploadStepPicture(id){
                                     backgroundPosition: 'center',
                                     backgroundSize: 'cover'}}> </div>)}
                                     <div>
-                                      <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.uploadStepPicture(step.id) }>Upload picture</button>
+                                      <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn" onClick={()=> this.uploadStepPicture(step.id) }>Upload picture</button>
+                                      {step.num === 1 ? (null): (<button className={"create-page-main-universal-btn-delete"}onClick={()=>this.removeStep(step.id)}>Delete step</button>)}
                                     </div>
                                     <textarea onChange={(event)=>this.updateStepData(event,step.id,'body')} value={this.state.all_steps[step.id].body}></textarea>
 
                               </div>
                             ))}
+                              <div><button className="create-page-main-universal-btn" onClick={()=>this.addNewStep()}>Add new step</button></div>
 
 
 

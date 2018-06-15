@@ -74,10 +74,77 @@ width: 863px;
 }
 
 .create-page-main-step-container{
-  background-color: grey;
+  /* border: solid lightgrey 1px; */
+  /* border-radius: 15px; */
+  background-color: white;
+  margin-bottom: 15px;
+  width: 550px;
+}
+.create-page-main-step-container textarea{
+  height:120px;
+  width: 550px;
+  border: solid lightgrey 1px;
+  border-collapse:collapse;
+  border-radius: 15px;
+  display: flex;
+align-items:flex-start;
+  flex-wrap: wrap;
+  color: black;
+  font-size: 18px;
+  padding: 5px;
+}
+.create-page-main-step-container textarea:focus{
+outline:0;
 }
 
 .create-page-main-step-image{
   width: 550px;
   height:430px;
+}
+
+
+.create-page-main-universal-btn{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 2px 5px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 14px;
+   /* width:250px; */
+   margin-left: 5px;
+   margin-right: 5px;
+   margin-top: 4px;
+   margin-bottom: 7px;
+}
+.create-page-main-universal-btn:hover{
+  background-color: #0DB684;
+}
+.create-page-main-universal-btn:focus{
+  outline:0;
+}
+.create-page-main-universal-btn-delete{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 2px 5px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 14px;
+   /* width:250px; */
+   margin-left: 5px;
+   margin-right: 5px;
+   margin-top: 4px;
+   margin-bottom: 7px;
+   cursor:pointer;
+}
+.create-page-main-universal-btn-delete:hover{
+  background-color: #920811;
+     cursor:pointer;
+}
+.create-page-main-universal-btn-delete:focus{
+  outline:0;
+     cursor:pointer;
 }
