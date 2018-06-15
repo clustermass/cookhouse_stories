@@ -8,7 +8,7 @@
   border-radius: 4px;
   background-color: #067F78;
   color: white;
-   padding: 9px 25px;
+   padding: 4px 15px;
    text-align: center;
    text-decoration: none;
    /* display: inline-block; */
@@ -24,4 +24,51 @@
 }
 .create-page-main-img-upload:focus{
   outline:0;
+}
+
+.ingredient-select-btn-letter{
+  border-radius: 4px;
+  background-color: #737373;
+  color: white;
+   padding: 3px 9px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 16px;
+   /* width:250px; */
+
+   margin-right: 2px;
+   margin-top: 4px;
+   margin-bottom: 7px;
+}
+.ingredient-select-btn-letter:hover{
+  background-color: #067F78;
+}
+.ingredient-select-btn-letter:focus{
+  outline:0;
+}
+
+.create-page-main-alphabet-btns{
+width: 863px;
+
+}
+
+ .ingredient-select-btn{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 3px 9px;
+   text-align: center;
+   text-decoration: none;
+   font-size: 16px;
+   margin-right: 2px;
+   margin-left: 2px;
+   margin-top: 2px;
+   margin-bottom: 2px;
+}
+ .ingredient-select-btn:hover{
+  background-color: #0DB684;
+}
+.ingredient-select-btn-pad{
+  background-color: white;
 }
