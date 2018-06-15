@@ -72,3 +72,12 @@ width: 863px;
 .ingredient-select-btn-pad{
   background-color: white;
 }
+
+.create-page-main-step-container{
+  background-color: grey;
+}
+
+.create-page-main-step-image{
+  width: 550px;
+  height:430px;
+}

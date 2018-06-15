@@ -34,7 +34,6 @@ class RecipeCreate extends React.Component {
 
       category_id: 1,
       ingredient_ids: [],
-
       all_ingredients:{},
       custom_ingridient_name:'',
       custom_ingredient_count: 9000,
@@ -46,6 +45,12 @@ class RecipeCreate extends React.Component {
       temp_measuring: -1,
       temp_amount: '',
 
+      all_steps: {1:{id:900000, num: 1, body:'',image: null}},
+      custom_step_count: 900001,
+      step_counter: 2,
+
+      temp_step_body:'',
+      temp_step_image:null,
       }
   this.openIMenu = this.openIMenu.bind(this);
   this.closeIMenu = this.closeIMenu.bind(this);
@@ -56,9 +61,11 @@ class RecipeCreate extends React.Component {
   this.enableCustomIngredientField = this.enableCustomIngredientField.bind(this)
   this.disableCustomIngredientField =   this.disableCustomIngredientField.bind(this)
   this.removeIngredientFromState = this.removeIngredientFromState.bind(this)
+  this.updateStepData = this.updateStepData.bind(this)
+  this.uploadStepPicture = this.uploadStepPicture.bind(this)
   }
 
-//Alphabetical comparator
+//Alphabetical comparator for ingredients buttons
   compare(a, b) {
     if (a.name[0] < b.name[0]) {
       return -1;
@@ -182,6 +189,21 @@ openIMenu(event,btn){
       [field]: e.currentTarget.value
     });
   }
+
+  updateStepData(event,id,field){
+    let data = event.currentTarget.value
+    this.setState(state => {
+      state.all_steps[id][field] = data
+    return state})
+  }
+
+addNewStep(){
+
+}
+
+removeStep(id){
+
+}
   //
   // handleSubmit(e) {
   //   e.preventDefault();
@@ -191,9 +213,13 @@ openIMenu(event,btn){
   //   this.setState({body:''})
   // }
 uploadMainPicture(){
-  cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv'},
+  cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
     (error, result)=>(this.setState({main_picture_url : result[0].secure_url, main_picture_id:result[0].public_id})))
 
+}
+uploadStepPicture(id){
+  cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
+    (error, result)=>(this.updateStepData({currentTarget:{value:result[0].secure_url}},id,'image')))
 }
 
 
@@ -292,10 +318,10 @@ uploadMainPicture(){
                             <li key={id}> <span>{this.state.all_ingredients[id].name}</span>
                               <span>{this.state.amounts[id]}</span>
                               <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
-                              <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
+                              <button style={{cursor:'pointer'}}  className="ingredient-select-btn" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
 
                             </li>))}
-                            {this.state.custom_ingredient_field_available ? (null) :
+                            {this.state.custom_ingredient_field_available ? (<div> Please, enter your ingredient: </div>) :
                             (<div className="create-page-main-alphabet-btns">
 
                           <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=> this.openIMenu(event,'abc')}>
@@ -373,8 +399,11 @@ uploadMainPicture(){
                               <option value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
-                                <button style={{cursor:'pointer'}} className="create-page-main-img-upload"  onClick={()=>this.addIngredientToState()}>Add</button>
-                                {this.state.custom_ingredient_field_available ? (<button style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back.</button>) : (<button style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>Can't find ingredient in the list.</button>)}
+                                <button style={{cursor:'pointer'}} className="ingredient-select-btn"  onClick={()=>this.addIngredientToState()}>Add</button>
+                                <div>{this.state.custom_ingredient_field_available ?
+                                    (<button className="ingredient-select-btn" style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back</button>) :
+                                    (<button className="ingredient-select-btn" style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>No ingredient in the list?</button>)}
+                                </div>
 
                             </div>
 
@@ -382,6 +411,24 @@ uploadMainPicture(){
                             <div>
                               Steps
                             </div>
+
+                            {Object.values(this.state.all_steps).map((step)=>(
+                              <div key={step.id} className="create-page-main-step-container">
+                                <div><span>Step</span>{step.id}/{Object.values(this.state.all_steps).length}</div>
+
+                                {(step.image === null) ?
+                                (null):(<div  className="create-page-main-step-image" style = {{
+                                    backgroundImage: `url('${step.image}')`,
+                                    backgroundRepeat  : 'no-repeat',
+                                    backgroundPosition: 'center',
+                                    backgroundSize: 'cover'}}> </div>)}
+                                    <div>
+                                      <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.uploadStepPicture(step.id) }>Upload picture</button>
+                                    </div>
+                                    <textarea onChange={(event)=>this.updateStepData(event,step.id,'body')} value={this.state.all_steps[step.id].body}></textarea>
+
+                              </div>
+                            ))}
 
 
 
