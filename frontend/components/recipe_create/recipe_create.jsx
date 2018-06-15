@@ -38,15 +38,13 @@ class RecipeCreate extends React.Component {
       all_ingredients:{},
       custom_ingridient_name:'',
       custom_ingredient_count: 9000,
+      custom_ingredient_field_available: false,
 
       measuring_ids: {},
       amounts: {},
       temp_ingredient: -1,
       temp_measuring: -1,
       temp_amount: '',
-
-
-
 
       }
   this.openIMenu = this.openIMenu.bind(this);
@@ -55,6 +53,8 @@ class RecipeCreate extends React.Component {
   this.update = this.update.bind(this)
   this.addIngredient = this.addIngredient.bind(this)
   this.addIngredientToState = this.addIngredientToState.bind(this)
+  this.enableCustomIngredientField = this.enableCustomIngredientField.bind(this)
+  this.disableCustomIngredientField =   this.disableCustomIngredientField.bind(this)
   }
 
 //Alphabetical comparator
@@ -69,8 +69,19 @@ class RecipeCreate extends React.Component {
   }
 
 addIngredient(id){
-  // return this.addIngredientToState(id)
    return this.setState({temp_ingredient:id})
+}
+
+enableCustomIngredientField(){
+this.setState({temp_ingredient:this.state.custom_ingredient_count,
+custom_ingredient_field_available:true
+})
+}
+
+disableCustomIngredientField(){
+  this.setState({temp_ingredient: -1,
+  custom_ingredient_field_available:false
+  })
 }
 
 addIngredientToState(){
@@ -91,7 +102,7 @@ addIngredientToState(){
         amount_hash = Object.assign(amount_hash, {[id]:this.state.temp_amount})
 
       if(id >= 9000){
-        all_ingredients = Object.assign(all_ingredients,{[id]:this.state.custom_ingridient_name})
+        all_ingredients = Object.assign(all_ingredients,{[id]:{[id]:id,name:this.state.custom_ingridient_name}})
         custom_ingridient_id = custom_ingridient_id + 1 //if custom ingredient was added, we increase count on 1
       }
       else{
@@ -101,11 +112,12 @@ addIngredientToState(){
         this.setState({ingredient_ids:ing_arr,
           measuring_ids:meas_hash,
           amounts:amount_hash,
-          temp_ingredient: '',
-          temp_measuring: '',
+          temp_ingredient: -1,
+          temp_measuring: -1,
           temp_amount: '',
           custom_ingridient_name: '',
           custom_ingredient_count: custom_ingridient_id,
+          custom_ingredient_field_available: false,
         })
 
       }else{
@@ -113,6 +125,12 @@ addIngredientToState(){
       }
     }
   console.log(this.state)
+}
+
+
+removeIngredientFromState(id){
+
+
 }
 
 
@@ -260,8 +278,8 @@ uploadMainPicture(){
 
 
                             </li>))}
-
-                            <div className="create-page-main-alphabet-btns">
+                            {this.state.custom_ingredient_field_available ? (null) :
+                            (<div className="create-page-main-alphabet-btns">
 
                           <button className="ingredient-select-btn-letter" onClick={(event)=> this.openIMenu(event,'abc')}>
                             ABC
@@ -326,19 +344,21 @@ uploadMainPicture(){
                               {yz.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          </div>
+                          </div>)}
 
                             <div>
 
-                              Ingredient<input type="text" readOnly value={curr_ing_name}/>
+                              Ingredient {this.state.custom_ingredient_field_available ? (<input type="text" onChange={this.update('custom_ingridient_name')} value={this.state.custom_ingridient_name}/>) : (<input type="text" readOnly value={curr_ing_name}/>)}
 
-                            Amount<input type="text" value={this.state.temp_amount} onChange={this.update('temp_amount')}/>
+                            Amount <input type="text" value={this.state.temp_amount} onChange={this.update('temp_amount')}/>
 
                           <select onChange={this.update('temp_measuring')} value={this.state.temp_measuring}>
                               <option value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
                                 <button className="create-page-main-img-upload"  onClick={()=>this.addIngredientToState()}>Add</button>
+                                {this.state.custom_ingredient_field_available ? (<button onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back.</button>) : (<button onClick={()=>this.enableCustomIngredientField()}>Can't find ingredient in the list.</button>)}
+
                             </div>
 
 
