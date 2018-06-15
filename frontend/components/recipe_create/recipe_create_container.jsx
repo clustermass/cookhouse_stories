@@ -14,7 +14,7 @@ const msp = (state,ownProps) => {
           cuisines:  Object.values(state.entities.cuisines),
           difficulties: Object.values(state.entities.difficulties),
           entities: state.entities,
-          errors: Object.values(state.entities.errors),
+          errors: Object.keys(state.entities.errors),
           session: state.session,
           loggedIn: Boolean(state.session.id),
 

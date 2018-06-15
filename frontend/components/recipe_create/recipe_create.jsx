@@ -55,6 +55,7 @@ class RecipeCreate extends React.Component {
   this.addIngredientToState = this.addIngredientToState.bind(this)
   this.enableCustomIngredientField = this.enableCustomIngredientField.bind(this)
   this.disableCustomIngredientField =   this.disableCustomIngredientField.bind(this)
+  this.removeIngredientFromState = this.removeIngredientFromState.bind(this)
   }
 
 //Alphabetical comparator
@@ -112,6 +113,7 @@ addIngredientToState(){
         this.setState({ingredient_ids:ing_arr,
           measuring_ids:meas_hash,
           amounts:amount_hash,
+          all_ingredients:all_ingredients,
           temp_ingredient: -1,
           temp_measuring: -1,
           temp_amount: '',
@@ -121,7 +123,8 @@ addIngredientToState(){
         })
 
       }else{
-        this.props.addErrors(["This ingridient has already been added!"])
+        this.props.addErrors({responseText:'This ingredient has already been added'})
+        setTimeout(()=>this.props.clearErrors(), 1500)
       }
     }
   console.log(this.state)
@@ -129,8 +132,20 @@ addIngredientToState(){
 
 
 removeIngredientFromState(id){
-
-
+  let meas_hash = this.state.measuring_ids
+  let amount_hash = this.state.amounts
+  let ing_arr = this.state.ingredient_ids
+  let all_ingredients = this.state.all_ingredients
+  let index = ing_arr.indexOf(id)
+  ing_arr.splice(index,1)
+  delete all_ingredients[id]
+  delete meas_hash[id]
+  delete amount_hash[id]
+  this.setState({ingredient_ids:ing_arr,
+    measuring_ids:meas_hash,
+    amounts:amount_hash,
+    all_ingredients:all_ingredients
+  })
 }
 
 
@@ -243,6 +258,8 @@ uploadMainPicture(){
             <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.uploadMainPicture() }>Upload picture</button>
           </div>
 
+          <div style={{height:'25px'}} className="errors">{this.props.errors.length === 0 ? (null) : this.props.errors[0]}</div>
+
           <div>
           <span>  Title: </span><input onChange={this.update('title')} value={this.state.value} type="text"></input>
           </div>
@@ -275,73 +292,73 @@ uploadMainPicture(){
                             <li key={id}> <span>{this.state.all_ingredients[id].name}</span>
                               <span>{this.state.amounts[id]}</span>
                               <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
-
+                              <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
 
                             </li>))}
                             {this.state.custom_ingredient_field_available ? (null) :
                             (<div className="create-page-main-alphabet-btns">
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=> this.openIMenu(event,'abc')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=> this.openIMenu(event,'abc')}>
                             ABC
                           </button>{this.state.abc ? (
                             <div className="ingredient-select-menu">
-                              {abc.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {abc.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                           </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'def')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'def')}>
                             DEF
                           </button>{this.state.def ? (
                             <div className="ingredient-select-menu">
-                              {def.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {def.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'ghi')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'ghi')}>
                             GHI
                           </button>{this.state.ghi ? (
                             <div className="ingredient-select-menu">
-                              {ghi.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {ghi.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'jkl')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'jkl')}>
                             JKL
                           </button>{this.state.jkl ? (
                             <div className="ingredient-select-menu">
-                              {jkl.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {jkl.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'mno')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'mno')}>
                             MNO
                           </button>{this.state.mno ? (
                             <div className="ingredient-select-menu">
-                              {mno.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {mno.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'pqr')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'pqr')}>
                             PQR
                           </button>{this.state.pqr ? (
                             <div className="ingredient-select-menu">
-                              {pqr.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {pqr.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'stu')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'stu')}>
                             STU
                           </button>{this.state.stu ? (
                             <div className="ingredient-select-menu">
-                              {stu.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {stu.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'vwx')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'vwx')}>
                             VWX
                           </button>{this.state.vwx ? (
                             <div className="ingredient-select-menu">
-                              {vwx.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {vwx.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
-                          <button className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'yz')}>
+                          <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=>this.openIMenu(event,'yz')}>
                             YZ
                           </button>{this.state.yz ? (
                             <div className="ingredient-select-menu">
-                              {yz.map((i)=>(<button className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
+                              {yz.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
 
                           </div>)}
@@ -356,10 +373,16 @@ uploadMainPicture(){
                               <option value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
-                                <button className="create-page-main-img-upload"  onClick={()=>this.addIngredientToState()}>Add</button>
-                                {this.state.custom_ingredient_field_available ? (<button onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back.</button>) : (<button onClick={()=>this.enableCustomIngredientField()}>Can't find ingredient in the list.</button>)}
+                                <button style={{cursor:'pointer'}} className="create-page-main-img-upload"  onClick={()=>this.addIngredientToState()}>Add</button>
+                                {this.state.custom_ingredient_field_available ? (<button style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back.</button>) : (<button style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>Can't find ingredient in the list.</button>)}
 
                             </div>
+
+
+                            <div>
+                              Steps
+                            </div>
+
 
 
 
