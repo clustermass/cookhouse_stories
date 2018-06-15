@@ -29,7 +29,7 @@ class RecipeCreate extends React.Component {
       custom_cuisine_country: '',
       custom_cuisine_sort: '',
 
-      main_ingredient_id: 1,
+      main_ingredient_id: -1,
       custom_main_ingredient: '',
 
       category_id: -1,
@@ -82,6 +82,9 @@ class RecipeCreate extends React.Component {
 addIngredient(id){
    return this.setState({temp_ingredient:id})
 }
+setIngredientAsMain(id){
+    return this.setState({main_ingredient_id:id})
+}
 
 enableCustomIngredientField(){
 this.setState({temp_ingredient:this.state.custom_ingredient_count,
@@ -119,6 +122,14 @@ addIngredientToState(){
       else{
         all_ingredients = Object.assign(all_ingredients,{[id]:this.props.ingredients[id]})
       }
+
+        //if everything is OK, let's set this ingridient as main if it is the first ingredient added.
+        let main_ingredient_id = this.state.main_ingredient_id;
+        if(this.state.ingredient_ids.length === 1){
+          main_ingredient_id = id;
+        }
+
+
         //Updating state
         this.setState({ingredient_ids:ing_arr,
           measuring_ids:meas_hash,
@@ -130,6 +141,7 @@ addIngredientToState(){
           custom_ingridient_name: '',
           custom_ingredient_count: custom_ingridient_id,
           custom_ingredient_field_available: false,
+          main_ingredient_id: main_ingredient_id,
         })
 
       }else{
@@ -142,6 +154,7 @@ addIngredientToState(){
 
 
 removeIngredientFromState(id){
+  let main_ingredient_id = this.state.main_ingredient_id;
   let meas_hash = this.state.measuring_ids
   let amount_hash = this.state.amounts
   let ing_arr = this.state.ingredient_ids
@@ -151,10 +164,20 @@ removeIngredientFromState(id){
   delete all_ingredients[id]
   delete meas_hash[id]
   delete amount_hash[id]
+
+  if(main_ingredient_id === id){
+    if(ing_arr.length > 0){
+      main_ingredient_id = ing_arr[0]
+    }else{
+      main_ingredient_id = -1
+    }
+  }
+
   this.setState({ingredient_ids:ing_arr,
     measuring_ids:meas_hash,
     amounts:amount_hash,
-    all_ingredients:all_ingredients
+    all_ingredients:all_ingredients,
+    main_ingredient_id: main_ingredient_id,
   })
 }
 
@@ -252,6 +275,11 @@ uploadStepPicture(id){
 
   componentDidMount(){
     this.props.importAllRecipeFeatures()
+    //TODO: uncomment when backend is ready.
+    // window.onbeforeunload = function(event)
+    // {
+    //     return confirm("Confirm refresh");
+    // };
   }
 
   componentWillUnmount(){
@@ -366,6 +394,7 @@ uploadStepPicture(id){
                               <span>{this.state.amounts[id]}</span>
                               <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
                               <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn-delete" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
+                              {this.state.main_ingredient_id === id ? (<span>Main Ingredient</span>) : (<button style={{cursor:'pointer'}}  className="create-page-main-ingr-btn" onClick={()=> this.setIngredientAsMain(id)}>make this main</button>)}
 
                             </li>))}
                             {this.state.custom_ingredient_field_available ? (<div> Please, enter your ingredient: </div>) :
