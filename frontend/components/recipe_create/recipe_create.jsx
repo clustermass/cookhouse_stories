@@ -275,11 +275,11 @@ uploadStepPicture(id){
 
   componentDidMount(){
     this.props.importAllRecipeFeatures()
-    //TODO: uncomment when backend is ready.
-    // window.onbeforeunload = function(event)
-    // {
-    //     return confirm("Confirm refresh");
-    // };
+
+    window.onbeforeunload = function(event)
+    {
+        return confirm("Confirm refresh");
+    };
   }
 
   componentWillUnmount(){
