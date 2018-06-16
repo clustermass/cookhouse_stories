@@ -53,7 +53,11 @@ class Api::RecipesController < ApplicationController
   end
 
 
+
   def new
+    if !logged_in?
+      render json: ["Unauthorized, please log in"], status: 401
+    end
     @cuisines = Cuisine.all
     @categories = Category.all
     @diets = Diet.all
@@ -63,7 +67,65 @@ class Api::RecipesController < ApplicationController
   end
 
   def create
-    @rawrecipe = recipe_params
+    if !logged_in?
+      render json: ["Unauthorized, please log in"], status: 401
+    end
+
+    @recipe ={}
+    # Checking if user created custom cuisine
+    @cuisine_id
+    if recipe_params[:cuisine_id].to_i == 1000
+      @cuisine_id = Cuisine.new(country:recipe_params[:custom_cuisine_country],
+                             sort:recipe_params[:custom_cuisine_sort])
+      if !@cuisine_id.save
+        errors = @cuisine_id.errors.full_messages
+        render json: errors, status: 422
+      else
+          @cuisine_id = @cuisine_id.id
+      end
+
+    else
+      @cuisine = recipe_params[:cuisine_id]
+    end
+
+      @ingredients_map = {}
+      @ingredients_ids = []
+
+      recipe_params[:ingredient_ids].map{|id| id.to_i}.each do |id|
+        @ingredients_map[id] = id
+        @ingredients_ids << id
+      end
+
+      @measurings = recipe_params[:measuring_ids].values
+
+      @amounts = recipe_params[:amounts].values
+
+      @ingredients_arr = recipe_params[:all_ingredients].values
+
+      # Checking if user created custom ingredients
+      if @ingredients_arr.any? {|ing_hash| ing_hash[:id] >=100000}
+          # Checking if user selected custom ingridient as main
+          if recipe_params[:main_ingredient_id].to_i >= 100000
+            @name = @ingredients_arr.select{|ing| ing[:id].to_i == recipe_params[:main_ingredient_id].to_i }.first[:name]
+            @temp_ing = Ingredient.new(name:@name)
+            # trying to save
+            if !@temp_ing.save
+              errors = @temp_ing.errors.full_messages
+              render json: errors, status: 422
+            end
+
+          else
+            @ingredients_arr.each do |ing|
+
+            end
+          end
+      else
+
+      end
+
+
+
+    debugger
     @recipe = Recipe.new(
       author_id:recipe_params[:author_id],
       title:recipe_params[:title],
@@ -71,9 +133,11 @@ class Api::RecipesController < ApplicationController
       cooking_time:recipe_params[:cooking_time],
       difficulty_id:recipe_params[:difficulty_id],
       cuisine_id:recipe_params[:cuisine_id],
-      category_id:recipe_params[:category_id]),
-      
-    debugger
+      category_id:recipe_params[:category_id],
+      main_ingredient_id:recipe_params[:main_ingredient_id],
+      diet_id:recipe_params[:diet_id],
+      main_picture_url:recipe_params[:main_picture_url])
+
   end
 
 
