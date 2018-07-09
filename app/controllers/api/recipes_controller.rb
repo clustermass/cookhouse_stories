@@ -69,19 +69,22 @@ class Api::RecipesController < ApplicationController
   def create
     if !logged_in?
       render json: ["Unauthorized, please log in"], status: 401
+      return nil
     end
 
     @recipe ={}
     # Checking if user created custom cuisine
     @cuisine_id
+    @cuisine
     if recipe_params[:cuisine_id].to_i == 1000
       @cuisine_id = Cuisine.new(country:recipe_params[:custom_cuisine_country],
                              sort:recipe_params[:custom_cuisine_sort])
       if !@cuisine_id.save
         errors = @cuisine_id.errors.full_messages
         render json: errors, status: 422
+        return nil
       else
-          @cuisine_id = @cuisine_id.id
+          @cuisine = recipe_params[@cuisine_id.id]
       end
 
     else
@@ -102,26 +105,44 @@ class Api::RecipesController < ApplicationController
 
       @ingredients_arr = recipe_params[:all_ingredients].values
 
+
       # Checking if user created custom ingredients
-      if @ingredients_arr.any? {|ing_hash| ing_hash[:id] >=100000}
-          # Checking if user selected custom ingridient as main
-          if recipe_params[:main_ingredient_id].to_i >= 100000
-            @name = @ingredients_arr.select{|ing| ing[:id].to_i == recipe_params[:main_ingredient_id].to_i }.first[:name]
-            @temp_ing = Ingredient.new(name:@name)
-            # trying to save
-            if !@temp_ing.save
-              errors = @temp_ing.errors.full_messages
-              render json: errors, status: 422
+
+      if @ingredients_map.any? {|k,v| k >= 9000}
+           @new_ing_arr = @ingredients_arr.select{|ing| ing[:id].to_i >= 9000 }
+           @new_ing_arr.each do |ing|
+             @temp_id = ing[:id].to_i
+             @new_ing = Ingredient.new(name:ing[:name].downcase)
+             if !@new_ing.save
+               errors = @new_ing.errors.full_messages
+               render json: errors, status: 422
+               return nil
+             end
+              @ingredients_map[@temp_id] = @new_ing.id
             end
+        end
 
-          else
-            @ingredients_arr.each do |ing|
+debugger
 
-            end
-          end
-      else
+          # # Checking if user selected custom ingridient as main
+          # if recipe_params[:main_ingredient_id].to_i >= 100000
+          #   @name = @ingredients_arr.select{|ing| ing[:id].to_i == recipe_params[:main_ingredient_id].to_i }.first[:name]
+          #   @temp_ing = Ingredient.new(name:@name)
+          #   # trying to save
+          #   if !@temp_ing.save
+          #     errors = @temp_ing.errors.full_messages
+          #     render json: errors, status: 422
+          #   end
+          #
+          # else
+          #   @ingredients_arr.each do |ing|
+          #
+          #   end
+          # end
+      # else
 
-      end
+
+
 
 
 

@@ -116,7 +116,7 @@ addIngredientToState(){
         amount_hash = Object.assign(amount_hash, {[id]:this.state.temp_amount})
 
       if(id >= 9000){
-        all_ingredients = Object.assign(all_ingredients,{[id]:{[id]:id,name:this.state.custom_ingridient_name}})
+        all_ingredients = Object.assign(all_ingredients,{[id]:{id:id,name:this.state.custom_ingridient_name}})
         custom_ingridient_id = custom_ingridient_id + 1 //if custom ingredient was added, we increase count on 1
       }
       else{
