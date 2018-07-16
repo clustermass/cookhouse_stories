@@ -15,8 +15,13 @@
 class Step < ApplicationRecord
 
   validates :body,:num,:recipe_id, presence: true
+  before_validation :nilify_blanks
 
   belongs_to :recipe
 
+
+  def nilify_blanks
+    self.image = nil  if self.image == ""
+  end
 
 end

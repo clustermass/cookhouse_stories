@@ -72,39 +72,76 @@ class Api::RecipesController < ApplicationController
       return nil
     end
 
+    if recipe_params[:cuisine_id].chomp.to_i == -1
+      render json: ["Please, select cuisine"], status: 422
+      return nil
+    elsif recipe_params[:category_id].chomp.to_i == -1
+      render json: ["Please, select category"], status: 422
+      return nil
+    elsif recipe_params[:diet_id].chomp.to_i == -1
+      render json: ["Please, select diet"], status: 422
+      return nil
+    elsif recipe_params[:difficulty_id].chomp.to_i == -1
+      render json: ["Please, select difficulty"], status: 422
+      return nil
+    elsif recipe_params[:title] == nil
+      render json: ["Please, specify title"], status: 422
+      return nil
+    elsif recipe_params[:cooking_time].chomp.to_i == 0
+      render json: ["Please, specify cooking time"], status: 422
+      return nil
+    end
+    # @author_id = current_user.id
     @recipe ={}
-    # Checking if user created custom cuisine
-    @cuisine_id
+
     @cuisine
+
+    # Checking if user created custom cuisine
     if recipe_params[:cuisine_id].to_i == 1000
-      @cuisine_id = Cuisine.new(country:recipe_params[:custom_cuisine_country],
-                             sort:recipe_params[:custom_cuisine_sort])
-      if !@cuisine_id.save
-        errors = @cuisine_id.errors.full_messages
+      @cuisine = Cuisine.new(country:recipe_params[:custom_cuisine_country].chomp,
+                             sort:recipe_params[:custom_cuisine_sort].chomp)
+      if !@cuisine.valid?
+        errors = @cuisine.errors.full_messages
         render json: errors, status: 422
         return nil
-      else
-          @cuisine = recipe_params[@cuisine_id.id]
       end
 
     else
-      @cuisine = recipe_params[:cuisine_id]
+      @cuisine = Cuisine.find(recipe_params[:cuisine_id].to_i)
     end
 
       @ingredients_map = {}
-      @ingredients_ids = []
+      @ingredients_hash = Hash.new
+      # @ingredients_ids = []
 
-      recipe_params[:ingredient_ids].map{|id| id.to_i}.each do |id|
-        @ingredients_map[id] = id
-        @ingredients_ids << id
+      # If no ingredients passed, raise error.
+      if recipe_params[:all_ingredients] == nil
+          render json: ["Please, add at least one ingredient to recipe."], status: 422
+          return nil
       end
 
-      @measurings = recipe_params[:measuring_ids].values
-
-      @amounts = recipe_params[:amounts].values
-
       @ingredients_arr = recipe_params[:all_ingredients].values
+      recipe_params[:ingredient_ids].map{|id| id.to_i}.each do |id|
+        @ingredients_map[id] = id
+        # @ingredients_ids << id
+      end
 
+      # Getting measurings from DB
+      @measurings = {}
+      recipe_params[:measuring_ids].each do |k,v|
+        @measurings[k.to_i] = Measuring.find(v.to_i)
+      end
+
+      # Converting amounts to integers
+      @amounts = {}
+      recipe_params[:amounts].each do |k,v|
+        @amounts[k.to_i] = v.to_i
+        # Checking if all amounts are digits.
+        if @amounts[k.to_i] == 0
+          render json: ["Wrong amount. Please, use integers as amount value"], status: 422
+          return nil
+        end
+      end
 
       # Checking if user created custom ingredients
 
@@ -112,52 +149,142 @@ class Api::RecipesController < ApplicationController
            @new_ing_arr = @ingredients_arr.select{|ing| ing[:id].to_i >= 9000 }
            @new_ing_arr.each do |ing|
              @temp_id = ing[:id].to_i
-             @new_ing = Ingredient.new(name:ing[:name].downcase)
-             if !@new_ing.save
+             @new_ing = Ingredient.new(name:ing[:name].chomp.downcase)
+             if !@new_ing.valid?
                errors = @new_ing.errors.full_messages
                render json: errors, status: 422
                return nil
              end
-              @ingredients_map[@temp_id] = @new_ing.id
+             @ingredients_hash[@temp_id] = @new_ing
+              # @ingredients_map[@temp_id] = @new_ing.id
             end
         end
+        # At this point all new ingredients passed validation.
+        # Let's grab all existing ingredients.
+          @old_ing_arr = @ingredients_arr.select{|ing| ing[:id].to_i < 9000 }
+          @old_ing_arr.each do |ing|
+            @id = ing[:id].to_i
+            @old_ing = Ingredient.find(@id)
+            @ingredients_hash[@id] = @old_ing
+          end
 
-debugger
+          # Creating new recipe and validating.
+          @recipe = Recipe.new
+          @recipe.author = current_user
+          @recipe.title = recipe_params[:title].chomp
+          @recipe.main_picture_url = recipe_params[:main_picture_url].chomp
+          @recipe.cooking_time = recipe_params[:cooking_time].chomp.to_i
+          @recipe.difficulty = Difficulty.find(recipe_params[:difficulty_id].chomp.to_i)
+          #  If cuisine has not been created, we set temporarily placeholder to pass recipe validation.
+          if @cuisine &&  @cuisine.id == nil
+            @recipe.cuisine_id = 1000
+          else
+            @recipe.cuisine = @cuisine
+          end
 
-          # # Checking if user selected custom ingridient as main
-          # if recipe_params[:main_ingredient_id].to_i >= 100000
-          #   @name = @ingredients_arr.select{|ing| ing[:id].to_i == recipe_params[:main_ingredient_id].to_i }.first[:name]
-          #   @temp_ing = Ingredient.new(name:@name)
-          #   # trying to save
-          #   if !@temp_ing.save
-          #     errors = @temp_ing.errors.full_messages
-          #     render json: errors, status: 422
-          #   end
-          #
-          # else
-          #   @ingredients_arr.each do |ing|
-          #
-          #   end
-          # end
-      # else
+          @recipe.category = Category.find(recipe_params[:category_id].chomp.to_i)
+
+          # If ingredient hasn't been saved, let's assing valid ingredient to validate recipe
+          if @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i] && @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i].id == nil
+            @recipe.main_ingredient = Ingredient.first
+          else
+            @recipe.main_ingredient = @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i]
+          end
+
+
+          @recipe.diet = Diet.find(recipe_params[:diet_id].chomp.to_i)
+
+          # Returning error if recipe is not valid
+          if !@recipe.valid?
+            errors = @recipe.errors.full_messages
+            render json: errors, status: 422
+            return nil
+          end
+          #  returning main ingredient, if it hasn't been save to DB.
+
+          if @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i] && @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i].id == nil
+
+            @recipe.main_ingredient = @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i]
+
+          end
+
+          # assigning it back to recipe.
+          if @recipe.cuisine_id = 1000
+            @recipe.cuisine_id = @cuisine.id
+          end
+
+          @steps = []
+
+          recipe_params[:all_steps].each do |_,v|
+            @steps << Step.new(num:v["num"].to_i, image:v["image"], body:v["body"].chomp)
+          end
+
+          # If any step has no text, raise error.
+          if @steps.any? {|s| s.body.length == 0}
+            render json: ["Every step should have text."], status: 422
+            return nil
+          end
+
+          #  Finish Validation. Start saving to DB...
+
+          # Saving cuisine, if it is newly created.
+          if @cuisine && @cuisine.id == nil
+            @cuisine.save
+          end
+
+
+          # Saving new ingredients
+          @ingredients_hash.each do |k,v|
+            if v.id == nil
+              # Let's check if we have this ingredient already...
+              t_ing = Ingredient.find_by(name:v.name)
+              if t_ing
+                @ingredients_hash[k] = t_ing
+              else
+                v.save
+              end
+            end
+          end
+
+          # Saving recipe.
+          @recipe.cuisine = @cuisine
+          @recipe.main_ingredient = @ingredients_hash[recipe_params[:main_ingredient_id].chomp.to_i]
+
+          if !@recipe.save
+            errors = @recipe.errors.full_messages
+            render json: errors, status: 422
+            return nil
+          end
+
+          # Adding ingredients to recipe
+
+          @ingredients_hash.each do |k,v|
+            ia = IngredientAmount.new(ingredient:v, recipe:@recipe, measuring:@measurings[k], amount:@amounts[k])
+            ia.save
+          end
+
+          @steps.each do |step|
+            debugger
+            step.recipe = @recipe
+            step.save
+            debugger
+          end
+
+          render json: @recipe
 
 
 
-
-
-
-    debugger
-    @recipe = Recipe.new(
-      author_id:recipe_params[:author_id],
-      title:recipe_params[:title],
-      main_picture_url:recipe_params[:main_picture_url],
-      cooking_time:recipe_params[:cooking_time],
-      difficulty_id:recipe_params[:difficulty_id],
-      cuisine_id:recipe_params[:cuisine_id],
-      category_id:recipe_params[:category_id],
-      main_ingredient_id:recipe_params[:main_ingredient_id],
-      diet_id:recipe_params[:diet_id],
-      main_picture_url:recipe_params[:main_picture_url])
+    # @recipe = Recipe.new(
+    #   author_id:recipe_params[:author_id],
+    #   title:recipe_params[:title],
+    #   main_picture_url:recipe_params[:main_picture_url],
+    #   cooking_time:recipe_params[:cooking_time],
+    #   difficulty_id:recipe_params[:difficulty_id],
+    #   cuisine_id:recipe_params[:cuisine_id],
+    #   category_id:recipe_params[:category_id],
+    #   main_ingredient_id:recipe_params[:main_ingredient_id],
+    #   diet_id:recipe_params[:diet_id],
+    #   main_picture_url:recipe_params[:main_picture_url])
 
   end
 

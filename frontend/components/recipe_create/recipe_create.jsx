@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-
-
 class RecipeCreate extends React.Component {
   constructor(props){
     super(props)
@@ -260,7 +258,8 @@ removeStep(id){
     e.preventDefault();
     const recipe = Object.assign({}, this.state);
     this.props.clearErrors();
-    this.props.submitRecipe(recipe);
+    this.props.submitRecipe(recipe).then((recipe)=>(this.props.history.push(`/recipes/${recipe.id}`)),errors=>this.props.addErrors(errors))
+    // this.props.submitRecipe(recipe).then((recipe)=>(push(`/recipes/${recipe.id}`)),errors=>dispatch(addErrors(errors)))
   }
 uploadMainPicture(){
   cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
