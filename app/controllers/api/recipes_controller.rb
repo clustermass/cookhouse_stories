@@ -1,8 +1,20 @@
 class Api::RecipesController < ApplicationController
 
   def index
-    # debugger
-    @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet )
+      @recipes
+    if params["query"] != nil
+      query = params["query"].chomp.downcase
+      @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet )
+      @steps = Step.where(["lower(body) like ?" ,"%#{query}%"])
+      @return = @recipes.select{|rec| rec.title.downcase.include?(query)}
+      @steps.each do |step|
+      @return << @recipes.select{|rec| rec.id == step.recipe_id}.first  if @return.none?{|rec| rec.id == step.recipe_id}
+      end
+      @recipes =  @return
+    else
+      @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet )
+    end
+
     @followers_count = []
     @cuisines = []
     @categories = []
@@ -264,12 +276,9 @@ class Api::RecipesController < ApplicationController
           end
 
           @steps.each do |step|
-            debugger
             step.recipe = @recipe
             step.save
-            debugger
           end
-
           render json: @recipe
 
 

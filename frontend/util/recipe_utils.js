@@ -28,6 +28,14 @@ export const getAllRecipeFeatures = () =>(
   })
 )
 
+export const getQueriedRecipes = (query) =>(
+  $.ajax({
+    method: 'GET',
+    url: 'api/recipes',
+    data: {query:query}
+  })
+)
+
 export const postRecipe = (recipe) =>(
   $.ajax({
     method: 'POST',
