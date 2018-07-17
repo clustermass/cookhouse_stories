@@ -12,7 +12,7 @@
 
 
 class Cuisine < ApplicationRecord
-  validates :sort, presence: true
+  validates :sort, :country, presence: true
 
   has_many :recipes
 end

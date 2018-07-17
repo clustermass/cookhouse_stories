@@ -109,7 +109,7 @@ class RecipeInfo extends React.Component {
         backgroundImage: "url(" + recipe.main_picture_url  + ")",
         backgroundRepeat  : 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: 'cover',
+        backgroundSize: '100%',
       };
 
       return(<div className="info-page-main-container" >
@@ -175,7 +175,7 @@ class RecipeInfo extends React.Component {
             backgroundImage: "url(" + step.image  + ")",
             backgroundRepeat  : 'no-repeat',
             backgroundPosition: 'center',
-            backgroundSize: 'cover',
+            backgroundSize: '100%',
           };
           return(
             <div key={num} className="info-page-main-stepcontainer" >

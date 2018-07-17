@@ -172,3 +172,120 @@ outline:0;
   outline:0;
      cursor:pointer;
 }
+
+.create-page-main-title{
+/* height:16px; */
+border-top: none;
+border-left: none;
+border-right: none;
+border-bottom: 2px solid gray;
+font-size: 16px;
+margin-left: 5px;
+}
+
+.create-page-main-title:focus{
+  outline:0;
+}
+.create-page-main-ing{
+/* height:16px; */
+border-top: none;
+border-left: none;
+border-right: none;
+border-bottom: 2px solid gray;
+font-size: 16px;
+margin-left: 10px;
+margin-right: 10px;
+}
+
+.create-page-main-ing:focus{
+  outline:0;
+}
+.create-page-main-ing-disabled{
+/* height:16px; */
+border-top: none;
+border-left: none;
+border-right: none;
+border-bottom: 2px dashed gray;
+font-size: 16px;
+margin-left: 10px;
+margin-right: 10px;
+}
+
+.create-page-main-ing-disabled:focus{
+  outline:0;
+}
+.create-page-main-time{
+/* height:16px; */
+border-top: none;
+border-left: none;
+border-right: none;
+border-bottom: 2px solid gray;
+font-size: 16px;
+margin-left: 5px;
+width:30px;
+}
+
+.create-page-main-time:focus{
+  outline:0;
+}
+.create-page-main-diff{
+/* height:16px; */
+/* border-top: none;
+border-left: none;
+border-right: none; */
+border: 1px solid gray;
+font-size: 16px;
+margin-left: 10px;
+}
+.create-page-main-diff:focus{
+outline: 0;
+}
+.create-page-main-cuis{
+border: 1px solid gray;
+font-size: 16px;
+margin-left: 10px;
+
+}
+.create-page-main-cuis:focus{
+outline: 0;
+}
+
+.create-page-main-amount{
+/* height:16px; */
+border-top: none;
+border-left: none;
+border-right: none;
+border-bottom: 2px solid gray;
+font-size: 16px;
+margin-left: 10px;
+margin-right: 10px;
+width:60px;
+}
+
+.create-page-main-amount:focus{
+  outline:0;
+}
+
+
+.create-page-main-container{
+font-size: 22px;
+  color: #464646;
+  margin-bottom: 10px;
+}
+.create-page-main-ing-name{
+  width:300px;
+}
+.create-page-main-ing-amount{
+  width:55px;
+}
+.create-page-main-ing-measuring{
+  width: 100px;
+}
+.create-page-main-ing-div{
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  list-style-type: circle;
+  border-bottom: 1px solid gray;
+  width: 700px;
+}

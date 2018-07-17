@@ -274,7 +274,7 @@ uploadStepPicture(id){
 
   componentDidMount(){
     this.props.importAllRecipeFeatures()
-
+    this.props.clearErrors()
     window.onbeforeunload = function(event)
     {
         return confirm("Confirm refresh");
@@ -283,6 +283,10 @@ uploadStepPicture(id){
 
   componentWillUnmount(){
     this.props.clearAllRecipeFeatures()
+    window.onbeforeunload = function(event)
+    {
+
+    };
   }
 
 
@@ -293,7 +297,7 @@ uploadStepPicture(id){
         backgroundImage: `url('${this.state.main_picture_url}')`,
         backgroundRepeat  : 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
       };
     }
 
@@ -340,65 +344,70 @@ uploadStepPicture(id){
 
           <div style={{height:'25px'}} className="errors">{this.props.errors.length === 0 ? (null) : this.props.errors[0]}</div>
 
-          <div>
-          <span>  Title: </span><input onChange={this.update('title')} value={this.state.value} type="text"></input>
+          <div className="create-page-main-container">
+          <span>  Title: </span><input className="create-page-main-title" onChange={this.update('title')} value={this.state.value} type="text"></input>
           </div>
 
 
-          <div>
+          <div className="create-page-main-container" >
             <span>Difficulty level:</span>
-            <select onChange={this.update('difficulty_id')}>
+            <select className="create-page-main-diff" onChange={this.update('difficulty_id')}>
               <option hidden value="">Select Difficulty</option>
               {this.props.difficulties.map(dif=> <option key={dif.id} value={dif.id}>{dif.level}</option>)}
             </select>
           </div>
 
 
-          <div>
-          <span>  Overall cooking time (in minutes)</span><input onChange={this.update('cooking_time')} value={this.state.value} type="text"></input>
+          <div className="create-page-main-container" >
+          <span>  Overall cooking time (in minutes)</span><input className="create-page-main-time" onChange={this.update('cooking_time')} value={this.state.value} type="text"></input>
           </div>
 
-          <div>
+          <div className="create-page-main-container" >
               <span>Cuisine</span>
-                <select onChange={this.update('cuisine_id')}>
+                <select className="create-page-main-cuis" onChange={this.update('cuisine_id')}>
                   <option hidden value="">Select Cuisine</option>
                   {this.props.cuisines.map(cus=> <option key={cus.id} value={cus.id}>{cus.sort} &nbsp;{cus.country}</option>)}
                 </select>
-                {this.state.cuisine_id === '1000' ? <div><span>Enter your cusine: </span><span>Country</span><input onChange={this.update('custom_cuisine_country')} type="text" value={this.state.custom_cuisine_country}></input>
-              <span>Sort</span><input onChange={this.update('custom_cuisine_sort')} type="text" value={this.state.custom_cuisine_sort}></input>
+                {this.state.cuisine_id === '1000' ? <div><span>Enter your cusine: </span><span>Country</span><input className="create-page-main-title" onChange={this.update('custom_cuisine_country')} type="text" value={this.state.custom_cuisine_country}></input>
+              <span>Sort</span><input className="create-page-main-title" onChange={this.update('custom_cuisine_sort')} type="text" value={this.state.custom_cuisine_sort}></input>
                 </div> : ''}
           </div>
 
-          <div>
+          <div className="create-page-main-container" >
               <span>Diet</span>
-                <select onChange={this.update('diet_id')} >
+                <select className="create-page-main-cuis" onChange={this.update('diet_id')} >
                   <option hidden value="">Select Diet</option>
                   {this.props.diets.map(diet=> <option key={diet.id} value={diet.id}>{diet.name}</option>)}
                 </select>
 
           </div>
 
-          <div>
+          <div className="create-page-main-container" >
               <span>Category</span>
-                <select onChange={this.update('category_id')} >
+                <select className="create-page-main-cuis" onChange={this.update('category_id')} >
                   <option hidden value="">Select Category</option>
                   {this.props.categories.map(cat=> <option key={cat.id} value={cat.id}>{cat.name}</option>)}
                 </select>
 
           </div>
-
-
+                            <span>Ingredients list:</span>
+                            <ul>
                           {this.state.ingredient_ids.map((id)=>(
-                            <li key={id}> <span>{this.state.all_ingredients[id].name}</span>
-                              <span>{this.state.amounts[id]}</span>
-                              <span>{this.props.measurings[this.state.measuring_ids[id]].name}</span>
+                            <li key={id}>
+                          <div className="create-page-main-ing-div">
+
+                              <div className="create-page-main-ing-name">{this.state.all_ingredients[id].name}</div>
+                              <div className="create-page-main-ing-amount">{this.state.amounts[id]}</div>
+                              <div className="create-page-main-ing-measuring">{this.props.measurings[this.state.measuring_ids[id]].name}</div>
                               <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn-delete" onClick={()=> this.removeIngredientFromState(id)}>Delete</button>
                               {this.state.main_ingredient_id === id ? (<span>Main Ingredient</span>) : (<button style={{cursor:'pointer'}}  className="create-page-main-ingr-btn" onClick={()=> this.setIngredientAsMain(id)}>make this main</button>)}
-
+                            </div>
                             </li>))}
-                            {this.state.custom_ingredient_field_available ? (<div> Please, enter your ingredient: </div>) :
+                          </ul>
+                          &nbsp;
+                            {this.state.custom_ingredient_field_available ? (<div> <span>Please, enter your ingredient below or you can </span><button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back</button></div>) :
                             (<div className="create-page-main-alphabet-btns">
-
+                            <div><span>Please, pick ingredient from the aplphabetically sorted list: </span></div>
                           <button style={{cursor:'pointer'}} className="ingredient-select-btn-letter" onClick={(event)=> this.openIMenu(event,'abc')}>
                             ABC
                           </button>{this.state.abc ? (
@@ -461,24 +470,21 @@ uploadStepPicture(id){
                             <div className="ingredient-select-menu">
                               {yz.map((i)=>(<button style={{cursor:'pointer'}} className="ingredient-select-btn" onClick={()=>this.addIngredient(i.id)} key={i.id}> {i.name} </button>))}
                             </div>): (null)}
-
+                            <button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>No ingredient in the list?</button>
                           </div>)}
 
                             <div>
 
-                              Ingredient {this.state.custom_ingredient_field_available ? (<input type="text" onChange={this.update('custom_ingridient_name')} value={this.state.custom_ingridient_name}/>) : (<input type="text" readOnly value={curr_ing_name}/>)}
+                              Ingredient {this.state.custom_ingredient_field_available ? (<input className="create-page-main-ing" type="text" onChange={this.update('custom_ingridient_name')} value={this.state.custom_ingridient_name}/>) : (<input className="create-page-main-ing-disabled" type="text" readOnly value={curr_ing_name}/>)}
 
-                            Amount <input type="text" value={this.state.temp_amount} onChange={this.update('temp_amount')}/>
+                            Amount <input className="create-page-main-amount" type="text" value={this.state.temp_amount} onChange={this.update('temp_amount')}/>
 
-                          <select onChange={this.update('temp_measuring')} value={this.state.temp_measuring}>
+                          <select className="create-page-main-cuis" onChange={this.update('temp_measuring')} value={this.state.temp_measuring}>
                               <option hidden value="">Select measuring</option>
                                   {Object.values(this.props.measurings).map(meas=> <option key={meas.id} value={meas.id}>{meas.name}</option>)}
                                 </select>
                                 <button style={{cursor:'pointer'}} className="create-page-main-universal-btn"  onClick={()=>this.addIngredientToState()}>Add</button>
-                                <div>{this.state.custom_ingredient_field_available ?
-                                    (<button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.disableCustomIngredientField()}>Get Ingredients list back</button>) :
-                                    (<button className="create-page-main-universal-btn" style={{cursor:'pointer'}} onClick={()=>this.enableCustomIngredientField()}>No ingredient in the list?</button>)}
-                                </div>
+
 
                             </div>
 
@@ -496,7 +502,7 @@ uploadStepPicture(id){
                                     backgroundImage: `url('${step.image}')`,
                                     backgroundRepeat  : 'no-repeat',
                                     backgroundPosition: 'center',
-                                    backgroundSize: 'cover'}}> </div>)}
+                                    backgroundSize: 'contain'}}> </div>)}
                                     <div>
                                       <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn" onClick={()=> this.uploadStepPicture(step.id) }>Upload picture</button>
                                       {step.num === 1 ? (null): (<button className={"create-page-main-universal-btn-delete"}onClick={()=>this.removeStep(step.id)}>Delete step</button>)}
