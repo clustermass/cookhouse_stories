@@ -4,11 +4,12 @@ class Api::RecipesController < ApplicationController
       @recipes
     if params["query"] != nil
       query = params["query"].chomp.downcase
-      @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet )
+      @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet,:ingredients )
       @steps = Step.where(["lower(body) like ?" ,"%#{query}%"])
-      @return = @recipes.select{|rec| rec.title.downcase.include?(query)}
+
+      @return = @recipes.select{|rec| rec.title.downcase.include?(query) || rec.ingredients.any?{|ing| ing.name == query}}
       @steps.each do |step|
-      @return << @recipes.select{|rec| rec.id == step.recipe_id}.first  if @return.none?{|rec| rec.id == step.recipe_id}
+        @return << @recipes.select{|rec| rec.id == step.recipe_id}.first  if @return.none?{|rec| rec.id == step.recipe_id}
       end
       @recipes =  @return
     else
