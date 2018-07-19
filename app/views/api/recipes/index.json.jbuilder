@@ -43,6 +43,14 @@ json.difficulties do
   end
 end
 
+json.ingredients do
+
+  @ingredients.each do |ing|
+    json.set! ing.id do
+      json.extract! ing, :id, :name
+    end
+  end
+end
 
 json.followers_count do
   @followers_count.each do |fol|

@@ -5,7 +5,11 @@ import { importAllRecipes, importQueriedRecipes} from '../../actions/recipes_act
 import RecipeIndex from './recipe_index'
 
 const msp = (state) => ({
-
+  categories: Object.values(state.entities.categories),
+  cuisines: Object.values(state.entities.cuisines),
+  diets: Object.values(state.entities.diets),
+  difficulties: Object.values(state.entities.difficulties),
+  main_ingredients: Object.values(state.entities.ingredients),
   recipes: Object.values(state.entities.recipes),
   followers: state.entities.followers_count,
   recipesOnPage: 24

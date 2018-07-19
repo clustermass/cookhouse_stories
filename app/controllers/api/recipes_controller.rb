@@ -21,6 +21,14 @@ class Api::RecipesController < ApplicationController
     @categories = []
     @diets = []
     @difficulties = []
+    @ingredients = []
+
+    @ingredients.push(Ingredient.find_by(name:"beef"))  if   Ingredient.find_by(name:"beef") != nil
+    @ingredients.push(Ingredient.find_by(name:"pork")) if Ingredient.find_by(name:"pork") != nil
+    @ingredients.push(Ingredient.find_by(name:"poultry")) if Ingredient.find_by(name:"poultry") != nil
+    @ingredients.push(Ingredient.find_by(name:"pasta")) if Ingredient.find_by(name:"pasta") != nil
+
+
     @recipes.each do |rec|
       @followers_count += [{recipe_id:rec.id,followers_count: rec.followers.length}]
       @cuisines += [rec.cuisine]  unless @cuisines.include?(rec.cuisine)
