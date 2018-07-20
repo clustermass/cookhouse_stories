@@ -7,47 +7,52 @@ import RecipeIndexItem from './recipe_index_item'
 class RecipeIndex extends React.Component {
 constructor(props){
   super(props)
+  // debugger
+    if (Object.keys(props.state).length === 0) {
+      this.state = {
+        recipesOnPage : props.recipesOnPage,
+        searchquery   : "",
+        searched : "",
+        starter : "checkbox-off",
+        main: "checkbox-off",
+        dessert: "checkbox-off",
+        snack: "checkbox-off",
+        breakfast: "checkbox-off",
+        drink: "checkbox-off",
+        easy: "checkbox-off",
+        medium: "checkbox-off",
+        hard: "checkbox-off",
+        vegetarian: "checkbox-off",
+        vegan: "checkbox-off",
+        sugarfree: "checkbox-off",
+        lactosefree: "checkbox-off",
+        glutenfree: "checkbox-off",
+        alcoholfree: "checkbox-off",
+        twenty: "checkbox-off",
+        thirty: "checkbox-off",
+        sixty: "checkbox-off",
+        beef: "checkbox-off",
+        pasta: "checkbox-off",
+        poultry: "checkbox-off",
+        pork: "checkbox-off",
+        chinese: "checkbox-off",
+        italian: "checkbox-off",
+        indian: "checkbox-off",
+        spanish: "checkbox-off",
+        american: "checkbox-off",
+        eastern: "checkbox-off",
+        asian: "checkbox-off",
+        french: "checkbox-off",
+        european: "checkbox-off",
+        catAsian: "checkbox-off",
+        catWeekend: "checkbox-off",
+        catUnder: "checkbox-off",
+        catLowCarb: "checkbox-off",}
+      }else{
+        this.state = props.state
+      }
 
-    this.state = {
-      recipesOnPage : props.recipesOnPage,
-      searchquery   : "",
-      searched : "",
-      starter : "checkbox-off",
-      main: "checkbox-off",
-      dessert: "checkbox-off",
-      snack: "checkbox-off",
-      breakfast: "checkbox-off",
-      drink: "checkbox-off",
-      easy: "checkbox-off",
-      medium: "checkbox-off",
-      hard: "checkbox-off",
-      vegetarian: "checkbox-off",
-      vegan: "checkbox-off",
-      sugarfree: "checkbox-off",
-      lactosefree: "checkbox-off",
-      glutenfree: "checkbox-off",
-      alcoholfree: "checkbox-off",
-      twenty: "checkbox-off",
-      thirty: "checkbox-off",
-      sixty: "checkbox-off",
-      beef: "checkbox-off",
-      pasta: "checkbox-off",
-      poultry: "checkbox-off",
-      pork: "checkbox-off",
-      chinese: "checkbox-off",
-      italian: "checkbox-off",
-      indian: "checkbox-off",
-      spanish: "checkbox-off",
-      american: "checkbox-off",
-      eastern: "checkbox-off",
-      asian: "checkbox-off",
-      french: "checkbox-off",
-      european: "checkbox-off",
-      catAsian: "checkbox-off",
-      catWeekend: "checkbox-off",
-      catUnder: "checkbox-off",
-      catLowCarb: "checkbox-off",
-    }
+
 
 
   this.loadMoreRecipes = this.loadMoreRecipes.bind(this)
@@ -59,15 +64,32 @@ constructor(props){
 
 loadMoreRecipes(){
   let tempQuantity = this.state.recipesOnPage
-  tempQuantity++
+  tempQuantity += 24
   this.setState({recipesOnPage:tempQuantity})
 }
 componentDidMount(){
-  this.props.importAllRecipes()
+  if(Object.keys(this.props.state).length === 0){
+    //No previous search/filters were set, let's load all recipes
+    this.props.importAllRecipes()
+  }else if (this.state.searchquery === "") {
+    //Previous filters are applied, but no search needed. Loading all recipes
+    this.props.importAllRecipes()
+  }else if (this.state.searchquery != ""){
+    //Previous filters are applied, search was applied, loading only recipes that satisfy search criteria
+    this.props.importQueriedRecipes(this.state.searchquery)
+  }
+
 }
 
 updateField(fieldname, e){
-  this.setState({[fieldname]:e.currentTarget.value})
+  this.setState({[fieldname]:e.currentTarget.value},()=>{
+    //This can only be called if user erased previously entered query string.
+    // If user doesn't want to search for something specific, let's load all recipes.
+    if(this.state.searchquery === ""){
+      this.props.importAllRecipes()
+      this.setState({searched : ""})
+    }
+  })
 }
 
 switchCheckBox(field){
@@ -93,6 +115,8 @@ switchCheckBox(field){
   else{
     this.setState({[field]:"checkbox-off"})
   }
+
+
 }
 
 resetAllFilters(){
@@ -143,6 +167,9 @@ componentWillReceiveProps(nextProps){
   // this.setState(nextProps)
 }
 
+componentWillUnmount(){
+  this.props.saveSearchFilters(this.state)
+}
 render(){
   console.log(this.state)
 
@@ -167,32 +194,61 @@ render(){
     }
   })
 
+    filterIds["chinese"] = []
+    filterIds["italian"] = []
+    filterIds["indian"] = []
+    filterIds["spanish"] = []
+    filterIds["american"] = []
+    filterIds["eastern"] = []
+    filterIds["asian"] = []
+    filterIds["french"] = []
+    filterIds["european"] = []
+
+
+
   this.props.cuisines.forEach((el)=>{
     if(el.country.toLowerCase() === "china"){
-      filterIds["chinese"] = el.id
+      if(!filterIds["chinese"].includes(el.id)){
+        filterIds["chinese"].push(el.id)
+      }
+
     }else if (el.country.toLowerCase() === "italy") {
-      filterIds["italian"] = el.id
-
+      if(!filterIds["italian"].includes(el.id)){
+        filterIds["italian"].push(el.id)
+      }
     } else if (el.country.toLowerCase() === "india") {
-      filterIds["indian"] = el.id
-
+      if(!filterIds["indian"].includes(el.id)){
+        filterIds["indian"].push(el.id)
+      }
     }else if (el.country.toLowerCase() === "spain") {
-      filterIds["spanish"] = el.id
+      if(!filterIds["spanish"].includes(el.id)){
+        filterIds["spanish"].push(el.id)
+      }
 
     }else if (el.country.toLowerCase() === "america") {
-      filterIds["american"] = el.id
+      if(!filterIds["american"].includes(el.id)){
+        filterIds["american"].push(el.id)
+      }
 
     }else if (el.country.toLowerCase() === "east") {
-      filterIds["eastern"] = el.id
+      if(!filterIds["eastern"].includes(el.id)){
+        filterIds["eastern"].push(el.id)
+      }
 
     }else if (el.country.toLowerCase() === "asia") {
-      filterIds["asian"] = el.id
+      if(!filterIds["asian"].includes(el.id)){
+        filterIds["asian"].push(el.id)
+      }
 
     }else if (el.country.toLowerCase() === "france") {
-      filterIds["french"] = el.id
+      if(!filterIds["french"].includes(el.id)){
+        filterIds["french"].push(el.id)
+      }
 
     }else if (el.country.toLowerCase() === "europe") {
-      filterIds["european"] = el.id
+      if(!filterIds["european"].includes(el.id)){
+        filterIds["european"].push(el.id)
+      }
     }
   })
 
@@ -240,14 +296,6 @@ render(){
 
 
   console.log(filterIds)
-
-  // let recipesOnMain =[]
-  //
-  // for (let i = 0; i < this.state.recipesOnPage; i++) {
-  //   if (this.props.recipes[i] !== undefined){
-  //     recipesOnMain.push(this.props.recipes[i])
-  //   }
-  // }
 
   let recipesOnMain = this.props.recipes
   console.log(recipesOnMain)
@@ -408,8 +456,47 @@ render(){
   ){
     cuisineClass = "main-recipe-search-dropbtn-on"
     resetBtns = "main-recipe-search-reset-btns"
-    
+    recipesOnMain = recipesOnMain.filter((recipe)=>{
+      if (this.state.chinese === "checkbox-on" && filterIds["chinese"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.italian === "checkbox-on" && filterIds["italian"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.indian === "checkbox-on"  && filterIds["indian"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.spanish === "checkbox-on"  && filterIds["spanish"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.american === "checkbox-on"  && filterIds["american"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.eastern === "checkbox-on"  && filterIds["eastern"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.asian === "checkbox-on"  && filterIds["asian"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.french === "checkbox-on"  && filterIds["french"].includes(recipe.cuisine_id)){
+        return true
+      }
+      if (this.state.european === "checkbox-on"  && filterIds["european"].includes(recipe.cuisine_id)){
+        return true
+      }
+      else{
+        return false
+      }
+    })
 
+  }
+
+  let countedRecipesOnMain =[]
+
+  for (let i = 0; i < this.state.recipesOnPage; i++) {
+    if (recipesOnMain[i] !== undefined){
+      countedRecipesOnMain.push(recipesOnMain[i])
+    }
   }
 
   return(<div>
@@ -660,10 +747,10 @@ render(){
 <div className="main-recipe-container">
 {this.state.searched.length > 0 ? (<div className="recipes-title"><span>Showing results matching	&#34;{this.state.searched}&#34;</span></div>) : (<div className="recipes-title"><span>Recipes</span></div>) }
   <div className="main-recipe-image">
-  {recipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
+  {countedRecipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
   </div>
 <div>
-  <button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>
+  {this.state.recipesOnPage >= recipesOnMain.length ? (null) : (<button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>)}
 </div>
 </div>
 </div>)

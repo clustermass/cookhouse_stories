@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { importAllRecipes, importQueriedRecipes} from '../../actions/recipes_actions'
+import { saveSearchFilters } from '../../actions/session_params_actions'
 import RecipeIndex from './recipe_index'
 
 const msp = (state) => ({
@@ -12,13 +13,15 @@ const msp = (state) => ({
   main_ingredients: Object.values(state.entities.ingredients),
   recipes: Object.values(state.entities.recipes),
   followers: state.entities.followers_count,
+  state : state.entities.session_params,
   recipesOnPage: 24
 })
 
 
 const mdp = (dispatch) =>({
   importAllRecipes: ()=> dispatch(importAllRecipes()),
-  importQueriedRecipes: (query)=> dispatch(importQueriedRecipes(query))
+  importQueriedRecipes: (query)=> dispatch(importQueriedRecipes(query)),
+  saveSearchFilters: (state) => dispatch(saveSearchFilters(state))
 })
 
 export default connect(msp,mdp)(RecipeIndex)

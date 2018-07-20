@@ -7,7 +7,6 @@ const recepiesReducer = (state = {},action) => {
       return Object.assign({}, action.object.recipes)
     case IMPORT_SINGLE_RECIPE:
       return Object.assign({},state, action.object.recipes)
-
     default:
       return state
   }
