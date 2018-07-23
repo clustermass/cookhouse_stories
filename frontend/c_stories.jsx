@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const preloadedState = {
       session: { id: window.currentUser.id },
       entities: {
-        users: { [window.currentUser.id]: window.currentUser }
+        users: { [window.currentUser.id]: window.currentUser },
+        session_params:{
+          favoriteRecipes: window.currentUser.favorite_recipes,
+          searchFilters : {}
+          }
         }
       };
 

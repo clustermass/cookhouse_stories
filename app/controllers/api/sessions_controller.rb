@@ -3,6 +3,7 @@ class Api::SessionsController < ApplicationController
     @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
     if @user
       login(@user)
+      @liked_recipes_ids = @user.favorite_recipes.map{|rec| rec.recipe_id }
       render "api/users/create"
     else
       render json: ["Invalid username/password combination"], status: 401

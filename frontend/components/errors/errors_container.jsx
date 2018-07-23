@@ -1,19 +1,13 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import clearErrors from '../../actions/errors_actions'
-import Errors from './errors'
+import Errors from './errors';
+import { clearErrors } from '../../actions/errors_actions';
 
 
 
-
-const msp = (state) =>{
-  if (state.errors != null){
-    return {  errors: Object.values(state.errors) }
-  }else{
-    return {}
-  }
-
-}
+const msp = (state) =>(
+  {errors: Object.values(state.entities.errors)}
+)
 
 
 const mdp = (dispatch) =>({

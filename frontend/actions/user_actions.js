@@ -2,7 +2,7 @@ import * as UserUtils from '../util/user_utils'
 import { CREATE_SESSION } from './session_actions'
 import { ADD_ERRORS } from './errors_actions'
 import { addErrors } from './errors_actions'
-
+import { saveFavoriteRecipes } from './session_params_actions'
 export const IMPORT_USER = 'IMPORT_USER'
 export const IMPORT_ALL_USERS = 'IMPORT_ALL_USERS'
 
@@ -11,6 +11,7 @@ export const createUser = (user) => dispatch =>(
   .then( (user) => {
                   dispatch({type: CREATE_SESSION, user: user})
                   dispatch(importUser(user))
+                  dispatch(saveFavoriteRecipes(user.favorite_recipes))
                 }, (errors)=>(dispatch(addErrors(errors))))
 )
 
@@ -18,6 +19,14 @@ export const getAllUsers = () => dispatch =>(
   UserUtils.getUsers()
   .then( (users) => {
                   dispatch({type: IMPORT_ALL_USERS, users: users})
+                }, (errors)=>(dispatch(addErrors(errors))))
+)
+
+export const getUserById = (id) => dispatch =>(
+  UserUtils.getUser(id)
+  .then( (user) => {
+                  dispatch(importUser(user))
+                  dispatch(saveFavoriteRecipes(user.favorite_recipes))
                 }, (errors)=>(dispatch(addErrors(errors))))
 )
 

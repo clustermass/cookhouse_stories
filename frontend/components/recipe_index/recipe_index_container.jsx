@@ -13,7 +13,8 @@ const msp = (state) => ({
   main_ingredients: Object.values(state.entities.ingredients),
   recipes: Object.values(state.entities.recipes),
   followers: state.entities.followers_count,
-  state : state.entities.session_params,
+  state : state.entities.session_params.searchFilters,
+  favorites: state.entities.session_params.favoriteRecipes,
   recipesOnPage: 24
 })
 

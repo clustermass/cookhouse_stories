@@ -190,10 +190,11 @@ class RecipeInfo extends React.Component {
         <div className="info-page-main-info-difficulty">
           Comments ({Object.keys(this.props.entities.comments).length})
         </div>
-        <div className="errors">{this.props.errors.length === 0 ? '' : this.props.errors[0]}</div>
+
 
          {this.props.loggedIn === false ? <div className="info-page-main-info-stepbody" ><p>Please, Log in to post comments.</p></div> :
           <div  className="info-page-main-postcomment">
+              <div className="errors">{this.props.errors.length === 0 ? '' : this.props.errors[0]}</div>
             <form onSubmit={this.handleSubmit} >
             <textarea type="text" value={this.state.body} onChange={this.update('body')} >
             </textarea>
@@ -204,7 +205,7 @@ class RecipeInfo extends React.Component {
             {this.props.comments.map(comment=>{
               return(
                 <div className="info-page-main-comment" key={comment.id} >
-                  <div className="info-page-main-comment-header"><img src={window.usericon}/><span>{this.props.entities.users[comment.user_id].name}</span><span>{this.timeAgo.format(Date.now() - (Date.now() - Date.parse(comment.updated_at)))}</span></div>
+                  <div className="info-page-main-comment-header"><Link to={`/users/${comment.user_id}`}><img src={window.usericon}/></Link><span><Link to={`/users/${comment.user_id}`}>{this.props.entities.users[comment.user_id].name}</Link></span><span>{this.timeAgo.format(Date.now() - (Date.now() - Date.parse(comment.updated_at)))}</span></div>
                   <div className="info-page-main-comment-body">{comment.body}</div>
               </div>
               )

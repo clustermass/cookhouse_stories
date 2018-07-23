@@ -1,5 +1,6 @@
 import { getQueriedRecipes, getAllRecipes, getRecipe, postLikeRecipe, getAllRecipeFeatures, postRecipe } from '../util/recipe_utils'
 import { addErrors } from './errors_actions'
+import { getUserById } from './user_actions'
 // import { push } from 'react-router'
 
 export const IMPORT_RECIPES = "IMPORT_RECIPES"
@@ -20,7 +21,8 @@ export const importRecipe = (id) => dispatch =>(
 )
 
 export const likeRecipe = (like) => dispatch =>(
-  postLikeRecipe(like).then(like => dispatch(importRecipe(like.recipe_id)),errors => dispatch(addErrors(errors)))
+  postLikeRecipe(like).then(like =>{ dispatch(importRecipe(like.recipe_id))
+                                     dispatch(getUserById(like.user_id))},errors => dispatch(addErrors(errors)))
 )
 
 export const importAllRecipeFeatures = () => dispatch =>(

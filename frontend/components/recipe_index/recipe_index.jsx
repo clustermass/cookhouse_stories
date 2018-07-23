@@ -747,7 +747,7 @@ render(){
 <div className="main-recipe-container">
 {this.state.searched.length > 0 ? (<div className="recipes-title"><span>Showing results matching	&#34;{this.state.searched}&#34;</span></div>) : (<div className="recipes-title"><span>Recipes</span></div>) }
   <div className="main-recipe-image">
-  {countedRecipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]}/> )}
+  {countedRecipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]} likesArr={this.props.favorites}/> )}
   </div>
 <div>
   {this.state.recipesOnPage >= recipesOnMain.length ? (null) : (<button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>)}

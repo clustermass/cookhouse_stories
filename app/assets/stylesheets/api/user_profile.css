@@ -1,0 +1,73 @@
+.user-profile-main-container{
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+
+}
+.user-profile-name{
+    min-height: 210px;
+    display: flex;
+    flex-direction: row;
+}
+
+.user-profile-plcaeholder{
+  width: 20%;
+}
+.user-profile-mid{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding-top: 56px;
+
+}
+.user-profile-mid > span{
+  color: #464646;
+  font-family: 'Brandon-Gotique-Regular';
+  font-size: 26px;
+  margin-left: 170px;
+}
+.user-profile-buttons-container{
+  margin-top: 80px;
+}
+
+.user-profile-btn{
+  color: #464646;
+   padding: 19px 15px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 17px;
+   border: none;
+   border-bottom: solid white 2px;
+}
+
+.user-profile-btn:active{
+   border-bottom: solid #067F78 3px;
+}
+.user-profile-btn-pressed{
+    color: #464646;
+   padding: 19px 15px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 17px;
+   border: none;
+   border-bottom: solid #067F78 3px;
+}
+.user-profile-btn-pressed:focus{
+   border-bottom: solid #067F78 3px;
+   outline: none;
+}
+
+.user-profile-btn:focus{
+   border-bottom: solid #067F78 3px;
+   outline: none;
+}
+
+.user-profile-recipes-container{
+  margin-top: 40px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+}

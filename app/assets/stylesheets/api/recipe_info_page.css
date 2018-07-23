@@ -230,6 +230,18 @@ align-items:flex-start;
 .info-page-main-comment-header{
     width: 570px;
 }
+.info-page-main-comment-header a{
+  color: #9A9A9A;
+  text-decoration: none;
+}
+.info-page-main-comment-header a:visited{
+  color: #9A9A9A;
+  text-decoration: none;
+}
+.info-page-main-comment-header a:hover{
+  text-decoration: underline;
+color:#737373;
+}
 .info-page-main-comment-header span{
   margin: 15px;
 
