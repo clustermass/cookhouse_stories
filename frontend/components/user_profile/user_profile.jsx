@@ -119,6 +119,10 @@ else{
               </div>
 
               <div className="user-profile-recipes-container">
+                {this.state.loadMyRecipes ? (<Link style={{textDecoration:"none"}}to={'/recipes/new'}><div  className="user-profile-recipes-addone">&#10010;
+
+
+              </div></Link>) : (null)}
                 {countedRecipesOnUser.map((recipe)=>(<RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]} likesArr={this.props.usersHash[this.props.currentUserId].favorite_recipes}/>))}
 
               </div>

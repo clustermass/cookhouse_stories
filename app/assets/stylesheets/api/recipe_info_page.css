@@ -4,6 +4,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  height: 100%;
 }
 .info-page-main-container-spacer{
   height: 30px;
@@ -66,7 +67,7 @@
 
 
 .info-page-main-info{
-  height:635px;
+  min-height:635px;
   width: 863px;
   background-color: white;
 }

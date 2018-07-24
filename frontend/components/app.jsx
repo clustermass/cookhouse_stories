@@ -7,6 +7,7 @@ import RecipeIndexContainer from './recipe_index/recipe_index_container'
 import RecipeInfoContainer from './recipe_info/recipe_info_container'
 import RecipeCreateContainer from './recipe_create/recipe_create_container'
 import UserInfoContainer from './user_profile/user_profile_container'
+import Footer from './footer/footer'
 
 import {
   Route,
@@ -21,11 +22,10 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 const App = () => (
   <div className="root-container">
+
     <Route path="/" component={TopNavBarContainer} />
 
-
-
-    <Switch>
+  <Switch>
       <AuthRoute exact path="/login" component={LogInFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
       <ProtectedRoute exact path="/users/:userId" component={UserInfoContainer} />
@@ -34,6 +34,8 @@ const App = () => (
       <Route exact path="/recipes/:recipeId" component={RecipeInfoContainer} />
       <Route exact path="/*" component={RecipeIndexContainer} />
     </Switch>
+
+    <Route path="/" component={Footer} />
 
   </div>
 );

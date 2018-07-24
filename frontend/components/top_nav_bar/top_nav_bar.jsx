@@ -8,18 +8,14 @@ constructor(props){
   super(props)
 
 
-  this.demoLogin = this.demoLogin.bind(this)
+
 }
 
 componentDidMount(){
 
 }
 
-demoLogin(e){
 
-    setTimeout(this.props.createSession({username:'demo',password:'password'}), 3000);
-
-}
 
 render(){
 
@@ -79,7 +75,7 @@ render(){
         <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>
          <p>|</p><Link to={{pathname:'/login', state:{fromPath:path}}} >Login</Link> <p>|</p>
           <Link to={{pathname:'/signup', state:{fromPath:path}}}>Sign-up</Link><p>|</p>
-          <a href="#" onClick={()=>this.demoLogin()}>Demo</a> <div>&nbsp;</div>
+          <Link to={{pathname:'/login', state:{fromPath:path}}} >Demo</Link> <div>&nbsp;</div>
         </div>
       </div>
     </div>

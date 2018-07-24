@@ -15,6 +15,7 @@
 }
 .user-profile-mid{
   width: 60%;
+  min-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -70,4 +71,26 @@
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
+}
+
+.user-profile-recipes-addone{
+  width: 200px;
+  height: 267px;
+  border-collapse:collapse;
+  border-radius: 15px;
+  border: 2px solid #067F78;
+  background-color: white;
+  color: #067F78;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 55px;
+  cursor: pointer;
+
+}
+.user-profile-recipes-addone:hover{
+color: white;
+background-color: #067F78;
+cursor: pointer;
+
 }

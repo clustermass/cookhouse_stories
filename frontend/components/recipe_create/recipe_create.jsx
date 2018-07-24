@@ -287,6 +287,7 @@ uploadStepPicture(id){
     {
 
     };
+    this.props.clearErrors()
   }
 
 
@@ -330,7 +331,7 @@ uploadStepPicture(id){
 
 
         <div className="create-page-main-container">
-          <div className="main-recipe-title">
+          <div className="create-page-main-recipe-title">
               Create recipe
           </div>
 
@@ -342,7 +343,7 @@ uploadStepPicture(id){
             <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.uploadMainPicture() }>Upload picture</button>
           </div>
 
-          <div style={{height:'25px'}} className="errors">{this.props.errors.length === 0 ? (null) : this.props.errors[0]}</div>
+
 
           <div className="create-page-main-container">
           <span>  Title: </span><input className="create-page-main-title" onChange={this.update('title')} value={this.state.value} type="text"></input>
