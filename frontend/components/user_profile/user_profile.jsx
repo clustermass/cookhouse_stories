@@ -119,7 +119,7 @@ else{
               </div>
 
               <div className="user-profile-recipes-container">
-                {this.state.loadMyRecipes ? (<Link style={{textDecoration:"none"}}to={'/recipes/new'}><div  className="user-profile-recipes-addone">&#10010;
+                {this.state.loadMyRecipes && this.state.ownProfile  ? (<Link style={{textDecoration:"none"}}to={'/recipes/new'}><div  className="user-profile-recipes-addone">&#10010;
 
 
               </div></Link>) : (null)}
