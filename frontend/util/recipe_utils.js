@@ -47,7 +47,7 @@ export const postRecipe = (recipe) =>(
 export const patchRecipe = (recipe) =>(
   $.ajax({
     method: 'PATCH',
-    url: 'api/recipes',
+    url: `api/recipes/${recipe.recipe_id}`,
     data:{recipe: recipe}
   })
 )

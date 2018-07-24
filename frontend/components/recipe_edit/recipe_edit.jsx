@@ -288,6 +288,7 @@ loadRecipeToState(){
 
   ingredient_ids.forEach((id)=>{
     all_ingredients[id] = this.props.ingredients[id]
+    all_ingredients[id].id = id
   })
 
   let measuring_ids = {}
