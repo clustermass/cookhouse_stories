@@ -43,3 +43,11 @@ export const postRecipe = (recipe) =>(
     data:{recipe: recipe}
   })
 )
+
+export const patchRecipe = (recipe) =>(
+  $.ajax({
+    method: 'PATCH',
+    url: 'api/recipes',
+    data:{recipe: recipe}
+  })
+)

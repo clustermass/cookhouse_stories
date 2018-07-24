@@ -1,4 +1,4 @@
-import { getQueriedRecipes, getAllRecipes, getRecipe, postLikeRecipe, getAllRecipeFeatures, postRecipe } from '../util/recipe_utils'
+import { getQueriedRecipes, getAllRecipes, getRecipe, postLikeRecipe, getAllRecipeFeatures, postRecipe, patchRecipe } from '../util/recipe_utils'
 import { addErrors } from './errors_actions'
 import { getUserById } from './user_actions'
 // import { push } from 'react-router'
@@ -33,4 +33,7 @@ export const clearAllRecipeFeatures = () =>({type: CLEAR_ALL_RECIPE_FEATURES})
 
 export const submitRecipe = (recipe) => dispatch =>(
   postRecipe(recipe)
+)
+export const updateRecipe = (recipe) => dispatch =>(
+  patchRecipe(recipe)
 )
