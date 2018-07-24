@@ -15,4 +15,12 @@ class Cuisine < ApplicationRecord
   validates :sort, :country, presence: true
 
   has_many :recipes
+
+  before_validation :capitalize
+
+  def capitalize
+    self.sort = self.sort.capitalize  if self.sort != ""
+    self.country = self.country.capitalize  if self.country != ""
+
+  end
 end

@@ -12,6 +12,9 @@
 class Ingredient < ApplicationRecord
   validates :name, presence: true
 
+  before_validation :lowercase
+
+
   has_many :possible_meals,
   primary_key: :id,
   foreign_key: :main_ingredient_id,
@@ -28,5 +31,9 @@ class Ingredient < ApplicationRecord
   through: :ingredient_amounts,
   source: :recipe,
   class_name: :Recipe
+
+  def lowercase
+    self.name = self.name.downcase  if self.name != ""
+  end
 
 end

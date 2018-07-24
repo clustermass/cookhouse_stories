@@ -14,5 +14,10 @@ class Difficulty < ApplicationRecord
 validates :level, presence: true
 
 has_many :recipes
+before_validation :capitalize
+
+def capitalize
+  self.level = self.level.capitalize  if self.level != ""
+end
 
 end

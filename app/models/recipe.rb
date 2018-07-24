@@ -22,6 +22,8 @@ class Recipe < ApplicationRecord
 validates :author_id, :title, :main_picture_url, :cooking_time, :difficulty_id, :cuisine_id, :category_id,
  :main_ingredient_id, :diet_id, presence: true
 
+before_validation :capitalize
+
 belongs_to :author,
 primary_key: :id,
 foreign_key: :author_id,
@@ -65,5 +67,9 @@ class_name: :Ingredient
 
 belongs_to :diet
 has_many :steps
+
+def capitalize
+  self.title = self.title.capitalize  if self.title != ""
+end
 
 end

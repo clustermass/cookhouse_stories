@@ -84,22 +84,35 @@
 
 
 .info-page-main-info-name{
-height: 80px;
+height: 70px;
 width:585px;
+padding-top: 30px;
 color:#464646;
 background-color: white;
 font-size: 26px;
 display: flex;
-justify-content:center;
-align-content:center;
-flex-direction:column;
+justify-content:space-between;
+/* align-content:center; */
+flex-direction:row;
 flex-wrap: wrap;
 /* padding-left: 7px; */
 
 }
-/* .info-page-main-info-name span{
-  margin-left: 7px;
-} */
+.info-page-main-info-name span{
+font-size: 20px;
+color:#9A9A9A;
+}
+.info-page-main-info-name a{
+color:#9A9A9A;
+font-size: 20px;
+text-decoration: none;
+}
+.info-page-main-info-name a:hover{
+color:#9A9A9A;
+font-size: 20px;
+text-decoration: underline;
+}
+
 
 .info-page-main-info-likes{
   border-top: dotted lightgrey 1px;
@@ -137,7 +150,7 @@ color:#464646;
 }
 .info-page-main-info-difficulty span{
   margin-left: 32px;
-    font-size: 17px;
+    font-size: 20px;
 
 }
 

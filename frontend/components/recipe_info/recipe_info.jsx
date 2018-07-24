@@ -135,7 +135,7 @@ class RecipeInfo extends React.Component {
           <div className="info-page-main-info">
 
             <div  className="info-page-main-info-name" >
-              <span>  {recipe.title} </span>
+              {recipe.title} <span> by <Link to={`/users/${recipe.author_id}`}> {this.props.entities.users[recipe.author_id].name} </Link></span>
             </div>
             <div className="info-page-main-info-likes">
               {this.props.loggedIn === true ? <img style={{cursor:'pointer'}} onClick={()=> this.likeRecipe({recipe_id:recipe.id, user_id:this.props.session.id})} src={typeof this.props.entities.followers[this.props.session.id] === "undefined" ? window.heartgrey : window.heartyellow}/>  : <img src={window.heartgrey}/>}
@@ -144,7 +144,19 @@ class RecipeInfo extends React.Component {
 
             <div className="info-page-main-info-difficulty">
               Difficulty<span>{this.props.entities.difficulties[recipe.difficulty_id].level}</span>
-          </div>
+            </div>
+
+            <div className="info-page-main-info-difficulty">
+              Cuisine<span> {this.props.entities.cuisines[recipe.cuisine_id].country}&nbsp; {this.props.entities.cuisines[recipe.cuisine_id].sort} </span>
+            </div>
+
+            <div className="info-page-main-info-difficulty">
+              Diet<span>{this.props.entities.diets[recipe.diet_id].name}</span>
+            </div>
+
+            <div className="info-page-main-info-difficulty">
+              Category<span>{this.props.entities.categories[recipe.category_id].name}</span>
+            </div>
 
           <div className="info-page-main-info-difficulty">
             Preparation<span>{recipe.cooking_time} &nbsp; min.</span>
