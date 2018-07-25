@@ -12,6 +12,7 @@ json.recipes do
       json.diet_id @recipe.diet_id
       json.ingredients_list  @ingredients_list
       json.steps  @steps
+      json.video_url  @video_url
 
       json.ingredients_amounts do
         @ingredients_amounts.each do |am|

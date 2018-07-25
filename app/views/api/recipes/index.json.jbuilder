@@ -85,4 +85,12 @@ json.diets do
   end
 end
 
+json.videos do
+  @videos.each do |video|
+    json.set! video[:recipe_id] do
+      json.extract! video, :recipe_id, :video_url
+    end
+  end
+end
+
 # end

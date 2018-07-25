@@ -13,7 +13,7 @@
 
 
 class Video < ApplicationRecord
-  validates :video_url, presence: true
+  validates :video_url,:recipe_id, presence: true
 
   belongs_to :author,
   primary_key: :id,

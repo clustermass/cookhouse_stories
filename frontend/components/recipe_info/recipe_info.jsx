@@ -182,9 +182,25 @@ class RecipeInfo extends React.Component {
           })}
         </div>
 
-        <div className="info-page-main-info-difficulty">
-          Videos
+
+        {recipe.video_url === '' ? (null):(
+          <div>
+          <div className="info-page-main-info-difficulty">
+            Video
+
+          </div>
+          <div className="info-page-main-info-video-div" >
+          <iframe width="550" height="309"src={recipe.video_url}>
+          </iframe>
+          </div>
         </div>
+        )}
+
+
+
+
+
+
             <div id="steps"></div>
         {recipe.steps.map(step=>{
           let num = step.num

@@ -294,3 +294,21 @@ font-size: 22px;
   color: #464646;
   font-size: 26px;
 }
+
+
+.create-page-main-video-title{
+margin-top: 20px;
+}
+
+.create-page-main-video-url{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid gray;
+  font-size: 16px;
+  margin-left: 5px;
+  width:450px;
+}
+.create-page-main-video-url:focus{
+  outline: 0;
+}

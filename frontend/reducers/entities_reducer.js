@@ -12,6 +12,7 @@ import MeasuringsReducer from './measurings_reducer'
 import FollowersCountReducer from './followers_count_reducer'
 import IngredientsReducer from './ingredients_reducer'
 import sessionParamsReducer from './session_params_reducer'
+import videosReducer from './videos_reducer'
 
 export default combineReducers({
   users : UsersReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   followers_count: FollowersCountReducer,
   ingredients: IngredientsReducer,
   session_params: sessionParamsReducer,
+  videos: videosReducer,
 });

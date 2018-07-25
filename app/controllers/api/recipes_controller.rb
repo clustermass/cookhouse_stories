@@ -4,7 +4,7 @@ class Api::RecipesController < ApplicationController
       @recipes
     if params["query"] != nil
       query = params["query"].chomp.downcase
-      @recipes = Recipe.all.includes(:followers, :cuisine,:difficulty,:category,:diet,:ingredients )
+      @recipes = Recipe.all.includes(:followers,:video,:cuisine,:difficulty,:category,:diet,:ingredients )
       @steps = Step.where(["lower(body) like ?" ,"%#{query}%"])
 
       @return = @recipes.select{|rec| rec.title.downcase.include?(query) ||
@@ -24,6 +24,7 @@ class Api::RecipesController < ApplicationController
     @diets = []
     @difficulties = []
     @ingredients = []
+    @videos = []
 
     @ingredients.push(Ingredient.find_by(name:"beef"))  if   Ingredient.find_by(name:"beef") != nil
     @ingredients.push(Ingredient.find_by(name:"pork")) if Ingredient.find_by(name:"pork") != nil
@@ -37,6 +38,12 @@ class Api::RecipesController < ApplicationController
       @categories += [rec.category]  unless @categories.include?(rec.category)
       @diets += [rec.diet] unless @diets.include?(rec.diet)
       @difficulties += [rec.difficulty] unless @difficulties.include?(rec.difficulty)
+      if rec.video.nil?
+          @videos += [{recipe_id:rec.id,video_url:''}]
+      else
+          @videos += [{recipe_id:rec.id,video_url:rec.video.video_url}]
+      end
+
     end
     # render json: {}
 
@@ -45,7 +52,7 @@ class Api::RecipesController < ApplicationController
 
 
   def show
-    @recipe = Recipe.includes(:followers,:cuisine,:difficulty,:category,:diet,:ingredients,:ingredient_amounts,:steps,:video,:comments ).find_by(id: params[:id])
+    @recipe = Recipe.includes(:followers,:cuisine,:video, :difficulty,:category,:diet,:ingredients,:ingredient_amounts,:steps,:video,:comments ).find_by(id: params[:id])
 
     if @recipe == nil
       render json: ["No such recipe"], status: 404
@@ -73,6 +80,11 @@ class Api::RecipesController < ApplicationController
       @ingredients_amounts << {ing.id => ing.ingredient_amounts.first.amount}
     end
     @diet = @recipe.diet
+    @video_url = ""
+    if !@recipe.video.nil?
+      @video_url = @recipe.video.video_url
+    end
+
   end
 
 
@@ -248,6 +260,12 @@ class Api::RecipesController < ApplicationController
             return nil
           end
 
+          #  Let's grab optional video if it is exist.
+          @video = nil
+          if recipe_params[:video_url] != ""
+            @video = Video.new(video_url:recipe_params[:video_url].chomp, author_id:current_user.id)
+          end
+
           #  Finish Validation. Start saving to DB...
 
           # Saving cuisine, if it is newly created.
@@ -286,10 +304,16 @@ class Api::RecipesController < ApplicationController
             ia.save
           end
 
+          if !@video.nil?
+            @video.recipe_id = @recipe.id
+            @video.save
+          end
+
           @steps.each do |step|
             step.recipe = @recipe
             step.save
           end
+          debugger
           render json: @recipe
 
 
@@ -459,6 +483,12 @@ class Api::RecipesController < ApplicationController
             return nil
           end
 
+          #  Let's grab optional video if it is exist.
+          @video = nil
+          if recipe_params[:video_url] != ""
+            @video = Video.new(video_url:recipe_params[:video_url].chomp, author_id:current_user.id)
+          end
+
           #  Finish Validation. Start saving to DB...
 
           # Saving cuisine, if it is newly created.
@@ -499,6 +529,18 @@ class Api::RecipesController < ApplicationController
             ia = IngredientAmount.new(ingredient:v, recipe:@recipe, measuring:@measurings[k], amount:@amounts[k])
             ia.save
           end
+
+          # Removing previous video if it was attached to recipe
+          if !@recipe.video.nil?
+            Video.destroy(@recipe.video.id)
+          end
+
+          if !@video.nil?
+            @video.recipe_id = @recipe.id
+            @video.save
+          end
+
+
           # removing previous steps
           Step.destroy(@recipe.steps.map{|step| step.id})
 
@@ -512,7 +554,7 @@ class Api::RecipesController < ApplicationController
 
   def recipe_params
 
-    params.require(:recipe).permit(:author_id,:recipe_id,:title, :main_picture_url,:difficulty_id,:cooking_time,
+    params.require(:recipe).permit(:author_id,:video_url,:recipe_id,:title, :main_picture_url,:difficulty_id,:cooking_time,
       :diet_id,:cuisine_id,:custom_cuisine_country, :custom_cuisine_sort,:main_ingredient_id,
       :custom_main_ingredient, :category_id,:recipe_id,:ingredient_ids => [],:amounts => {},
       :measuring_ids => {},:all_ingredients => {},:all_steps => {})

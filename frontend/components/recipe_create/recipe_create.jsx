@@ -16,7 +16,7 @@ class RecipeCreate extends React.Component {
       stu:false,
       vwx:false,
       yz:false,
-
+      title: '',
       author_id: this.props.session.id,
       recipe_id: -1,
       main_picture_url: '',
@@ -49,6 +49,8 @@ class RecipeCreate extends React.Component {
 
       temp_step_body:'',
       temp_step_image:null,
+      video_url : '',
+      video_url_field : '',
       }
   this.openIMenu = this.openIMenu.bind(this);
   this.closeIMenu = this.closeIMenu.bind(this);
@@ -64,8 +66,18 @@ class RecipeCreate extends React.Component {
   this.addNewStep = this.addNewStep.bind(this)
   this.removeStep = this.removeStep.bind(this)
   this.submitRecipe = this.submitRecipe.bind(this)
+  this.toggleVideoUrl = this.toggleVideoUrl.bind(this)
   }
 
+
+  toggleVideoUrl(){
+    if (this.state.video_url === ''){
+      this.setState({video_url:this.state.video_url_field})
+    }else{
+      this.setState({video_url: '',
+                    video_url_field: ''})
+    }
+  }
 //Alphabetical comparator for ingredients buttons
   compare(a, b) {
     if (a.name[0] < b.name[0]) {
@@ -346,7 +358,7 @@ uploadStepPicture(id){
 
 
           <div className="create-page-main-container">
-          <span>  Title: </span><input className="create-page-main-title" onChange={this.update('title')} value={this.state.value} type="text"></input>
+          <span>  Title: </span><input className="create-page-main-title" onChange={this.update('title')} value={this.state.title} type="text"></input>
           </div>
 
 
@@ -360,7 +372,7 @@ uploadStepPicture(id){
 
 
           <div className="create-page-main-container" >
-          <span>  Overall cooking time (in minutes)</span><input className="create-page-main-time" onChange={this.update('cooking_time')} value={this.state.value} type="text"></input>
+          <span>  Overall cooking time (in minutes)</span><input className="create-page-main-time" onChange={this.update('cooking_time')} value={this.state.cooking_time} type="text"></input>
           </div>
 
           <div className="create-page-main-container" >
@@ -490,7 +502,33 @@ uploadStepPicture(id){
                             </div>
 
 
+                            <div className="create-page-main-video-title">
+                            Video
+                            </div>
+
+                            {this.state.video_url === '' ? (
+                              <div>
+                                <input className="create-page-main-video-url" onChange={this.update('video_url_field')} value={this.state.video_url_field} placeholder={"Enter Youtube embed video url here..."} type="text"/>
+                                <button className="create-page-main-universal-btn" onClick={()=>this.toggleVideoUrl()}>Add video url</button>
+                              </div>
+                            ) : (
+                              <div >
+                              <iframe width="550" height="309"src={this.state.video_url}>
+                              </iframe>
+                              <div>
+                              <input className="create-page-main-video-url" disabled={true} value={this.state.video_url}  type="text"/>
+                              <button className="create-page-main-universal-btn" onClick={()=>this.toggleVideoUrl()}>Remove video</button>
+                              </div>
+                          </div>)}
+
+
                             <div>
+
+
+
+                            </div>
+
+                            <div className="create-page-main-video-title">
                               Steps
                             </div>
 

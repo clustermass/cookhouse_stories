@@ -293,3 +293,13 @@ font-weight: bold;
 .info-page-main-edit-btn:focus{
   outline:0;
 }
+
+.info-page-main-info-video-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 330px;
+  width: 570px;
+
+}

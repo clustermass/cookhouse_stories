@@ -16,7 +16,9 @@ class RecipeEdit extends React.Component {
       stu:false,
       vwx:false,
       yz:false,
-      title: "",
+      title: '',
+      video_url : '',
+      video_url_field : '',
       author_id: "",
       recipe_id: -1,
       main_picture_url: '',
@@ -65,8 +67,18 @@ class RecipeEdit extends React.Component {
   this.removeStep = this.removeStep.bind(this)
   this.submitRecipe = this.submitRecipe.bind(this)
   this.loadRecipeToState = this.loadRecipeToState.bind(this)
+  this.toggleVideoUrl = this.toggleVideoUrl.bind(this)
   }
 
+
+  toggleVideoUrl(){
+    if (this.state.video_url === ''){
+      this.setState({video_url:this.state.video_url_field})
+    }else{
+      this.setState({video_url: '',
+                    video_url_field: ''})
+    }
+  }
 //Alphabetical comparator for ingredients buttons
   compare(a, b) {
     if (a.name[0] < b.name[0]) {
@@ -274,6 +286,7 @@ uploadStepPicture(id){
 
 
 loadRecipeToState(){
+  let video_url = this.props.entities.recipes[this.props.recipeId].video_url
   let author_id = this.props.entities.recipes[this.props.recipeId].author_id
   let title = this.props.entities.recipes[this.props.recipeId].title
   let recipe_id = this.props.entities.recipes[this.props.recipeId].id
@@ -311,6 +324,8 @@ loadRecipeToState(){
 let step_counter = this.props.entities.recipes[this.props.recipeId].steps.length
 
 this.setState({
+  video_url: video_url,
+  video_url_field: video_url,
   author_id:author_id,
   title: title,
   recipe_id: recipe_id,
@@ -555,7 +570,33 @@ this.setState({
                             </div>
 
 
+                            <div className="create-page-main-video-title">
+                            Video
+                            </div>
+
+                            {this.state.video_url === '' ? (
+                              <div>
+                                <input className="create-page-main-video-url" onChange={this.update('video_url_field')} value={this.state.video_url_field} placeholder={"Enter Youtube embed video url here..."} type="text"/>
+                                <button className="create-page-main-universal-btn" onClick={()=>this.toggleVideoUrl()}>Add video url</button>
+                              </div>
+                            ) : (
+                              <div >
+                              <iframe width="550" height="309"src={this.state.video_url}>
+                              </iframe>
+                              <div>
+                              <input className="create-page-main-video-url" disabled={true} value={this.state.video_url}  type="text"/>
+                              <button className="create-page-main-universal-btn" onClick={()=>this.toggleVideoUrl()}>Remove video</button>
+                              </div>
+                          </div>)}
+
+
                             <div>
+
+
+
+                            </div>
+
+                            <div className="create-page-main-video-title">
                               Steps
                             </div>
 

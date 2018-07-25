@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_06_08_183411) do
 
   create_table "cuisines", force: :cascade do |t|
     t.string "sort", null: false
-    t.string "country"
+    t.string "country", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country"], name: "index_cuisines_on_country"
@@ -130,10 +130,10 @@ ActiveRecord::Schema.define(version: 2018_06_08_183411) do
   end
 
   create_table "videos", force: :cascade do |t|
-    t.integer "recipe_id"
+    t.integer "recipe_id", null: false
     t.integer "author_id", null: false
     t.string "title"
-    t.integer "video_url", null: false
+    t.string "video_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id", "recipe_id"], name: "index_videos_on_author_id_and_recipe_id"
