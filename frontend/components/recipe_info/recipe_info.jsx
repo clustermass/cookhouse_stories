@@ -97,12 +97,16 @@ class RecipeInfo extends React.Component {
 
   render(){
 
-    let recipe
-    if (typeof this.props.entities.recipes[this.props.match.params.recipeId] === "undefined" ||
-        typeof this.props.entities.recipes[this.props.match.params.recipeId].ingredients_list === "undefined"){
+    let recipe = this.props.entities.recipes[this.props.match.params.recipeId]
+
+    if (
+
+        typeof recipe === "undefined" || typeof recipe.ingredients_list === "undefined" ||
+        typeof this.props.entities.users[recipe.author_id] === "undefined"){
       return <div>Loading...</div>
     }
     else{
+      console.log(recipe.ingredients_list)
       recipe = this.props.entities.recipes[this.props.match.params.recipeId]
 
       let recipeItemBgImgStyle = {
@@ -135,7 +139,7 @@ class RecipeInfo extends React.Component {
           <div className="info-page-main-info">
 
             <div  className="info-page-main-info-name" >
-              {recipe.title} <span> by <Link to={`/users/${recipe.author_id}`}> {this.props.entities.users[recipe.author_id].name} </Link></span>
+              {recipe.title} {recipe.author_id === this.props.session.id ? (<Link to={`/edit/${recipe.id}`}><button style={{cursor:'pointer'}} className="info-page-main-edit-btn">Edit</button></Link>) : (<span> by <Link to={`/users/${recipe.author_id}`}> {this.props.entities.users[recipe.author_id].name} </Link></span>)}
             </div>
             <div className="info-page-main-info-likes">
               {this.props.loggedIn === true ? <img style={{cursor:'pointer'}} onClick={()=> this.likeRecipe({recipe_id:recipe.id, user_id:this.props.session.id})} src={typeof this.props.entities.followers[this.props.session.id] === "undefined" ? window.heartgrey : window.heartyellow}/>  : <img src={window.heartgrey}/>}
@@ -167,11 +171,14 @@ class RecipeInfo extends React.Component {
         </div>
 
         <div className="info-page-main-info-inglist">
+
           {recipe.ingredients_list.map(ing_id=>{
             let name = this.props.entities.ingredients[ing_id].name
             let amount = recipe.ingredients_amounts[ing_id][ing_id]
             let measuring = this.props.entities.measurings[recipe.ingredients_measurings[ing_id][ing_id]].name
-            return (<div key={ing_id} ><div className="info-page-main-info-ingname" key={ing_id} >  {amount}  {measuring}</div> <div> {name} </div></div>)
+            let mainIng = recipe.main_ingredient_id === ing_id ? "[Main Ingredient]" : ""
+
+            return (<div key={ing_id} ><div className="info-page-main-info-ingname" key={ing_id} > {name.charAt(0).toUpperCase() + name.slice(1)} </div> <div> {amount}  {measuring} &nbsp;&nbsp;{mainIng}</div></div>)
           })}
         </div>
 

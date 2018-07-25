@@ -167,11 +167,12 @@ color:#464646;
   display:flex;
   flex-wrap: nowrap;
 color:#737373;
-font-size: 18px;
+font-size: 20px;
 
 }
 .info-page-main-info-ingname{
   width:130px;
+
 }
 
 .info-page-main-stepimage{
@@ -271,4 +272,24 @@ font-weight: bold;
   padding-left: 60px;
   padding-top: 15px;
 
+}
+
+.info-page-main-edit-btn{
+  border-radius: 4px;
+  background-color: #067F78;
+  color: white;
+   padding: 9px 25px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 16px;
+   /* width:250px; */
+
+}
+
+.info-page-main-edit-btn:hover{
+    background-color: #0DB684;
+}
+.info-page-main-edit-btn:focus{
+  outline:0;
 }

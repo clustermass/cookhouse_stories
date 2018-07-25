@@ -17,7 +17,7 @@ class RecipeEdit extends React.Component {
       vwx:false,
       yz:false,
       title: "",
-      author_id: this.props.session.id,
+      author_id: "",
       recipe_id: -1,
       main_picture_url: '',
       difficulty_id: -1,
@@ -274,6 +274,7 @@ uploadStepPicture(id){
 
 
 loadRecipeToState(){
+  let author_id = this.props.entities.recipes[this.props.recipeId].author_id
   let title = this.props.entities.recipes[this.props.recipeId].title
   let recipe_id = this.props.entities.recipes[this.props.recipeId].id
   let main_picture_url = this.props.entities.recipes[this.props.recipeId].main_picture_url
@@ -292,11 +293,9 @@ loadRecipeToState(){
   })
 
   let measuring_ids = {}
-
   Object.keys(this.props.entities.recipes[this.props.recipeId].ingredients_measurings).forEach((key)=>{
     measuring_ids[key] = this.props.entities.recipes[this.props.recipeId].ingredients_measurings[key][key]
   })
-
   let amounts = {}
 
   Object.keys(this.props.entities.recipes[this.props.recipeId].ingredients_measurings).forEach((key)=>{
@@ -312,6 +311,7 @@ loadRecipeToState(){
 let step_counter = this.props.entities.recipes[this.props.recipeId].steps.length
 
 this.setState({
+  author_id:author_id,
   title: title,
   recipe_id: recipe_id,
   main_picture_url: main_picture_url,
@@ -327,7 +327,13 @@ this.setState({
   amounts: amounts,
   all_steps: all_steps,
   step_counter: step_counter,
-},()=>this.props.importAllRecipeFeatures())
+},()=>{
+  if(this.state.author_id != this.props.session.id){
+    this.props.history.push(`/recipes/${this.state.recipe_id}`)
+  }else{
+    this.props.importAllRecipeFeatures()
+  }
+    })
 }
 
   componentDidMount(){

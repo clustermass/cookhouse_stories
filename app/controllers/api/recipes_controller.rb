@@ -231,10 +231,10 @@ class Api::RecipesController < ApplicationController
 
           end
 
-          # assigning it back to recipe.
-          if @recipe.cuisine_id = 1000
-            @recipe.cuisine_id = @cuisine.id
-          end
+          # # assigning it back to recipe.
+          # if @recipe.cuisine_id = 1000
+          #   @recipe.cuisine_id = @cuisine.id
+          # end
 
           @steps = []
 
@@ -501,7 +501,7 @@ class Api::RecipesController < ApplicationController
           end
           # removing previous steps
           Step.destroy(@recipe.steps.map{|step| step.id})
-          
+
           @steps.each do |step|
             step.recipe = @recipe
             step.save
