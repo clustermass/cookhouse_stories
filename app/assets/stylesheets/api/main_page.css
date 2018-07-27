@@ -55,6 +55,61 @@ cursor:pointer;
 }
 
 
+.nav-bar-cats{
+  display:none;
+}
+
+.nav-bar-cats-on{
+  width: 100%;
+  height:261px;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+.hr2{
+width: 100%;
+height: 1px;
+border-bottom: solid #D8D8D8 1px;
+}
+.nav-bar-cats-menu{
+  margin-left: 20%;
+  margin-right: 20%;
+  width: 60%;
+  height:260px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-cats-links{
+
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  align-self: center;
+  width: 33.33%;
+  height: 260px;
+  /* background-color: red; */
+}
+
+.nav-cats-links a {
+
+  text-decoration: none;
+  color: #9A9A9A;
+  margin-right: 33px;
+  font-size: 19px;
+
+}
+.nav-cats-links a:hover {
+  color: #464646;
+}
+
+.nav-cats-random-recipes{
+  width: 70%;
+  height: 260px;
+  background-color: green;
+}
 
 .nav-bar-auth{
   margin-left: 10px;

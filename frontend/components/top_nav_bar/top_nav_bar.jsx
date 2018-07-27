@@ -8,11 +8,25 @@ constructor(props){
   super(props)
 
 
+this.showCats = this.showCats.bind(this)
+this.hideCats = this.hideCats.bind(this)
+
+let closeCats
 
 }
 
 componentDidMount(){
 
+}
+
+showCats(){
+  let cats = document.getElementById("cats");
+  cats.classList.add('nav-bar-cats-on');
+}
+
+hideCats(){
+  let cats = document.getElementById("cats");
+  cats.classList.remove('nav-bar-cats-on');
 }
 
 
@@ -30,7 +44,7 @@ let videosActive = {}
 if(currLocation === '/'){
   recipesActive = style
 }
-else if(currLocation === '/categories'){
+else if(currLocation.includes('/category/')){
   categoriesActive = style
 }
 else if(currLocation === '/videos'){
@@ -53,7 +67,8 @@ else if(currLocation === '/videos'){
     <div className="nav-bar-links">
 
   <Link style={recipesActive} to={'/'}>Recipes</Link>
-  <Link style={categoriesActive} to={'/'}>Categories</Link>
+  <a href="" onClick={(e)=>{e.preventDefault()
+                            this.props.history.push('/category/0')}} onMouseOver={()=>this.showCats()} onMouseOut={()=>(this.closeCats = setTimeout(this.hideCats,350))} style={categoriesActive} to={'/'}>Categories</a>
   <Link style={videosActive} to={'/videos'}>Videos</Link>
     </div>
     <div className="nav-bar-auth">
@@ -65,6 +80,34 @@ else if(currLocation === '/videos'){
         </div>
     </div>
 
+  </div>
+
+  <div id="cats" className="nav-bar-cats" onMouseEnter={()=>clearTimeout(this.closeCats)} onMouseLeave={()=>this.hideCats()}>
+    <div className="nav-bar-cats-menu">
+      <div className="nav-cats-links" >
+        <div style={{width:"40px",height:"30px"}}></div>
+        <Link to={'/category/asian'}>Asian</Link>
+        <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+        <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+        <Link to={'/category/low_carb'}>Low Carb</Link>
+      </div>
+      <div className="nav-cats-links" >
+        <div style={{width:"40px",height:"30px"}}></div>
+        <Link to={'/category/asian'}>Asian</Link>
+        <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+        <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+        <Link to={'/category/low_carb'}>Low Carb</Link>
+      </div>
+      <div className="nav-cats-links" >
+        <div style={{width:"40px",height:"30px"}}></div>
+        <Link to={'/category/asian'}>Asian</Link>
+        <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+        <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+        <Link to={'/category/low_carb'}>Low Carb</Link>
+      </div>
+
+    </div>
+    <div className="hr2"></div>
   </div>
   <Errors />
 </div>
@@ -84,7 +127,8 @@ else if(currLocation === '/videos'){
         <div className="nav-bar-links">
 
           <Link style={recipesActive} to={'/'}>Recipes</Link>
-      <Link style={categoriesActive} to={'/'}>Categories</Link>
+            <a href="" onClick={(e)=>{e.preventDefault()
+                                      this.props.history.push('/category/0')}} onMouseOver={()=>this.showCats()} onMouseOut={()=>(this.closeCats = setTimeout(this.hideCats,350))} style={categoriesActive} to={'/'}>Categories</a>
       <Link style={videosActive} to={'/videos'}>Videos</Link>
         </div>
         <div className="nav-bar-auth">
@@ -94,6 +138,35 @@ else if(currLocation === '/videos'){
           <Link to={{pathname:'/login', state:{fromPath:path}}} >Demo</Link> <div>&nbsp;</div>
         </div>
       </div>
+    </div>
+
+
+    <div id="cats" className="nav-bar-cats" onMouseEnter={()=>clearTimeout(this.closeCats)} onMouseLeave={()=>this.hideCats()}>
+      <div className="nav-bar-cats-menu">
+        <div className="nav-cats-links" >
+          <div style={{width:"40px",height:"30px"}}></div>
+          <Link to={'/category/asian'}>Asian</Link>
+          <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+          <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+          <Link to={'/category/low_carb'}>Low Carb</Link>
+        </div>
+        <div className="nav-cats-links" >
+          <div style={{width:"40px",height:"30px"}}></div>
+          <Link to={'/category/asian'}>Asian</Link>
+          <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+          <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+          <Link to={'/category/low_carb'}>Low Carb</Link>
+        </div>
+        <div className="nav-cats-links" >
+          <div style={{width:"40px",height:"30px"}}></div>
+          <Link to={'/category/asian'}>Asian</Link>
+          <Link to={'/category/weekend_dinners'}>Weeknight Dinners</Link>
+          <Link to={'/category/under_400_kcal'}>Under 400 Kcal</Link>
+          <Link to={'/category/low_carb'}>Low Carb</Link>
+        </div>
+
+      </div>
+      <div className="hr2"></div>
     </div>
     <Errors />
   </div>

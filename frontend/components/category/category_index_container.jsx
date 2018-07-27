@@ -7,9 +7,10 @@ import CategoryIndex from './category_index'
 
 const msp = (state,ownProps) => ({
   categories: Object.values(state.entities.categories),
+  categoriesHash:state.entities.categories,
   recipes: Object.values(state.entities.recipes),
   recipesOnPage: 24,
-  category:ownProps.match.params.cat,
+  category:parseInt(ownProps.match.params.cat),
   followers: state.entities.followers_count,
   favorites: state.entities.session_params.favoriteRecipes,
 })
