@@ -412,9 +412,11 @@ this.setState({
 
         <div className="create-page-main-container">
           <div className="create-page-main-recipe-title">
-              Create recipe
+              Edit recipe
           </div>
-
+          <div>
+            &nbsp;
+          </div>
 
             {this.state.main_picture_url === '' ? <div style={{fontSize:'20px',color:'#737373'}}>Please, upload recipe picture</div> : <div className="info-page-main-img" style={recipeItemBgImgStyle}></div>}
 

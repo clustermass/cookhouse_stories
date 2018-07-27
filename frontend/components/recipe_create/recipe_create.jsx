@@ -346,7 +346,9 @@ uploadStepPicture(id){
           <div className="create-page-main-recipe-title">
               Create recipe
           </div>
-
+          <div>
+            &nbsp;
+          </div>
 
             {this.state.main_picture_url === '' ? <div style={{fontSize:'20px',color:'#737373'}}>Please, upload recipe picture</div> : <div className="info-page-main-img" style={recipeItemBgImgStyle}></div>}
 

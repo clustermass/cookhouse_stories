@@ -9,6 +9,8 @@ import RecipeCreateContainer from './recipe_create/recipe_create_container'
 import UserInfoContainer from './user_profile/user_profile_container'
 import Footer from './footer/footer'
 import RecipeEditContainer from './recipe_edit/recipe_edit_container'
+import VideosIndexContainer from './videos/videos_index_container'
+import CategoryIndexContainer from './category/category_index_container'
 
 import {
   Route,
@@ -31,6 +33,8 @@ const App = () => (
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
       <ProtectedRoute exact path="/users/:userId" component={UserInfoContainer} />
       <Route exact path="/" component={RecipeIndexContainer} />
+      <Route exact path="/category/:cat" component={CategoryIndexContainer} />
+      <Route exact path="/videos" component={VideosIndexContainer} />
       <ProtectedRoute exact path="/edit/:recipeId" component={RecipeEditContainer} />
       <ProtectedRoute exact path="/recipes/new" component={RecipeCreateContainer} />
       <Route exact path="/recipes/:recipeId" component={RecipeInfoContainer} />

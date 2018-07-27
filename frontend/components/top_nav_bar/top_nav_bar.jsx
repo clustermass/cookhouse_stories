@@ -18,6 +18,26 @@ componentDidMount(){
 
 
 render(){
+let currLocation = this.props.location.pathname
+let style ={  textDecoration: "underline",
+  color: "#464646"}
+
+let recipesActive = {}
+let categoriesActive = {}
+let videosActive = {}
+
+
+if(currLocation === '/'){
+  recipesActive = style
+}
+else if(currLocation === '/categories'){
+  categoriesActive = style
+}
+else if(currLocation === '/videos'){
+  videosActive = style
+}
+
+
 
   if (this.props.loggedIn){
     let currUser = this.props.usersHash[this.props.session.id]
@@ -32,11 +52,9 @@ render(){
     </div>
     <div className="nav-bar-links">
 
-  <Link to={'/'}>Recipes</Link>
-  <Link to={'/'}>Stories</Link>
-  <Link to={'/'}>Categories</Link>
-  <Link to={'/'}>How-Tos</Link>
-  <Link to={'/'}>Videos</Link>
+  <Link style={recipesActive} to={'/'}>Recipes</Link>
+  <Link style={categoriesActive} to={'/'}>Categories</Link>
+  <Link style={videosActive} to={'/videos'}>Videos</Link>
     </div>
     <div className="nav-bar-auth">
       <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>
@@ -65,11 +83,9 @@ render(){
         </div>
         <div className="nav-bar-links">
 
-          <Link to={'/'}>Recipes</Link>
-      <Link to={'/'}>Stories</Link>
-      <Link to={'/'}>Categories</Link>
-      <Link to={'/'}>How-Tos</Link>
-      <Link to={'/'}>Videos</Link>
+          <Link style={recipesActive} to={'/'}>Recipes</Link>
+      <Link style={categoriesActive} to={'/'}>Categories</Link>
+      <Link style={videosActive} to={'/videos'}>Videos</Link>
         </div>
         <div className="nav-bar-auth">
         <Link to={'/'}><img className="search-icon" src={window.searchicon} /></Link>

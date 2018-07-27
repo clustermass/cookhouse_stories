@@ -196,11 +196,6 @@ class RecipeInfo extends React.Component {
         </div>
         )}
 
-
-
-
-
-
             <div id="steps"></div>
         {recipe.steps.map(step=>{
           let num = step.num
