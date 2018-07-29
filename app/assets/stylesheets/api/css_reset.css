@@ -8,7 +8,7 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
 }
 
 
-@font-face {
+/* @font-face {
     font-family: 'Brandon-Gotique-Regular';
     src: url('/assets/Brandon_reg.otf') format('truetype');
     font-weight: normal;
@@ -28,7 +28,7 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
     src: url('/assets/Times_Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 
 body {
