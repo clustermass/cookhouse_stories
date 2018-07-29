@@ -10,14 +10,14 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
 
 @font-face {
     font-family: 'Brandon-Gotique-Regular';
-    src: url('fonts/Brandon_reg.otf') format('truetype');
+    src: url('/assets/Brandon_reg.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Brandon-Gotique-Bold';
-    src: url('fonts/Brandon_bld.otf') format('truetype');
+    src: url('/assets/Brandon_bld.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -25,7 +25,7 @@ html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, asid
 
 @font-face {
     font-family: 'Times-Bold';
-    src: url('fonts/Times_Bold.ttf') format('truetype');
+    src: url('/assets/Times_Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
