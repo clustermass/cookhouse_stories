@@ -15,29 +15,11 @@
  */
 
 
- }
-
- @font-face {
-     font-family: 'Brandon-Gotique-Regular';
-     src: url(asset-path('fonts/Brandon_reg.otf')); format('truetype');
-     src: url(asset-path('fonts/Brandon_reg.otf?#iefix')); format('embedded-opentype');
-     font-weight: normal;
-     font-style: normal;
- }
-
- @font-face {
-     font-family: 'Brandon-Gotique-Bold';
-     src: url(asset-path('fonts/Brandon_bld.otf')) format('truetype');
-     src: url(asset-path('fonts/Brandon_bld.otf?#iefix')) format('embedded-opentype');
-     font-weight: normal;
-     font-style: normal;
- }
 
 
  @font-face {
-     font-family: 'Times-Bold';
-     src: url(asset-path('fonts/Times_Bold.ttf')) format('truetype');
-     src: url(asset-path('fonts/Times_Bold.ttf?#iefix')) format('embedded-opentype');
-     font-weight: normal;
-     font-style: normal;
- }
+  font-family: 'Times-Bold';
+  src: url('<%= asset_path("fonts/Times_Bold.ttf.eot") %>');
+  src: url('<%= asset_path("fonts/Times_Bold.ttf#iefix") %>') format('truetype'),
+
+}
