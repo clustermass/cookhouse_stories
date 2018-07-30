@@ -55,7 +55,7 @@ class RecipeCreate extends React.Component {
       }
   this.openIMenu = this.openIMenu.bind(this);
   this.closeIMenu = this.closeIMenu.bind(this);
-  this.uploadMainPicture = this.uploadMainPicture.bind(this)
+
   this.update = this.update.bind(this)
   this.addIngredient = this.addIngredient.bind(this)
   this.addIngredientToState = this.addIngredientToState.bind(this)
@@ -63,7 +63,7 @@ class RecipeCreate extends React.Component {
   this.disableCustomIngredientField =   this.disableCustomIngredientField.bind(this)
   this.removeIngredientFromState = this.removeIngredientFromState.bind(this)
   this.updateStepData = this.updateStepData.bind(this)
-  this.uploadStepPicture = this.uploadStepPicture.bind(this)
+
   this.addNewStep = this.addNewStep.bind(this)
   this.removeStep = this.removeStep.bind(this)
   this.submitRecipe = this.submitRecipe.bind(this)
@@ -201,7 +201,7 @@ addIngredientToState(){
         setTimeout(()=>this.props.clearErrors(), 1500)
       }
     }
-  console.log(this.state)
+  // console.log(this.state)
 }
 
 
@@ -262,7 +262,7 @@ openIMenu(event,btn){
 
 
   update(field) {
-    console.log(this.state)
+    // console.log(this.state)
     return e => this.setState({
       [field]: e.currentTarget.value
     });
@@ -316,18 +316,6 @@ removeStep(id){
     this.props.submitRecipe(recipe).then((recipe)=>(this.props.history.push(`/recipes/${recipe.id}`)),errors=>this.props.addErrors(errors))
     // this.props.submitRecipe(recipe).then((recipe)=>(push(`/recipes/${recipe.id}`)),errors=>dispatch(addErrors(errors)))
   }
-uploadMainPicture(){
-
-
-  cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
-    (error, result)=>(this.setState({main_picture_url : result[0].secure_url, main_picture_id:result[0].public_id})))
-
-}
-uploadStepPicture(id){
-  debugger
-  cloudinary.openUploadWidget({ cloud_name: 'clustermass', upload_preset: 'pykxpoqv', theme: 'white', multiple:false},
-    (error, result)=>(this.updateStepData({currentTarget:{value:result[0].secure_url}},id,'image')))
-}
 
 
   componentDidMount(){
@@ -386,8 +374,6 @@ uploadStepPicture(id){
 
     return(
       <div>
-
-
         <div className="create-page-main-container">
           <div className="create-page-main-recipe-title">
               Create recipe
@@ -395,24 +381,15 @@ uploadStepPicture(id){
           <div>
             &nbsp;
           </div>
-
             {this.state.main_picture_url === '' ? <div style={{fontSize:'20px',color:'#737373'}}>Please, upload recipe picture</div> : <div className="info-page-main-img" style={recipeItemBgImgStyle}></div>}
-
-
           <div>
-
-
-
               <input onChange={e => this.setImg(e,"main_picture_url")} type="file" name="file" id="file" className="inputfile" />
-              <label style={{cursor:'pointer'}} className="create-page-main-img-upload" for="file">Upload picture</label>
-    </div>
-
-
+              <label style={{cursor:'pointer'}} className="create-page-main-img-upload" htmlFor="file">Upload picture</label>
+          </div>
 
           <div className="create-page-main-container">
           <span>  Title: </span><input className="create-page-main-title" onChange={this.update('title')} value={this.state.title} type="text"></input>
           </div>
-
 
           <div className="create-page-main-container" >
             <span>Difficulty level:</span>
@@ -421,7 +398,6 @@ uploadStepPicture(id){
               {this.props.difficulties.map(dif=> <option key={dif.id} value={dif.id}>{dif.level}</option>)}
             </select>
           </div>
-
 
           <div className="create-page-main-container" >
           <span>  Overall cooking time (in minutes)</span><input className="create-page-main-time" onChange={this.update('cooking_time')} value={this.state.cooking_time} type="text"></input>
@@ -444,7 +420,6 @@ uploadStepPicture(id){
                   <option hidden value="">Select Diet</option>
                   {this.props.diets.map(diet=> <option key={diet.id} value={diet.id}>{diet.name}</option>)}
                 </select>
-
           </div>
 
           <div className="create-page-main-container" >
@@ -597,7 +572,7 @@ uploadStepPicture(id){
                                     <div>
 
                                         <input onChange={e => this.setImg(e,step.id)} type="file" name="file" id={step.id} className="inputfile" />
-                                        <label style={{cursor:'pointer'}} className="create-page-main-img-upload" for={step.id}>Upload picture</label>
+                                        <label style={{cursor:'pointer'}} className="create-page-main-img-upload" htmlFor={step.id}>Upload picture</label>
                                     {step.num === 1 ? (null): (<button className={"create-page-main-universal-btn-delete"}onClick={()=>this.removeStep(step.id)}>Delete step</button>)}
                                     </div>
                                     <textarea onChange={(event)=>this.updateStepData(event,step.id,'body')} value={this.state.all_steps[step.id].body}></textarea>

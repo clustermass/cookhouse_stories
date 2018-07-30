@@ -63,8 +63,8 @@ componentWillUnmount(){
 }
 
 render(){
-  console.log(this.state)
-  console.log(this.props)
+  // console.log(this.state)
+  // console.log(this.props)
   let userloaded = Boolean(this.props.usersHash[this.props.userId])
   // let recipesloaded = Object.keys(this.props.recipes).length > 0 ? true : false
   let selectedRecipes = []

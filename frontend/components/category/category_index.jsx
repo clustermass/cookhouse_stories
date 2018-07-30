@@ -7,7 +7,7 @@ import CatIndexItem from './category_index_item'
 class CategoryIndex extends React.Component {
 constructor(props){
   super(props)
-  
+
   this.state ={
     category: props.category,
     recipesOnPage:props.recipesOnPage,
@@ -40,11 +40,18 @@ pickRandomCatRecipe(cat){
 
   let catRecipes = this.props.recipes.filter((recipe)=>recipe.category_id === cat.id)
   let randomCatRecipe = catRecipes[Math.floor(Math.random() * catRecipes.length)]
-  return randomCatRecipe
+
+
+  if(typeof randomCatRecipe === 'undefined'){
+      return {main_picture_url:'https://res.cloudinary.com/clustermass/image/upload/v1532911131/wbszvvzaggsfuomncjcf.png'}
+  }else{
+      return randomCatRecipe
+  }
+
 }
 
 render(){
-  console.log(this.state)
+  // console.log(this.state)
   let sortedByCat = []
   if(this.state.category != 0){
     sortedByCat =  this.props.recipes.filter(recipe=>(

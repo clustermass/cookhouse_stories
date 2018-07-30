@@ -174,7 +174,7 @@ componentWillUnmount(){
   this.props.saveSearchFilters(this.state)
 }
 render(){
-  console.log(this.state)
+  // console.log(this.state)
 
   let filterIds = {}
   this.props.categories.forEach((el)=>{
@@ -298,10 +298,10 @@ render(){
   })
 
 
-  console.log(filterIds)
+  // console.log(filterIds)
 
   let recipesOnMain = this.props.recipes
-  console.log(recipesOnMain)
+  // console.log(recipesOnMain)
 
   let clearAllBtns = {}
 
@@ -749,8 +749,14 @@ render(){
     {resetBtns === "main-recipe-search-reset-btns" ? (<div className="hr"></div>) : (null)}
 <div className="main-recipe-container">
 {this.state.searched.length > 0 ? (<div className="recipes-title"><span>Showing results matching	&#34;{this.state.searched}&#34;</span></div>) : (<div className="recipes-title"><span>Recipes</span></div>) }
+
   <div className="main-recipe-image">
   {countedRecipesOnMain.map(recipe => <RecipeIndexItem key={recipe.id} recipe={recipe} followers={this.props.followers[recipe.id]} likesArr={this.props.favorites}/> )}
+  <div>
+    {(countedRecipesOnMain.length === 0 && this.state.searched.length > 0) ? (<div>
+      <img src={window.tomato}/><span style={{fontSize:'22px'}}>Sorry, no results found. Try change your search criteria.</span>
+    </div>) : (null) }
+  </div>
   </div>
 <div>
   {this.state.recipesOnPage >= recipesOnMain.length ? (null) : (<button className="main-load-more" onClick={()=>this.loadMoreRecipes()}>More</button>)}

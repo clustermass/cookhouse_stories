@@ -106,7 +106,7 @@ class RecipeInfo extends React.Component {
       return <div>Loading...</div>
     }
     else{
-      console.log(recipe.ingredients_list)
+      // console.log(recipe.ingredients_list)
       recipe = this.props.entities.recipes[this.props.match.params.recipeId]
 
       let recipeItemBgImgStyle = {
