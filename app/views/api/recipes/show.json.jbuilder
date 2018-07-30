@@ -58,9 +58,11 @@ json.cuisines do
 end
 
 json.categories do
-    json.set! @category.id do
-      json.extract! @category, :id, :name
+  @categories.each do |cat|
+    json.set! cat.id do
+      json.extract! cat, :id, :name
     end
+  end
 end
 
 json.diets do

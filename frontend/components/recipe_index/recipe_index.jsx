@@ -290,7 +290,7 @@ render(){
       filterIds["beef"] = el.id
     }else if (el.name.toLowerCase() === "pasta") {
       filterIds["pasta"] = el.id
-    } else if (el.name.toLowerCase() === "poultry") {
+    } else if (el.name.toLowerCase() === "chicken") {
       filterIds["poultry"] = el.id
     } else if (el.name.toLowerCase() === "pork") {
       filterIds["pork"] = el.id

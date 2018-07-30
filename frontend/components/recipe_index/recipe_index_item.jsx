@@ -7,7 +7,7 @@ const RecipeIndexItem = ({ recipe, followers, likesArr }) => {
     backgroundImage: "url(" + recipe.main_picture_url  + ")",
     backgroundRepeat  : 'no-repeat',
     backgroundPosition: 'center',
-    backgroundHeight: '100%',
+    backgroundSize: 'auto 287px' ,
   };
 
 let icon = window.hearticon

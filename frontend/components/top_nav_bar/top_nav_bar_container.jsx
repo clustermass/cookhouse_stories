@@ -8,7 +8,9 @@ import { deleteFavoriteRecipes } from '../../actions/session_params_actions'
 const msp = (state) =>({
   session: state.session,
   loggedIn: Boolean(state.session.id),
-  usersHash: state.entities.users
+  usersHash: state.entities.users,
+  cats:state.entities.categories
+
 })
 
 

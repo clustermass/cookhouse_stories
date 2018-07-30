@@ -298,9 +298,9 @@ render(){
   // console.log(filterIds)
 
   let recipesOnMain = []
-
+  let videosQuantity = Object.values(this.props.videos).length
   this.props.recipes.forEach((rec)=>{
-    if(this.props.videos[rec.id].video_url !== ''){
+    if(videosQuantity > 0 && this.props.videos[rec.id].video_url !== ''){
       rec.video_url = this.props.videos[rec.id].video_url
       recipesOnMain.push(rec)
     }

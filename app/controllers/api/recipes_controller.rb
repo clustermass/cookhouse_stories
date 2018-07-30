@@ -35,7 +35,7 @@ class Api::RecipesController < ApplicationController
     @recipes.each do |rec|
       @followers_count += [{recipe_id:rec.id,followers_count: rec.followers.length}]
       @cuisines += [rec.cuisine]  unless @cuisines.include?(rec.cuisine)
-      @categories += [rec.category]  unless @categories.include?(rec.category)
+      # @categories += [rec.category]  unless @categories.include?(rec.category)
       @diets += [rec.diet] unless @diets.include?(rec.diet)
       @difficulties += [rec.difficulty] unless @difficulties.include?(rec.difficulty)
       if rec.video.nil?
@@ -45,6 +45,7 @@ class Api::RecipesController < ApplicationController
       end
 
     end
+    @categories = Category.all
     # render json: {}
 
 
@@ -63,7 +64,7 @@ class Api::RecipesController < ApplicationController
     end
     @steps = @recipe.steps.map {|step| {:id=> step.id, :recipe_id=>step.recipe_id,:num=>step.num,:body=>step.body,:image=>step.image}}
     @cuisine = @recipe.cuisine
-    @category = @recipe.category
+    @categories = Category.all
     @diets = @recipe.diet
     @difficulty = @recipe.difficulty
     @comments = @recipe.comments
@@ -313,7 +314,7 @@ class Api::RecipesController < ApplicationController
             step.recipe = @recipe
             step.save
           end
-    
+
           render json: @recipe
 
 

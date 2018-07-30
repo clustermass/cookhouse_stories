@@ -1,0 +1,20 @@
+clove
+slice
+leaf
+fl oz
+puchok
+drops
+shepotka
+stick
+
+wedge (lomtik)
+
+
+
+Cuisine.where(id: 10).update_all(id: 1000)
+
+
+Other category doesn't work
+recipe ingredients needs more room
+fix african chicken
+put videos

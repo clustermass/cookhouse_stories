@@ -10,7 +10,7 @@ if (likesArr !== undefined && likesArr.includes(recipe.id) ){
 
 return(
 <div className="video-item-main-container">
-  <iframe style={{border:"0px"}}width="290" height="163"src={recipe.video_url}>
+  <iframe style={{border:"0px"}}width="260" height="146"src={recipe.video_url}>
   </iframe>
   <div className="likes-time-video">
   <img src={icon}/><span>{typeof followers === "undefined" ? '0' : followers.followers_count}  <span>{recipe.cooking_time} min.</span></span>
@@ -19,7 +19,7 @@ return(
 
 
 
-  <div className="recipe-item-video-title">
+  <div className="recipe-item-video-title" style={{paddingLeft:"20px", paddingBottom:"10px"}}>
     {recipe.title}
   </div>
 
