@@ -7,6 +7,7 @@ class RecipeEdit extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      files:null,
       abc:false,
       def:false,
       ghi:false,
@@ -68,8 +69,48 @@ class RecipeEdit extends React.Component {
   this.submitRecipe = this.submitRecipe.bind(this)
   this.loadRecipeToState = this.loadRecipeToState.bind(this)
   this.toggleVideoUrl = this.toggleVideoUrl.bind(this)
+  this.setImg = this.setImg.bind(this)
+  this.uploadFile = this.uploadFile.bind(this)
   }
 
+
+  uploadFile(fileName) {
+       var formData = new FormData()
+        let file = this.state.files[0]
+        let xhr = new XMLHttpRequest()
+        let cloudName = "clustermass";
+
+      formData.append("file", file);
+      formData.append("upload_preset", "pykxpoqv"); // REQUIRED
+      xhr.open(
+        "POST",
+        "https://api.cloudinary.com/v1_1/" + cloudName + "/image/upload"
+      );
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          var response = JSON.parse(xhr.response);
+
+          // If string - updating main recipe image
+          if(typeof fileName === 'string'){
+              this.setState({ [fileName]: response.secure_url }); // https address of uploaded file
+
+            // if not a string - assume we are updating step with step ID
+          }else{
+              this.updateStepData({currentTarget:{value:response.secure_url}},fileName,'image')
+          }
+
+        } else {
+          alert("Image upload failed. Please try agian.");
+        }
+      };
+      xhr.send(formData);
+    }
+
+    setImg(e,fileName) {
+      this.setState({ files: e.target.files }, ()=>this.uploadFile(fileName));
+    }
 
   toggleVideoUrl(){
     if (this.state.video_url === ''){
@@ -270,6 +311,7 @@ removeStep(id){
   submitRecipe(e) {
     e.preventDefault();
     const recipe = Object.assign({}, this.state);
+    delete recipe.files
     this.props.clearErrors();
     this.props.updateRecipe(recipe).then((recipe)=>(this.props.history.push(`/recipes/${recipe.id}`)),errors=>this.props.addErrors(errors))
     // this.props.submitRecipe(recipe).then((recipe)=>(push(`/recipes/${recipe.id}`)),errors=>dispatch(addErrors(errors)))
@@ -422,7 +464,8 @@ this.setState({
 
 
           <div>
-            <button style={{cursor:'pointer'}}  className="create-page-main-img-upload" onClick={()=> this.uploadMainPicture() }>Upload picture</button>
+            <input onChange={e => this.setImg(e,"main_picture_url")} type="file" name="file" id="file" className="inputfile" />
+            <label style={{cursor:'pointer'}} className="create-page-main-img-upload" for="file">Upload picture</label>
           </div>
 
 
@@ -613,7 +656,8 @@ this.setState({
                                     backgroundPosition: 'center',
                                     backgroundSize: 'contain'}}> </div>)}
                                     <div>
-                                      <button style={{cursor:'pointer'}}  className="create-page-main-universal-btn" onClick={()=> this.uploadStepPicture(step.id) }>Upload picture</button>
+                                      <input onChange={e => this.setImg(e,step.id)} type="file" name="file" id={step.id} className="inputfile" />
+                                      <label style={{cursor:'pointer'}} className="create-page-main-img-upload" for={step.id}>Upload picture</label>
                                       {step.num === 1 ? (null): (<button className={"create-page-main-universal-btn-delete"}onClick={()=>this.removeStep(step.id)}>Delete step</button>)}
                                     </div>
                                     <textarea onChange={(event)=>this.updateStepData(event,step.id,'body')} value={this.state.all_steps[step.id].body}></textarea>

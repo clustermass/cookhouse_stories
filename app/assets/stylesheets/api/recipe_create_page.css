@@ -17,7 +17,7 @@
    margin-left: 5px;
    margin-right: auto;
    margin-top: 4px;
-   margin-bottom: 7px;
+   margin-bottom: 17px;
 }
 .create-page-main-img-upload:hover{
   background-color: #0DB684;
@@ -311,4 +311,13 @@ margin-top: 20px;
 }
 .create-page-main-video-url:focus{
   outline: 0;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }

@@ -62,6 +62,9 @@ constructor(props){
   this.resetAllFilters = this.resetAllFilters.bind(this)
 }
 
+
+
+
 loadMoreRecipes(){
   let tempQuantity = this.state.recipesOnPage
   tempQuantity += 24
