@@ -1,11 +1,3 @@
-User.create!([
-  {username: "2", password_digest: "$2a$10$k.8UHoa/a40p7Vb3tnDuN.OTSZx52S3TUra9TFaxhbaY9a/002PJ6", name: "Kate Jhonson", session_token: "LidWypT6OSY32v6_v6PuZw"},
-  {username: "3", password_digest: "$2a$10$WCBjgsCoR/GtySF05o0eTeHPD4x8MhTQnHRMTN4whivWzu.Si50N.", name: "Stephen Luciani", session_token: "d4qouTewp-fkj0KOMGb3yA"},
-  {username: "1", password_digest: "$2a$10$mAOlZxUw7Ur3tUXracf1FuweaklOb60mc.oQmb0B4E1Ks13MCHb/e", name: "Tom McAnderson", session_token: "EJXkgwvPfzVU71c5XYLnvA"},
-  {username: "demo", password_digest: "$2a$10$kiBN4yrHoczHc12ZQJhz9O5w1DnEhRTJcATRUqRgQVFGCNE1TzSYu", name: "Demo User", session_token: "8S-iJI0Db_4eaN9GjXisWg"}
-])
-
-
 Category.create!([
   {name: "20-minute meals"},
   {name: "American"},
@@ -105,10 +97,6 @@ Cuisine.create!([
   {sort: "Traditional", country: "Russia"},
   {sort: "Traditional", country: "Greece"}
 ])
-
-
-Cuisine.where(country: "Other").update_all(id: 1000)
-
 Diet.create!([
   {name: "Regular"},
   {name: "Low-fat"},
@@ -626,46 +614,6 @@ Ingredient.create!([
   {name: "fried onions"},
   {name: "canned peaches"}
 ])
-
-Measuring.create!([
-  {name: "tablespoon"},
-  {name: "teaspoon"},
-  {name: "quart"},
-  {name: "oz"},
-  {name: "cup"},
-  {name: "lb"},
-  {name: "pcs"},
-  {name: "fl oz"},
-    {name: "clove"},
-      {name: "cluster"},
-        {name: "pinch"},
-        {name: "slice"},
-        {name: "leaf"},
-        {name: "drop"},
-        {name: "stick"},
-        {name: "wedge"},
-        {name: "bottle"},
-        {name: "can"}
-])
-Recipe.create!([
-  {author_id: 4, title: "Light broccoli soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532970342/bhljojz4qzaeswfkjcrt.jpg", cooking_time: 25, difficulty_id: 1, cuisine_id: 3, category_id: 70, main_ingredient_id: 53, diet_id: 3},
-  {author_id: 4, title: "Egg drop soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532970973/mwqqfut9xjxkqwnzu5rl.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 1, category_id: 42, main_ingredient_id: 151, diet_id: 2},
-  {author_id: 4, title: "Easy chocolate loaf cake", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532971520/ebp8lx8rokwxiqpu3lyy.jpg", cooking_time: 105, difficulty_id: 1, cuisine_id: 9, category_id: 24, main_ingredient_id: 60, diet_id: 1},
-  {author_id: 4, title: "Pizza waffles", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532972586/rtqvizbodwjshvaxdz2m.jpg", cooking_time: 20, difficulty_id: 1, cuisine_id: 5, category_id: 69, main_ingredient_id: 448, diet_id: 1},
-  {author_id: 4, title: "Shakshuka", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532972895/rleqdkxuwialzs2vuvxm.jpg", cooking_time: 45, difficulty_id: 1, cuisine_id: 6, category_id: 11, main_ingredient_id: 250, diet_id: 2},
-  {author_id: 4, title: "Bloody mary", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532973850/t0r51kf7vb3ivlxklg3h.jpg", cooking_time: 5, difficulty_id: 1, cuisine_id: 9, category_id: 26, main_ingredient_id: 456, diet_id: 4},
-  {author_id: 4, title: "East african-style coconut chicken", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532974705/o5f3drbfk3ggrhnewky4.jpg", cooking_time: 45, difficulty_id: 2, cuisine_id: 11, category_id: 16, main_ingredient_id: 461, diet_id: 1},
-  {author_id: 4, title: "Teriyaki lamb skewers with pea-mint-puree", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532975680/bu9naulcuvgzerjd6wrz.jpg", cooking_time: 60, difficulty_id: 2, cuisine_id: 6, category_id: 29, main_ingredient_id: 464, diet_id: 1},
-  {author_id: 4, title: "Gluten-free spaghetti with tomatoes and arugula", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532976361/cx6sjojujodjzs00rfkb.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 2, category_id: 80, main_ingredient_id: 472, diet_id: 7},
-  {author_id: 4, title: "Chicken malai boti", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532977227/kri8nijwhlsaszv6fbyp.jpg", cooking_time: 205, difficulty_id: 1, cuisine_id: 12, category_id: 73, main_ingredient_id: 476, diet_id: 2},
-  {author_id: 4, title: "Homemade shortcut kimchi", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532978666/yuoetzawuuulpml80ius.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 13, category_id: 40, main_ingredient_id: 482, diet_id: 3},
-  {author_id: 4, title: "Russian cabbage soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532979052/pna2dnipjfyjuhqysmol.jpg", cooking_time: 200, difficulty_id: 1, cuisine_id: 14, category_id: 28, main_ingredient_id: 26, diet_id: 1},
-  {author_id: 1, title: "Beef wellington", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532983711/bumk13ifrzpeplfke4vk.jpg", cooking_time: 80, difficulty_id: 3, cuisine_id: 9, category_id: 8, main_ingredient_id: 26, diet_id: 1},
-  {author_id: 1, title: "Pork and leek stir-fry", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532984657/zomlebxjcjaulg7whk0p.jpg", cooking_time: 40, difficulty_id: 1, cuisine_id: 7, category_id: 4, main_ingredient_id: 309, diet_id: 1},
-  {author_id: 1, title: "Chicken salad with crispy onions and sesame", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532985450/bozvhajwaopkmhuuni7v.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 15, category_id: 36, main_ingredient_id: 91, diet_id: 2},
-  {author_id: 1, title: "Bellini", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532985768/b9xf93s9si4phnnzeryi.jpg", cooking_time: 5, difficulty_id: 1, cuisine_id: 2, category_id: 26, main_ingredient_id: 500, diet_id: 1}
-])
-
 IngredientAmount.create!([
   {recipe_id: 3, ingredient_id: 445, amount: 2, measuring_id: 1},
   {recipe_id: 3, ingredient_id: 446, amount: 2, measuring_id: 2},
@@ -850,7 +798,33 @@ IngredientAmount.create!([
   {recipe_id: 2, ingredient_id: 443, amount: 2, measuring_id: 7},
   {recipe_id: 2, ingredient_id: 444, amount: 1, measuring_id: 1}
 ])
-
+Measuring.create!([
+  {name: "tablespoon"},
+  {name: "teaspoon"},
+  {name: "quart"},
+  {name: "oz"},
+  {name: "cup"},
+  {name: "lb"},
+  {name: "pcs"}
+])
+Recipe.create!([
+  {author_id: 4, title: "Light broccoli soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532970342/bhljojz4qzaeswfkjcrt.jpg", cooking_time: 25, difficulty_id: 1, cuisine_id: 3, category_id: 70, main_ingredient_id: 53, diet_id: 3},
+  {author_id: 4, title: "Egg drop soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532970973/mwqqfut9xjxkqwnzu5rl.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 1, category_id: 42, main_ingredient_id: 151, diet_id: 2},
+  {author_id: 4, title: "Easy chocolate loaf cake", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532971520/ebp8lx8rokwxiqpu3lyy.jpg", cooking_time: 105, difficulty_id: 1, cuisine_id: 9, category_id: 24, main_ingredient_id: 60, diet_id: 1},
+  {author_id: 4, title: "Pizza waffles", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532972586/rtqvizbodwjshvaxdz2m.jpg", cooking_time: 20, difficulty_id: 1, cuisine_id: 5, category_id: 69, main_ingredient_id: 448, diet_id: 1},
+  {author_id: 4, title: "Shakshuka", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532972895/rleqdkxuwialzs2vuvxm.jpg", cooking_time: 45, difficulty_id: 1, cuisine_id: 6, category_id: 11, main_ingredient_id: 250, diet_id: 2},
+  {author_id: 4, title: "Bloody mary", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532973850/t0r51kf7vb3ivlxklg3h.jpg", cooking_time: 5, difficulty_id: 1, cuisine_id: 9, category_id: 26, main_ingredient_id: 456, diet_id: 4},
+  {author_id: 4, title: "East african-style coconut chicken", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532974705/o5f3drbfk3ggrhnewky4.jpg", cooking_time: 45, difficulty_id: 2, cuisine_id: 11, category_id: 16, main_ingredient_id: 461, diet_id: 1},
+  {author_id: 4, title: "Teriyaki lamb skewers with pea-mint-puree", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532975680/bu9naulcuvgzerjd6wrz.jpg", cooking_time: 60, difficulty_id: 2, cuisine_id: 6, category_id: 29, main_ingredient_id: 464, diet_id: 1},
+  {author_id: 4, title: "Gluten-free spaghetti with tomatoes and arugula", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532976361/cx6sjojujodjzs00rfkb.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 2, category_id: 80, main_ingredient_id: 472, diet_id: 7},
+  {author_id: 4, title: "Chicken malai boti", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532977227/kri8nijwhlsaszv6fbyp.jpg", cooking_time: 205, difficulty_id: 1, cuisine_id: 12, category_id: 73, main_ingredient_id: 476, diet_id: 2},
+  {author_id: 4, title: "Homemade shortcut kimchi", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532978666/yuoetzawuuulpml80ius.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 13, category_id: 40, main_ingredient_id: 482, diet_id: 3},
+  {author_id: 4, title: "Russian cabbage soup", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532979052/pna2dnipjfyjuhqysmol.jpg", cooking_time: 200, difficulty_id: 1, cuisine_id: 14, category_id: 28, main_ingredient_id: 26, diet_id: 1},
+  {author_id: 1, title: "Beef wellington", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532983711/bumk13ifrzpeplfke4vk.jpg", cooking_time: 80, difficulty_id: 3, cuisine_id: 9, category_id: 8, main_ingredient_id: 26, diet_id: 1},
+  {author_id: 1, title: "Pork and leek stir-fry", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532984657/zomlebxjcjaulg7whk0p.jpg", cooking_time: 40, difficulty_id: 1, cuisine_id: 7, category_id: 4, main_ingredient_id: 309, diet_id: 1},
+  {author_id: 1, title: "Chicken salad with crispy onions and sesame", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532985450/bozvhajwaopkmhuuni7v.jpg", cooking_time: 15, difficulty_id: 1, cuisine_id: 15, category_id: 36, main_ingredient_id: 91, diet_id: 2},
+  {author_id: 1, title: "Bellini", main_picture_url: "https://res.cloudinary.com/clustermass/image/upload/v1532985768/b9xf93s9si4phnnzeryi.jpg", cooking_time: 5, difficulty_id: 1, cuisine_id: 2, category_id: 26, main_ingredient_id: 500, diet_id: 1}
+])
 Step.create!([
   {recipe_id: 3, num: 1, body: "Preheat the oven to 175°C/350°F and grease and flour a loaf pan. In a large bowl, beat the butter, brown sugar, vanilla sugar, and salt until fluffy. Add the eggs one at a time, then stream in the milk while mixing. In a separate bowl mix the flour, baking powder, and cocoa. Add the dry mixture to the wet while mixing on low speed until well combined. Add the chocolate chips and mix briefly to combine.", image: "https://res.cloudinary.com/clustermass/image/upload/v1532972367/psid26c8bpkewokxdcuf.jpg"},
   {recipe_id: 3, num: 2, body: "Transfer the batter to the prepared loaf pan, smooth with a rubber spatula, and bake in the preheated oven for approx. 60 min. Remove the cake from the oven, and let cool for approx. 30 min.", image: "https://res.cloudinary.com/clustermass/image/upload/v1532972374/jbzpobaidhzpcsutl3bc.jpg"},
@@ -917,7 +891,12 @@ Step.create!([
   {recipe_id: 2, num: 5, body: "Add cooked noodles to a serving bowl and pour the soup over. ", image: "https://res.cloudinary.com/clustermass/image/upload/v1532971258/oopodvhpt7ht7d0eol5m.jpg"},
   {recipe_id: 2, num: 6, body: "Enjoy!", image: "https://res.cloudinary.com/clustermass/image/upload/v1532971278/s5pbqxpyz4kmdhrslxkp.jpg"}
 ])
-
+User.create!([
+  {username: "2", password_digest: "$2a$10$k.8UHoa/a40p7Vb3tnDuN.OTSZx52S3TUra9TFaxhbaY9a/002PJ6", name: "Kate Jhonson", session_token: "LidWypT6OSY32v6_v6PuZw"},
+  {username: "3", password_digest: "$2a$10$WCBjgsCoR/GtySF05o0eTeHPD4x8MhTQnHRMTN4whivWzu.Si50N.", name: "Stephen Luciani", session_token: "d4qouTewp-fkj0KOMGb3yA"},
+  {username: "1", password_digest: "$2a$10$mAOlZxUw7Ur3tUXracf1FuweaklOb60mc.oQmb0B4E1Ks13MCHb/e", name: "Tom McAnderson", session_token: "EJXkgwvPfzVU71c5XYLnvA"},
+  {username: "demo", password_digest: "$2a$10$kiBN4yrHoczHc12ZQJhz9O5w1DnEhRTJcATRUqRgQVFGCNE1TzSYu", name: "Demo User", session_token: "8S-iJI0Db_4eaN9GjXisWg"}
+])
 Video.create!([
   {recipe_id: 5, author_id: 4, title: nil, video_url: "https://www.youtube.com/embed/ifWWRZSWS18"},
   {recipe_id: 11, author_id: 4, title: nil, video_url: "https://www.youtube.com/embed/0sX_wDCbeuU"},
