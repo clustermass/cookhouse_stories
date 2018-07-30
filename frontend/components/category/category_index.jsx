@@ -80,7 +80,7 @@ render(){
 
 
               return(
-                <CatIndexItem key={cat.id} cat={cat} recipe={this.pickRandomCatRecipe(cat)}/>
+                <CatIndexItem recipes={this.props.recipes.filter((recipe)=>recipe.category_id === cat.id).length} key={cat.id} cat={cat} recipe={this.pickRandomCatRecipe(cat)}/>
               )
             })}
           </div>
