@@ -41,6 +41,7 @@
    font-size: 17px;
    border: none;
    border-bottom: solid white 2px;
+   background-color: white;
 }
 
 .user-profile-btn:active{
@@ -55,10 +56,12 @@
    font-size: 17px;
    border: none;
    border-bottom: solid #067F78 3px;
+      background-color: white;
 }
 .user-profile-btn-pressed:focus{
    border-bottom: solid #067F78 3px;
    outline: none;
+  background-color: white;
 }
 
 .user-profile-btn:focus{

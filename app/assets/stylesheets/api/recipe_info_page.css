@@ -48,6 +48,7 @@
    font-size: 17px;
    border: none;
    border-bottom: solid white 2px;
+   background-color: white;
 }
 
 .btn:active{

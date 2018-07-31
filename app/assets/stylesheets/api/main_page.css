@@ -490,6 +490,7 @@ font-size: 26px;
   font-family: 'Brandon-Gotique-Regular';
   margin-left: 10px;
   cursor: pointer;
+  background-color: white;
 }
 .main-recipe-search-clear-all:focus {
   outline: 0px;
@@ -507,6 +508,7 @@ font-size: 26px;
   font-family: 'Brandon-Gotique-Regular';
   margin-left: 10px;
   margin-bottom: 10px;
+  background-color: white;
 }
 .main-recipe-search-clear-one:focus {
   outline: 0px;
